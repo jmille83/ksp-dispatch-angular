@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Record, Gear } from '../record'
+import { RecordsService } from '../records.service';
+
 @Component({
   selector: 'app-records',
   templateUrl: './records.component.html',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecordsComponent implements OnInit {
 
-  constructor() { }
+  records: Record[];
+
+  constructor(private recordsService: RecordsService) { }
 
   ngOnInit() {
+    this.getRecords();
+  }
+
+  getRecords(): void {
+    this.recordsService.getRecords().subscribe(records => this.records = records);
+  }
+
+  addRecord() {
+    this.recordsService.addRecord("Betty", Gear.Tele, "face");
   }
 
 }

@@ -1,3 +1,15 @@
-<p>
-  records works!
-</p>
+<h2>Records</h2>
+
+<div *ngIf="records; else noRecords">
+  <ul>
+    <li *ngFor="let record of records">
+      {{record.name}}, {{record.gear}}, {{record.chiefComplaint}}
+    </li>
+  </ul>  
+</div>
+
+<ng-template #noRecords>
+  <p>No records.</p>
+</ng-template>
+
+<button (click)="addRecord()">Add Betty</button>
