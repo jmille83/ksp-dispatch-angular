@@ -1,13 +1,23 @@
 <div class="container">
-  <label> Name
-    <input [(ngModel)]="record.name" placeholder="Name">
-  </label>
+
+  <div class="group">
+    <input type="text" required [(ngModel)]="record.name">
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Name</label>
+  </div>
+
+
   <label> Gear
     <select>
       <option *ngFor="let name of options" [value]="name"></option>
     </select>
   </label>
-  <label> Chief Complaint
-    <input [(ngModel)]="record.chiefComplaint" placeholder="Chief complaint">
-  </label>
+
+  <div class="group">
+    <input type="text" required [(ngModel)]="record.chiefComplaint">
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Chief Complaint</label>
+  </div>
 </div>
