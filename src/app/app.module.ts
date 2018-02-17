@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
 import { environment } from '../environments/environment'
@@ -9,16 +10,19 @@ import { RecordsService } from './records.service';
 import { RecordsComponent } from './records/records.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RecordDetailComponent } from './record-detail/record-detail.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     RecordsComponent,
-    DashboardComponent
+    DashboardComponent,
+    RecordDetailComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule

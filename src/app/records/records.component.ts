@@ -21,9 +21,4 @@ export class RecordsComponent implements OnInit {
   getRecords(): void {
     this.recordsService.getRecords().subscribe(records => this.records = records);
   }
-
-  addRecord() {
-    this.recordsService.addRecord("Betty", Gear.Tele, "face");
-  }
-
 }

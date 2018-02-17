@@ -1,0 +1,13 @@
+<div class="container">
+  <label> Name
+    <input [(ngModel)]="record.name" placeholder="Name">
+  </label>
+  <label> Gear
+    <select>
+      <option *ngFor="let name of options" [value]="name"></option>
+    </select>
+  </label>
+  <label> Chief Complaint
+    <input [(ngModel)]="record.chiefComplaint" placeholder="Chief complaint">
+  </label>
+</div>
