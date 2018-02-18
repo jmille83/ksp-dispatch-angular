@@ -1,0 +1,48 @@
+h2 {
+    text-align: center;
+}
+
+.records-list {
+    list-style-type: none;
+    height: 400px;
+    overflow-y: auto;
+}
+
+.records-list li:hover {
+    color: #607D8B;
+    background-color: #DDD;
+  }
+
+.info-label {
+    font-size: 60%;
+    text-align: right;
+    line-height: 2em;
+    vertical-align: middle;
+}
+
+.time-label {
+    font-size: 60%;
+    text-align: center;
+    padding-bottom: 15px;
+    color: darkgrey;
+}
+
+.long-row {
+    grid-column-start: 2;
+    grid-column-end: 5;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 14px;
+    padding: 10px;
+}
+
+ul li:not(:last-child):after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: lightslategray;
+}
