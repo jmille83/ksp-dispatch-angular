@@ -10,7 +10,7 @@ export class RecordsService {
   constructor(private db: AngularFirestore) { }
 
   getRecords(): Observable<any[]> {
-    return this.db.collection('records').valueChanges();
+    return this.db.collection('records', ref => ref.orderBy('timeReported', 'desc')).valueChanges();
   }
 
   addRecord(name: string, gear: Gear, chiefComplaint: string) {

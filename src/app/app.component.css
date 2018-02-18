@@ -1,8 +1,14 @@
 h1 {
     text-align: center;
+    color: darkred;
 }
 
 * {
     font-family: Roboto, sans-serif;
     color: darkslategray;
+}
+
+.container {
+    padding-left: 40px;
+    padding-top: 20px;
 }

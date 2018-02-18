@@ -11,6 +11,7 @@ import { RecordsComponent } from './records/records.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RecordDetailComponent } from './record-detail/record-detail.component';
+import { NotesComponent } from './notes/notes.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { RecordDetailComponent } from './record-detail/record-detail.component';
     AppComponent,
     RecordsComponent,
     DashboardComponent,
-    RecordDetailComponent
+    RecordDetailComponent,
+    NotesComponent
   ],
   imports: [
     BrowserModule,
