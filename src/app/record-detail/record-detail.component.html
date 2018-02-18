@@ -1,25 +1,54 @@
 <h2>New Record</h2>
 
 <div class="container">
+  <form class="record-form">
+    <mat-form-field class="name">
+      <input matInput placeholder="Name" [(ngModel)]="record.name" name="name">
+    </mat-form-field>
 
-  <div class="group">
-    <input type="text" required [(ngModel)]="record.name">
-    <span class="highlight"></span>
-    <span class="bar"></span>
-    <label>Name</label>
-  </div>
+    <mat-radio-group [(ngModel)]="record.sex" name="sex">
+      <mat-radio-button value="Male">Male</mat-radio-button>
+      <mat-radio-button value="Female">Female</mat-radio-button>
+    </mat-radio-group>
 
+    <mat-form-field class="equipment">
+      <mat-select placeholder="Gear"
+      [(ngModel)]="record.gear" name="gear">
+        <mat-option *ngFor="let equip of equipments" [value]="equip.value">
+          {{ equip.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <!-- <label> Gear
-    <select>
-      <option *ngFor="let name of options" [value]="name"></option>
-    </select>
-  </label> -->
+    <br>
 
-  <div class="group">
-    <input type="text" required [(ngModel)]="record.chiefComplaint">
-    <span class="highlight"></span>
-    <span class="bar"></span>
-    <label>Chief Complaint</label>
-  </div>
+    <mat-form-field class="clothing">
+      <input matInput placeholder="Top color"
+      [(ngModel)]="record.topColor" name="topColor">
+    </mat-form-field>
+
+    <span class="over-text">over</span>
+
+    <mat-form-field class="clothing">
+      <input matInput placeholder="Bottom color"
+      [(ngModel)]="record.bottomColor" name="bottomColor">
+    </mat-form-field>
+
+    <mat-form-field class="complaint">
+      <input matInput placeholder="Chief Complaint" 
+      [(ngModel)]="record.chiefComplaint" name="chiefComplaint">
+    </mat-form-field>
+
+    <mat-form-field class="location">
+      <input matInput placeholder="Location" 
+      [(ngModel)]="record.location" name="location">
+    </mat-form-field>
+
+    <br>
+
+    <div class="button-container">
+      <button mat-raised-button class="submit-button" id="submitRecordButton"
+      color="primary" (click)="onSubmitButtonClick()">Submit</button>
+    </div>
+  </form>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Record, Gear } from '../record'
+import { Record } from '../record'
 import { RecordsService } from '../records.service';
 
 @Component({

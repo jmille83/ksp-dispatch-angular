@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
+import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule } from '@angular/material'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
 import { environment } from '../environments/environment'
 
 import { AppComponent } from './app.component';
@@ -12,7 +15,6 @@ import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RecordDetailComponent } from './record-detail/record-detail.component';
 import { NotesComponent } from './notes/notes.component';
-
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { NotesComponent } from './notes/notes.component';
     FormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
+    BrowserAnimationsModule
   ],
   providers: [
     RecordsService
