@@ -5,7 +5,6 @@ h2 {
 .records-container {
     overflow: auto;
 	max-height: 400px;
-	margin: 50px auto;
 
     background:
 		/* Shadow covers */
