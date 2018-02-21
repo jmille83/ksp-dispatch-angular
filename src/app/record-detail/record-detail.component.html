@@ -22,15 +22,15 @@
 
     <br>
 
-    <mat-form-field class="clothing">
+    <mat-form-field class="top-clothing">
       <input matInput placeholder="Top color"
       [(ngModel)]="record.topColor" name="topColor">
     </mat-form-field>
 
     <span class="over-text">over</span>
 
-    <mat-form-field class="clothing">
-      <input matInput placeholder="Bottom color"
+    <mat-form-field class="bottom-clothing">
+      <input matInput placeholder="bottom color"
       [(ngModel)]="record.bottomColor" name="bottomColor">
     </mat-form-field>
 
@@ -42,6 +42,17 @@
     <mat-form-field class="location">
       <input matInput placeholder="Location" 
       [(ngModel)]="record.location" name="location">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field class="patroller">
+      <mat-select placeholder="Responding patroller"
+      [(ngModel)]="record.respondingPatrollerId" name="respondingPatroller">
+        <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
+          {{ patroller.name }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <br>

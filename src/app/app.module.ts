@@ -15,6 +15,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RecordDetailComponent } from './record-detail/record-detail.component';
 import { NotesComponent } from './notes/notes.component';
+import { PatrollerService } from './patroller.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { NotesComponent } from './notes/notes.component';
     BrowserAnimationsModule
   ],
   providers: [
-    RecordsService
+    RecordsService,
+    PatrollerService
   ],
   bootstrap: [AppComponent]
 })

@@ -15,8 +15,12 @@ h2 {
   width: 100%;
 }
 
-.clothing {
+.top-clothing {
   width: 110px;
+}
+
+.bottom-clothing {
+  width: 140px;
 }
 
 .over-text {
@@ -28,6 +32,10 @@ h2 {
 }
 
 .location {
+  width: 100%;
+}
+
+.patroller {
   width: 100%;
 }
 

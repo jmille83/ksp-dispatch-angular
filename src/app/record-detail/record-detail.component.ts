@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Record } from '../record';
 import { RecordsService } from '../records.service';
+import { Patroller } from '../patroller'
+import { PatrollerService } from '../patroller.service';
 
 @Component({
   selector: 'app-record-detail',
@@ -18,13 +20,22 @@ export class RecordDetailComponent implements OnInit {
     {value: 'Tele'}
   ];
 
-  constructor(private recordsService: RecordsService) { }
+  patrollers: Patroller[];
+
+  constructor(private recordsService: RecordsService, private patrollerService: PatrollerService) { }
 
   ngOnInit() {
+    this.getPatrollers();
+  }
+
+  getPatrollers(): void {
+    this.patrollerService.getAllPatrollers().subscribe(patrollers => this.patrollers = patrollers);
   }
 
   onSubmitButtonClick() {
-    // Timestamp and id will be set by service who has access to database.
+    // We can check if the record has an id/timestamp here.
+    // If so, it's being edited, so just update record (new Service function).
+    // If not, timestamp and id will be set by Service with addRecord.
 
     // Send it away.
     this.recordsService.addRecord(this.record);

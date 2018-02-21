@@ -8,4 +8,5 @@ export class Record {
     bottomColor: string;
     location: string;
     timeReported: number;
+    respondingPatrollerId: string;
 }
