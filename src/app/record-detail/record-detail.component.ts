@@ -12,7 +12,7 @@ import { PatrollerService } from '../patroller.service';
 })
 export class RecordDetailComponent implements OnInit {
 
-  record: Record = new Record();
+  @Input() record: Record;
   
   equipments = [
     {value: 'Skier'},
@@ -54,12 +54,18 @@ export class RecordDetailComponent implements OnInit {
 
   onSubmitButtonClick() {
     // We can check if the record has an id/timestamp here.
-    // If so, it's being edited, so just update record (new Service function).
+    // If so, it's being edited, so just update record.
     // If not, timestamp and id will be set by Service with addRecord.
+    if (this.record.id != null) {
+      this.recordsService.updateRecord(this.record);
+    } else {
+      this.recordsService.addRecord(this.record);
+    }
 
-    // Send it away.
-    this.recordsService.addRecord(this.record);
+    this.resetForm();
+  }
 
+  onCancelButtonClick() {
     this.resetForm();
   }
 

@@ -3,7 +3,8 @@
 <div *ngIf="records; else noRecords" class="records-container">
   <ul class="records-list">
     <li *ngFor="let record of records"
-    [ngClass]="[record.type, record.peak]">
+    [ngClass]="[record.type, record.peak]"
+    (click)="onRecordClick(record)">
       <div class="grid-container">
           <span class="info-label">Name</span>{{record.name}}
           <span class="info-label">Sex</span>{{record.sex}}

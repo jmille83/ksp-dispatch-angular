@@ -25,6 +25,13 @@ export class RecordsService {
     // Firebase needs data as plain JSON.
     var data = JSON.parse(JSON.stringify(record));
 
-    this.db.collection('records').add(data);
+    this.db.collection('records').doc(record.id).set(data);
+  }
+
+  updateRecord(record: Record) {
+    // Firebase needs data as plain JSON.
+    var newData = JSON.parse(JSON.stringify(record));
+    
+    this.db.collection('records').doc(record.id).set(newData);
   }
 }

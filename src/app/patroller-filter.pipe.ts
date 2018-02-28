@@ -8,7 +8,7 @@ export class PatrollerFilterPipe implements PipeTransform {
 
   transform(patrollers: Patroller[], targetId: string): string {
     if (!patrollers) return null;
-    if (!targetId) return patrollers[0].name;
+    if (!targetId || targetId == "") return null;
 
     return patrollers.find(patroller => patroller.id == targetId).name;
    }

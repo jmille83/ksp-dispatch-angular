@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 
 import { Record } from '../record'
 import { RecordsService } from '../records.service';
@@ -12,6 +12,7 @@ import { PatrollerService } from '../patroller.service';
 })
 export class RecordsComponent implements OnInit {
 
+  @Output() onRecordClicked = new EventEmitter<Record>();
   records: Record[];
   patrollers: Patroller[];
 
@@ -28,5 +29,9 @@ export class RecordsComponent implements OnInit {
 
   getPatrollers(): void {
     this.patrollerService.getAllPatrollers().subscribe(patrollers => this.patrollers = patrollers);
+  }
+
+  onRecordClick(record: Record) {
+    this.onRecordClicked.emit(record);
   }
 }

@@ -4,7 +4,7 @@ h2 {
 
 .records-container {
     overflow: auto;
-	max-height: 400px;
+	max-height: 470px;
 
     background:
 		/* Shadow covers */
@@ -25,8 +25,7 @@ h2 {
 }
 
 .records-list li:hover {
-    color: #607D8B;
-    background-color: #DDD;
+    color: dodgerblue;
 }
 
 .Taxi {

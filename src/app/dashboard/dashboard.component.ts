@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Record } from '../record'
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  currentRecord = new Record();
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  onRecordClicked(record: Record) {
+    this.currentRecord = record;
+  }
 }
