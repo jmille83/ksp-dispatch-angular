@@ -9,4 +9,6 @@ export class Record {
     location: string;
     timeReported: number;
     respondingPatrollerId: string;
+    peak: string = "Frontside";
+    type: string;
 }

@@ -1,14 +1,22 @@
 <h2>New Record</h2>
 
-<div class="container">
+<div id="record-detail-container">
   <form class="record-form">
+    <div class="radio-group-container">
+      <mat-radio-group [(ngModel)]="record.peak" name="peak" (change)="onRadioButtonChange()">
+        <mat-radio-button value="Frontside" class="radio">Frontside</mat-radio-button>
+        <mat-radio-button value="North" class="radio">North Peak</mat-radio-button>
+        <mat-radio-button value="Outback" class="radio">Outback</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
     <mat-form-field class="name">
       <input matInput placeholder="Name" [(ngModel)]="record.name" name="name">
     </mat-form-field>
 
     <mat-radio-group [(ngModel)]="record.sex" name="sex">
-      <mat-radio-button value="Male">Male</mat-radio-button>
-      <mat-radio-button value="Female">Female</mat-radio-button>
+      <mat-radio-button value="Male" class="radio">Male</mat-radio-button>
+      <mat-radio-button value="Female" class="radio">Female</mat-radio-button>
     </mat-radio-group>
 
     <mat-form-field class="equipment">
@@ -54,6 +62,13 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+
+    <div class="radio-group-container">
+      <mat-radio-group [(ngModel)]="record.type" name="type" class="radio-group" layout="row">
+        <mat-radio-button value="10-50" class="radio">10-50</mat-radio-button>
+        <mat-radio-button value="Taxi" class="radio">Taxi</mat-radio-button>
+      </mat-radio-group>
+    </div>
 
     <br>
 

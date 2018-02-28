@@ -32,6 +32,26 @@ export class RecordDetailComponent implements OnInit {
     this.patrollerService.getAllPatrollers().subscribe(patrollers => this.patrollers = patrollers);
   }
 
+  onRadioButtonChange() {
+    var container = document.getElementById("record-detail-container");
+    
+    switch(this.record.peak) {
+      case "North": {
+        container.style.backgroundColor = "#e8eefc";
+        break;
+      }
+      case "Outback": {
+        container.style.backgroundColor = "#def2de";
+        break;
+      }
+      default: {
+        // This will include "Frontside".
+        container.style.backgroundColor = "white";
+        break;
+      }
+    }
+  }
+
   onSubmitButtonClick() {
     // We can check if the record has an id/timestamp here.
     // If so, it's being edited, so just update record (new Service function).
@@ -40,11 +60,18 @@ export class RecordDetailComponent implements OnInit {
     // Send it away.
     this.recordsService.addRecord(this.record);
 
+    this.resetForm();
+  }
+
+  resetForm() {
     // Clear form.
     this.record = new Record();
 
     // Make sure everything is deselected.
     document.getElementById("submitRecordButton").focus();
     document.getElementById("submitRecordButton").blur();
+
+    // Reset background color.
+    this.onRadioButtonChange();
   }
 }

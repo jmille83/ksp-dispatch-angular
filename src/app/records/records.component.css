@@ -17,8 +17,6 @@ h2 {
 	background-repeat: no-repeat;
 	background-color: white;
 	background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
-	
-	/* Opera doesn't support this in the shorthand */
 	background-attachment: local, local, scroll, scroll;
 }
 
@@ -29,7 +27,19 @@ h2 {
 .records-list li:hover {
     color: #607D8B;
     background-color: #DDD;
-  }
+}
+
+.Taxi {
+    color: #919396;
+}
+
+.North {
+    background-color: #e8eefc;
+}
+
+.Outback {
+    background-color: #def2de;
+}
 
 .info-label {
     font-size: 60%;
