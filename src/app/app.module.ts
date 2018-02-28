@@ -16,6 +16,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RecordDetailComponent } from './record-detail/record-detail.component';
 import { NotesComponent } from './notes/notes.component';
 import { PatrollerService } from './patroller.service';
+import { PatrollerFilterPipe } from './patroller-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PatrollerService } from './patroller.service';
     RecordsComponent,
     DashboardComponent,
     RecordDetailComponent,
-    NotesComponent
+    NotesComponent,
+    PatrollerFilterPipe
   ],
   imports: [
     BrowserModule,
