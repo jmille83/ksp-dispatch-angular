@@ -1,10 +1,20 @@
 <div class="container">
-  <h1>
-    {{ title }}
-  </h1>
-  <router-outlet></router-outlet>
-  <footer align="center">
-    <p>&copy;Keystone Ski Patrol</p>
-    <img src="./assets/ksp_logo.png" width="100px">
-  </footer>
+  <mat-sidenav-container class="side-menu-container">
+    <mat-sidenav #sidenav opened>
+      <app-side-menu></app-side-menu>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon class="material-icons">menu</mat-icon>
+      </button>￼
+      <h1>
+        {{ title }}
+      </h1>
+      <router-outlet></router-outlet>
+      <footer align="center">
+        <p>&copy;Keystone Ski Patrol</p>
+        <img src="./assets/ksp_logo.png" width="100px">
+      </footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

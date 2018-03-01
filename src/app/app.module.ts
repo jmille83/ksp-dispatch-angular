@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
-import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule } from '@angular/material'
+import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
+          MatSidenavModule, MatIconModule } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { environment } from '../environments/environment'
@@ -17,6 +18,8 @@ import { RecordDetailComponent } from './record-detail/record-detail.component';
 import { NotesComponent } from './notes/notes.component';
 import { PatrollerService } from './patroller.service';
 import { PatrollerFilterPipe } from './patroller-filter.pipe';
+import { SideMenuComponent } from './side-menu/side-menu.component';
+import { OpeningsComponent } from './openings/openings.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { PatrollerFilterPipe } from './patroller-filter.pipe';
     DashboardComponent,
     RecordDetailComponent,
     NotesComponent,
-    PatrollerFilterPipe
+    PatrollerFilterPipe,
+    SideMenuComponent,
+    OpeningsComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,8 @@ import { PatrollerFilterPipe } from './patroller-filter.pipe';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
+    MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule, 
+    MatSidenavModule, MatIconModule,
     BrowserAnimationsModule
   ],
   providers: [

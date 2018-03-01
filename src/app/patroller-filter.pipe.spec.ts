@@ -1,8 +1,8 @@
-import { FilterPipe } from './filter.pipe';
+import { PatrollerFilterPipe } from './patroller-filter.pipe';
 
 describe('FilterPipe', () => {
   it('create an instance', () => {
-    const pipe = new FilterPipe();
+    const pipe = new PatrollerFilterPipe();
     expect(pipe).toBeTruthy();
   });
 });
