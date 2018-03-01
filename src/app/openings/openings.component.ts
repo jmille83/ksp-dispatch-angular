@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-openings',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OpeningsComponent implements OnInit {
 
-  constructor() { }
+  peak: string = "";
+
+  constructor( private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params
+    .forEach(params => {
+      this.peak = this.route.snapshot.paramMap.get('peak');
+    });
   }
+
+  ngon
 
 }

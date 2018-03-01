@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideMenuComponent implements OnInit {
 
-  peaks = ["Frontside", "North Peak", "Outback"];
+  peaks = [
+    {name: "Frontside", value: "frontside"}, 
+    {name: "North Peak", value: "north-peak"}, 
+    {name: "Outback", value: "outback"}];
   worksheets = ["10-33", "10-minute Lift Evac"];
 
   constructor() { }

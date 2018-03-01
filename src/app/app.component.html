@@ -1,15 +1,18 @@
 <div class="container">
   <mat-sidenav-container class="side-menu-container">
-    <mat-sidenav #sidenav opened>
+    <mat-sidenav #sidenav>
       <app-side-menu></app-side-menu>
     </mat-sidenav>
     <mat-sidenav-content>
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon class="material-icons">menu</mat-icon>
-      </button>￼
-      <h1>
-        {{ title }}
-      </h1>
+      <div class="site-header">
+        <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon class="material-icons">menu</mat-icon>
+          </button>￼
+          <button mat-icon-button>
+              <a routerLink="dashboard"><mat-icon class="material-icons">home</mat-icon></a>
+            </button>￼
+          <h1>{{ title }}</h1>
+      </div>
       <router-outlet></router-outlet>
       <footer align="center">
         <p>&copy;Keystone Ski Patrol</p>

@@ -3,12 +3,14 @@
 <ul class="side-menu">
   <li>Openings</li>
   <ul class="sub-side-menu">
-    <li *ngFor="let peak of peaks">{{ peak }}</li>
+    <li *ngFor="let peak of peaks">
+      <a routerLink="/openings/{{ peak.value }}">{{ peak.name }}</a>
+    </li>
   </ul>
   <div id="border-line"></div>
   <li>Closings</li>
   <ul class="sub-side-menu">
-    <li *ngFor="let peak of peaks">{{ peak }}</li>
+    <li *ngFor="let peak of peaks">{{ peak.name }}</li>
   </ul>
   <div id="border-line"></div>
   <li>Worksheets</li>
