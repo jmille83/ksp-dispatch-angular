@@ -1,6 +1,6 @@
 .title-text {
     text-align: center;
-    color: darkred !important;
+    color: #D32F2F !important;
     font-size: 2em;
     display: inline-block;
     vertical-align: middle;
@@ -35,4 +35,8 @@ mat-icon {
 
 .header-button-end {
     justify-content: flex-end;
+}
+
+footer {
+    padding: 20px;
 }
