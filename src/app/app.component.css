@@ -1,6 +1,10 @@
-h1 {
+.title-text {
     text-align: center;
-    color: darkred;
+    color: darkred !important;
+    font-size: 2em;
+    display: inline-block;
+    vertical-align: middle;
+    width: 87%;
 }
 
 * {
@@ -10,4 +14,25 @@ h1 {
 
 mat-icon {
     font-family: 'Material Icons' !important;
+    vertical-align: middle;
+}
+
+.site-header {
+    width: 100%;
+    display: flex;
+}
+
+.header-element {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.header-button-start {
+    justify-content: flex-start;
+}
+
+.header-button-end {
+    justify-content: flex-end;
 }
