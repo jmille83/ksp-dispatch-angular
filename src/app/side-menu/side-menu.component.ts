@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-side-menu',
@@ -7,15 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideMenuComponent implements OnInit {
 
+  @Output() onLinkClicked = new EventEmitter<boolean>();
+
   peaks = [
     {name: "Frontside", value: "frontside"}, 
     {name: "North Peak", value: "north-peak"}, 
     {name: "Outback", value: "outback"}];
-  worksheets = ["10-33", "10-minute Lift Evac"];
+  
+    worksheets = ["10-33", "10-minute Lift Evac"];
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  linkClicked() {
+    this.onLinkClicked.emit();
   }
 
 }

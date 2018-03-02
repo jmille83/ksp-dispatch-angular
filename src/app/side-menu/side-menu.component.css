@@ -13,7 +13,7 @@ h2 {
 .side-menu {
     list-style-type: none;
     margin: 0px;
-    padding: 10px 0px;
+    padding: 0px;
 }
 
 .sub-side-menu {
@@ -22,14 +22,14 @@ h2 {
 }
 
 .side-menu li {
-    padding: 10px 20px;
+    padding: 15px 20px;
 }
 
 .sub-side-menu li {
     padding: 10px 50px;
 }
 
-.sub-side-menu li:hover {
+.clickable:hover {
     background-color: #caccce;
 }
 
@@ -38,3 +38,6 @@ a {
     color: inherit;
 }
 
+a:focus {
+    outline: none;
+}

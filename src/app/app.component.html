@@ -1,7 +1,7 @@
 <div class="container">
   <mat-sidenav-container class="side-menu-container">
     <mat-sidenav #sidenav>
-      <app-side-menu></app-side-menu>
+      <app-side-menu (onLinkClicked)="sidenav.toggle()"></app-side-menu>
     </mat-sidenav>
     <mat-sidenav-content>
       <div class="site-header">
