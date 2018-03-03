@@ -10,5 +10,4 @@ export class PatrollerService {
   getAllPatrollers(): Observable<any[]> {
     return this.db.collection('patrollers', ref => ref.orderBy('name')).valueChanges();
   }
-
 }

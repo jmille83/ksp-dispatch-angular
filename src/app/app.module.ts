@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
-          MatSidenavModule, MatIconModule } from '@angular/material'
+          MatSidenavModule, MatIconModule, MatListModule } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { environment } from '../environments/environment'
@@ -20,6 +20,7 @@ import { PatrollerService } from './patroller.service';
 import { PatrollerFilterPipe } from './patroller-filter.pipe';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { OpeningsComponent } from './openings/openings.component';
+import { OpeningsService } from './openings.service';
 
 @NgModule({
   declarations: [
@@ -39,12 +40,13 @@ import { OpeningsComponent } from './openings/openings.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule, 
-    MatSidenavModule, MatIconModule,
+    MatSidenavModule, MatIconModule, MatListModule, 
     BrowserAnimationsModule
   ],
   providers: [
     RecordsService,
-    PatrollerService
+    PatrollerService,
+    OpeningsService
   ],
   bootstrap: [AppComponent]
 })
