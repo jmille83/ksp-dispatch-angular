@@ -65,7 +65,7 @@ export class RecordDetailComponent implements OnInit {
     this.resetForm();
   }
 
-  onCancelButtonClick() {
+  onClearButtonClick() {
     this.resetForm();
   }
 

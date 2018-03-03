@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore'
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
-          MatSidenavModule, MatIconModule, MatListModule } from '@angular/material'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+          MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
+          MatCheckboxModule } from '@angular/material';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { environment } from '../environments/environment'
 
@@ -40,7 +42,9 @@ import { OpeningsService } from './openings.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule, 
-    MatSidenavModule, MatIconModule, MatListModule, 
+    MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
+    MatCheckboxModule,
+    MatMomentDateModule,
     BrowserAnimationsModule
   ],
   providers: [

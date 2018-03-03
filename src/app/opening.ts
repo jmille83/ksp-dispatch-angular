@@ -1,5 +1,5 @@
 export class Opening {
-    name: string;
-    patrollerName: string;
-    patrollerId: string;
+    id: string;
+    text: string;
+    peak: string;
 }

@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
 
 import { Patroller } from '../patroller'
 import { PatrollerService } from '../patroller.service';
 import { Opening } from '../opening'
 import { OpeningsService } from '../openings.service'
+import { OpeningRecord } from '../opening-record';
+import { CombinationOpening } from '../combination-opening'
 
 @Component({
   selector: 'app-openings',
@@ -17,6 +20,14 @@ export class OpeningsComponent implements OnInit {
   peakName: string = "";
   openings: Opening[];
   patrollers: Patroller[];
+  openingRecords: OpeningRecord[];
+  combinationOpenings: CombinationOpening[] = [];
+
+  openingsLoaded: boolean = false;
+  openingRecordsLoaded: boolean = false;
+
+  // Date starts as today by default.
+  date: moment.Moment = moment();
 
   constructor(private route: ActivatedRoute, private patrollerService: PatrollerService,
               private openingsService: OpeningsService) { }
@@ -25,6 +36,10 @@ export class OpeningsComponent implements OnInit {
     this.route.params.forEach(params => {
       this.peak = this.route.snapshot.paramMap.get('peak');
       this.setPeakNameForPeak();
+
+      // Reset date.
+      this.date = moment();
+
       this.onNewOpeningSelected();
     });
 
@@ -42,7 +57,65 @@ export class OpeningsComponent implements OnInit {
   }
 
   onNewOpeningSelected() {
-    this.openingsService.getOpeningsForPeak(this.peak).subscribe(openings => this.openings = openings);
+    this.openingsLoaded = false;
+    this.openingRecordsLoaded = false;
+    
+    this.openingsService.getOpeningsListForPeak(this.peak).subscribe(openings => {
+      this.openings = openings
+      this.openingsLoaded = true;
+      this.createCombinationRecords();
+    });
+    this.openingsService.getOpeningRecordsForPeakAndDate(this.peak, this.date.format('YYYY-MM-DD'))
+    .subscribe(openingRecords => {
+      this.openingRecords = openingRecords;
+      this.openingRecordsLoaded = true;
+      this.createCombinationRecords();
+    });
+  }
+
+  createCombinationRecords() {
+    if (this.openingsLoaded && this.openingRecordsLoaded) {
+      this.combinationOpenings = [];
+
+      this.openings.forEach(opening => {
+        let combo = new CombinationOpening();
+        combo.id = opening.id;
+        combo.text = opening.text;
+  
+        let openingRecord: OpeningRecord = this.openingRecords.find(record => record.id == combo.id);
+        if (openingRecord) {
+          combo.patrollerId = openingRecord.patrollerId;
+        }
+  
+        this.combinationOpenings.push(combo);
+      });
+    }
+  }
+
+  onSubmitButtonClicked() {
+    // Take new data from combination records and put back into opening records.
+    this.combinationOpenings.forEach(combo => {
+      let openingRecord: OpeningRecord = this.openingRecords.find(record => record.id == combo.id);
+      
+      if (openingRecord) {
+        openingRecord.patrollerId = combo.patrollerId;
+      } else {
+        let newRecord = new OpeningRecord();
+        newRecord.id = combo.id;
+        newRecord.patrollerId = combo.patrollerId;
+        this.openingRecords.push(newRecord);
+      }
+    });
+
+    this.openingsService.submitOpeningRecords(this.openingRecords, this.peak, this.date.format('YYYY-MM-DD'));
+  }
+
+  onClearButtonClicked() {
+    this.onNewOpeningSelected();
+  }
+
+  onDateChanged() {
+    this.onNewOpeningSelected();
   }
 
   getPatrollers(): void {
