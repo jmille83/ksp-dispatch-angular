@@ -1,0 +1,37 @@
+<div class="title-container">
+  <h2>{{ peakName }} Openings</h2>
+  <mat-form-field>
+    <input matInput [matDatepicker]="openingsDatePicker" 
+    placeholder="Choose a date" [(ngModel)]="date"
+    (dateChange)="onDateChanged()">
+    <mat-datepicker-toggle matSuffix [for]="openingsDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #openingsDatePicker></mat-datepicker>
+  </mat-form-field>
+</div>
+
+<div class="table-container">
+  <table align="center">
+    <tr>
+      <th>Opening</th>
+      <th>Patroller</th>
+    </tr>
+    <tr *ngFor="let opening of combinationOpenings">
+      <td>{{ opening.text }}</td>
+      <td class="patroller-cells">
+        <mat-select placeholder="Patroller"
+        [(ngModel)]="opening.patrollerId" name="patroller">
+          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
+            {{ patroller.name }}
+          </mat-option>
+        </mat-select>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="button-container">
+  <button mat-raised-button class="submit-button" id="submitRecordButton"
+  color="primary" (click)="onSubmitButtonClicked()">Submit</button>
+  <button mat-raised-button color="gray" 
+  (click)="onClearButtonClicked()">Clear</button>
+</div>

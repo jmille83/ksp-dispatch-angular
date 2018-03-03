@@ -1,0 +1,43 @@
+h2 {
+    padding: 0px 8px;
+}
+
+#border-line {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: #caccce;
+}
+
+.side-menu {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.sub-side-menu {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.side-menu li {
+    padding: 15px 20px;
+}
+
+.sub-side-menu li {
+    padding: 10px 50px;
+}
+
+.clickable:hover {
+    background-color: #caccce;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:focus {
+    outline: none;
+}

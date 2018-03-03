@@ -1,8 +1,10 @@
 <h2>Records</h2>
 
-<div *ngIf="records; else noRecords">
+<div *ngIf="records; else noRecords" class="records-container">
   <ul class="records-list">
-    <li *ngFor="let record of records">
+    <li *ngFor="let record of records"
+    [ngClass]="[record.type, record.peak]"
+    (click)="onRecordClick(record)">
       <div class="grid-container">
           <span class="info-label">Name</span>{{record.name}}
           <span class="info-label">Sex</span>{{record.sex}}
@@ -11,8 +13,9 @@
           
           <span class="info-label">Complaint</span><span class="long-row">{{record.chiefComplaint}}</span>
           <span class="info-label">Location</span><span class="long-row">{{record.location}}</span>
+          <span class="info-label">Patroller</span><span class="long-row">{{ patrollers | patrollerFilter: record.respondingPatrollerId }}</span>
       </div>
-      <div class="time-label">{{record.timeReported}}</div>
+      <div class="time-label">{{record.timeReported | date: 'medium'}}</div>
     </li>
   </ul>  
 </div>

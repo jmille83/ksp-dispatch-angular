@@ -1,11 +1,27 @@
 <div class="container">
-  <h1>
-    {{ title }}
-  </h1>
-  <router-outlet></router-outlet>
-  <footer align="center">
-    <p>&copy;Keystone Ski Patrol</p>
-    <img src="./assets/ksp_logo.png" width="100px">
-    <p>Designed by Pat Hansen</p>
-  </footer>
+  <mat-sidenav-container class="side-menu-container">
+    <mat-sidenav #sidenav>
+      <app-side-menu (onLinkClicked)="sidenav.toggle()"></app-side-menu>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="site-header">
+        <div class="header-element header-button-start">
+          <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon class="material-icons">menu</mat-icon>
+          </button>￼
+        </div>
+        <div class="title-text header-element">{{ title }}</div>
+        <div class="header-element header-button-end">
+          <button mat-icon-button>
+            <a routerLink="dashboard"><mat-icon class="material-icons">home</mat-icon></a>
+          </button>￼
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+      <footer align="center">
+        <p>&copy;Keystone Ski Patrol</p>
+        <img src="./assets/ksp_logo.png" width="100px">
+      </footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

@@ -2,16 +2,43 @@ h2 {
     text-align: center;
 }
 
+.records-container {
+    overflow: auto;
+	max-height: 470px;
+
+    background:
+		/* Shadow covers */
+		linear-gradient(white 30%, rgba(255,255,255,0)),
+		linear-gradient(rgba(255,255,255,0), white 70%) 0 100%,
+		
+		/* Shadows */
+		radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.2), rgba(0,0,0,0)),
+		radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.2), rgba(0,0,0,0)) 0 100%;
+	background-repeat: no-repeat;
+	background-color: white;
+	background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+	background-attachment: local, local, scroll, scroll;
+}
+
 .records-list {
     list-style-type: none;
-    height: 400px;
-    overflow-y: auto;
 }
 
 .records-list li:hover {
-    color: #607D8B;
-    background-color: #DDD;
-  }
+    color: dodgerblue;
+}
+
+.Taxi {
+    color: #919396;
+}
+
+.North {
+    background-color: #e8eefc;
+}
+
+.Outback {
+    background-color: #def2de;
+}
 
 .info-label {
     font-size: 60%;
@@ -21,9 +48,9 @@ h2 {
 }
 
 .time-label {
-    font-size: 60%;
+    font-size: 85%;
     text-align: center;
-    padding-bottom: 15px;
+    padding-bottom: 20px;
     color: darkgrey;
 }
 
@@ -35,8 +62,11 @@ h2 {
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 14px;
-    padding: 10px;
+    grid-gap: 10px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 ul li:not(:last-child):after {
