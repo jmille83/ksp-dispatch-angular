@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Record } from '../record'
+import { Record } from '../../objects/record'
 
 @Component({
   selector: 'app-dashboard',

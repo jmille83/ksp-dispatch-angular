@@ -13,18 +13,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment'
 
 import { AppComponent } from './app.component';
-import { RecordsService } from './records.service';
-import { RecordsComponent } from './records/records.component';
-import { AppRoutingModule } from './/app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { RecordDetailComponent } from './record-detail/record-detail.component';
-import { NotesComponent } from './notes/notes.component';
-import { PatrollerService } from './patroller.service';
+import { RecordsService } from './services/records.service';
+import { RecordsComponent } from './views/records/records.component';
+import { AppRoutingModule } from './app-routing.module';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { RecordDetailComponent } from './views/record-detail/record-detail.component';
+import { NotesComponent } from './views/notes/notes.component';
+import { PatrollerService } from './services/patroller.service';
 import { PatrollerFilterPipe } from './patroller-filter.pipe';
-import { SideMenuComponent } from './side-menu/side-menu.component';
-import { OpeningsComponent } from './openings/openings.component';
-import { OpeningsService } from './openings.service';
-import { AuthService } from './auth.service';
+import { SideMenuComponent } from './views/side-menu/side-menu.component';
+import { OpeningsComponent } from './views/openings/openings.component';
+import { OpeningsService } from './services/openings.service';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './services/auth-guard.service';
+import { LoginComponent } from './views/login/login.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { AuthService } from './auth.service';
     NotesComponent,
     PatrollerFilterPipe,
     SideMenuComponent,
-    OpeningsComponent
+    OpeningsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { AuthService } from './auth.service';
     RecordsService,
     PatrollerService,
     OpeningsService,
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
