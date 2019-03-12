@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
           MatCheckboxModule } from '@angular/material';
@@ -23,6 +24,7 @@ import { PatrollerFilterPipe } from './patroller-filter.pipe';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { OpeningsComponent } from './openings/openings.component';
 import { OpeningsService } from './openings.service';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { OpeningsService } from './openings.service';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule, 
     MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
     MatCheckboxModule,
@@ -50,7 +53,8 @@ import { OpeningsService } from './openings.service';
   providers: [
     RecordsService,
     PatrollerService,
-    OpeningsService
+    OpeningsService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
