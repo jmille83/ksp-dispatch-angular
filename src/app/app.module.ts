@@ -9,6 +9,7 @@ import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatCheckboxModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms'
 
 import { environment } from '../environments/environment'
 
@@ -51,7 +52,8 @@ import { LoginComponent } from './views/login/login.component';
     MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
     MatCheckboxModule,
     MatMomentDateModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [
     RecordsService,

@@ -6,3 +6,7 @@
 .text-input {
     width: 250px;
 }
+
+.form-errors {
+    color: darkred;
+}

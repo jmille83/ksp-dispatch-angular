@@ -6,7 +6,7 @@ import { LoginComponent } from './views/login/login.component';
 import { AuthGuard } from './services/auth-guard.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
   { path: 'dashboard', canActivate: [AuthGuard], component: DashboardComponent },
   { path: 'openings/:peak', component: OpeningsComponent}

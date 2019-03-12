@@ -1,16 +1,52 @@
-<div>
-  <form class="login-form">
+<div *ngIf="!alreadyLoggedIn">
+  <form [formGroup]="registerForm" class="login-form" *ngIf="newUser">
     
-    <h2>Login</h2>
-    
+    <h2>Sign Up</h2>    
     <mat-form-field class="text-input">
-        <input matInput placeholder="Email">
+        <input matInput type="email" name="email" placeholder="Email" 
+        formControlName="email" required>
     </mat-form-field>
+    <div class="form-errors" *ngIf="formErrors.email">
+      {{ formErrors.email }}
+    </div>
     <br>
     <mat-form-field class="text-input">
-        <input matInput type="password" placeholder="Password">
+        <input matInput type="password" name="password" placeholder="Password" 
+        formControlName="password" required>
     </mat-form-field>
+    <div class="form-errors" *ngIf="formErrors.password">
+      {{ formErrors.password }}
+    </div>
     <br>
-    <button mat-raised-button color="primary">Login</button>
+    <mat-form-field class="text-input">
+        <input matInput type="password" name="confirmedPassword" placeholder="Confirm password" 
+        formControlName="confirmedPassword" required>
+    </mat-form-field>
+    <div class="form-errors" *ngIf="!passwordsMatch">
+      Passwords do not match.
+    </div>
+    <br>
+    <button mat-raised-button color="primary" (click)="signUpWithEmail()" [disabled]="!registerForm.valid">Register</button>
+    <button mat-flat-button color="secondary" (click)="toggleForm()">Already have an account?</button>
   </form>
+
+  <form class="login-form" *ngIf="!newUser">
+    <h2>Login</h2>
+    <mat-form-field class="text-input">
+        <input matInput type="email" name="email" placeholder="Email" 
+        [(ngModel)]="existingUser.email">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="text-input">
+        <input matInput type="password" name="password" placeholder="Password" 
+        [(ngModel)]="existingUser.password">
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" (click)="loginWithEmail()">Login</button>
+    <button mat-flat-button color="secondary" (click)="toggleForm()">Need to sign up?</button>
+  </form>
+</div>
+<div *ngIf="alreadyLoggedIn">
+  <p>You're already logged in!
+      (Todo: logout button)</p>
 </div>

@@ -8,38 +8,44 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthService {
 
-  private user: Observable<firebase.User>;
-  private userDetails: firebase.User = null;
+  authState: Observable<firebase.User>;
+  private user: firebase.User = null;
 
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
-    this.user = _firebaseAuth.authState;
-    this.user.subscribe(
+  constructor(private firebaseAuth: AngularFireAuth, private router: Router) {
+    this.authState = firebaseAuth.authState;
+    this.authState.subscribe(
       (user) => {
         if (user) {
-          this.userDetails = user;
-          console.log(this.userDetails);
+          this.user = user;
+          console.log("Auth service: " + this.user.email);
         } else {
-          this.userDetails = null;
+          this.user = null;
         }
       }
     );
   }
 
   isLoggedIn() {
-    if (this.userDetails == null) {
+    if (this.user == null) {
+      console.log("Auth service: NO user");
       return false;
     } else {
+      console.log("Auth service: Authed user");
       return true;
     }
   }
 
   logout() {
-    this._firebaseAuth.auth.signOut()
+    this.firebaseAuth.auth.signOut()
     .then((res) => this.router.navigate(['/']));
   }
 
-  signIn(email, password) {
+  loginWithEmail(email, password) {
     const credential = firebase.auth.EmailAuthProvider.credential(email, password);
-    return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password);
+    return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
+  }
+
+  signUpWithEmail(email, password) {
+    return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 }
