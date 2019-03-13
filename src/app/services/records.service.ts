@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable'
 
 import * as firebase from 'firebase';
 
-import { Record } from './record'
+import { Record } from '../objects/record'
 
 @Injectable()
 export class RecordsService {

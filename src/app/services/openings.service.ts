@@ -3,8 +3,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable'
 import * as moment from 'moment';
 
-import { Opening } from './opening';
-import { OpeningRecord } from './opening-record';
+import { Opening } from '../objects/opening';
+import { OpeningRecord } from '../objects/opening-record';
 
 @Injectable()
 export class OpeningsService {

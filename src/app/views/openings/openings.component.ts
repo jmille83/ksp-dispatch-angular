@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
-import { Patroller } from '../patroller'
-import { PatrollerService } from '../patroller.service';
-import { Opening } from '../opening'
-import { OpeningsService } from '../openings.service'
-import { OpeningRecord } from '../opening-record';
-import { CombinationOpening } from '../combination-opening'
+import { Patroller } from '../../objects/patroller'
+import { PatrollerService } from '../../services/patroller.service';
+import { Opening } from '../../objects/opening'
+import { OpeningsService } from '../../services/openings.service'
+import { OpeningRecord } from '../../objects/opening-record';
+import { CombinationOpening } from '../../objects/combination-opening'
 
 @Component({
   selector: 'app-openings',

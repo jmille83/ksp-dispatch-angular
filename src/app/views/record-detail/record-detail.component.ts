@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Record } from '../record';
-import { RecordsService } from '../records.service';
-import { Patroller } from '../patroller'
-import { PatrollerService } from '../patroller.service';
+import { Record } from '../../objects/record';
+import { RecordsService } from '../../services/records.service';
+import { Patroller } from '../../objects/patroller'
+import { PatrollerService } from '../../services/patroller.service';
 
 @Component({
   selector: 'app-record-detail',
