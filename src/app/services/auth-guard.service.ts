@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private authService: AuthService) { }
 
   canActivate() {
-    return this.authService.authState.pipe(
+    return this.authService.getAuthState$().pipe(
       take(1), 
       map((authState) => !!authState),
       tap(authenticated => {

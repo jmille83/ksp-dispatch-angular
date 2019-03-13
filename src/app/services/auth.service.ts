@@ -8,12 +8,12 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthService {
 
-  authState: Observable<firebase.User>;
+  private authState$: Observable<firebase.User>;
   private user: firebase.User = null;
 
   constructor(private firebaseAuth: AngularFireAuth, private router: Router) {
-    this.authState = firebaseAuth.authState;
-    this.authState.subscribe(
+    this.authState$ = firebaseAuth.authState;
+    this.authState$.subscribe(
       (user) => {
         if (user) {
           this.user = user;
@@ -23,6 +23,10 @@ export class AuthService {
         }
       }
     );
+  }
+
+  getAuthState$() {
+    return this.authState$;
   }
 
   isLoggedIn() {

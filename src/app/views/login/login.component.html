@@ -42,11 +42,16 @@
         [(ngModel)]="existingUser.password">
     </mat-form-field>
     <br>
+    <div *ngIf="hadLoginError">
+      <p>{{ loginError }}</p>
+      <br>
+    </div>
     <button mat-raised-button color="primary" (click)="loginWithEmail()">Login</button>
     <button mat-flat-button color="secondary" (click)="toggleForm()">Need to sign up?</button>
   </form>
 </div>
-<div *ngIf="alreadyLoggedIn">
-  <p>You're already logged in!
-      (Todo: logout button)</p>
+<div class="login-form" *ngIf="alreadyLoggedIn">
+  <p>You're already logged in!</p>
+  <p>{{ currentUserEmail }}</p>
+  <button mat-raised-button (click)="logoutClicked()">Logout</button>
 </div>

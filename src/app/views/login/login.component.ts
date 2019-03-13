@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router'
-import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';;
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,10 @@ export class LoginComponent implements OnInit {
   newUser: boolean = false;
   passwordsMatch: boolean = true;
   alreadyLoggedIn: boolean = false;
+  hadLoginError: boolean = false;
+  loginError = '';
+  currentUserEmail = '';
+  authSubscription: Subscription;
   registerForm: FormGroup;
   
   existingUser = {
@@ -38,13 +43,18 @@ export class LoginComponent implements OnInit {
     },
   };
 
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { 
-    this.alreadyLoggedIn = this.authService.isLoggedIn();
-    console.log("Login: User logged in? " + this.alreadyLoggedIn);
-  }
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.buildForms();
+    this.authSubscription = this.authService.getAuthState$().subscribe((auth) => {
+      this.alreadyLoggedIn = auth !== null;
+      this.currentUserEmail = auth.email;
+    });
+  }
+
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
   }
 
   buildForms(): void {
@@ -106,12 +116,22 @@ export class LoginComponent implements OnInit {
     this.authService.loginWithEmail(this.existingUser.email, this.existingUser.password)
       .then((res) => {
         console.log("Login success: " + res);
+        this.hadLoginError = false;
         this.router.navigate(['dashboard']);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log('LoginComponent: ' + err);
+        this.hadLoginError = true;
+        this.loginError = err;
+      });
   }
 
   toggleForm() {
     this.newUser = !this.newUser;
+  }
+
+  logoutClicked() {
+    this.currentUserEmail = '';
+    this.authService.logout();
   }
 }
