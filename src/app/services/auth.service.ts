@@ -4,22 +4,24 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
+import { User } from '../objects/user';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 @Injectable()
 export class AuthService {
 
   private authState$: Observable<firebase.User>;
-  private user: firebase.User = null;
+  private user$: Observable<User>;
 
-  constructor(private firebaseAuth: AngularFireAuth, private router: Router) {
+  constructor(private firebaseAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
     this.authState$ = firebaseAuth.authState;
     this.authState$.subscribe(
       (user) => {
         if (user) {
-          this.user = user;
-          console.log("Auth service: " + this.user.email);
+          this.user$ = this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          console.log("Auth service: " + user.email);
         } else {
-          this.user = null;
+          this.user$ = null;
         }
       }
     );
@@ -30,7 +32,7 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    if (this.user == null) {
+    if (this.user$ == null) {
       console.log("Auth service: NO user");
       return false;
     } else {
@@ -49,11 +51,46 @@ export class AuthService {
   }
 
   loginWithEmail(email, password) {
-    const credential = firebase.auth.EmailAuthProvider.credential(email, password);
     return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
   signUpWithEmail(email, password) {
-    return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password);
+    return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then((credential) => {
+        this.createUserInFirebase(credential.user);
+      });
+  }
+
+  private createUserInFirebase(user) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const data: User = {
+      uid: user.uid,
+      email: user.email,
+      roles: {
+        default: true
+      }
+    }
+    userRef.set(data).catch((err) => console.log(err));
+  }
+
+  // Roles
+  private checkAuthorization(user: User, allowedRoles: string[]): boolean {
+    if (!user) return false;
+    for (const role of allowedRoles) {
+      if (user.roles[role]) {
+        return true
+      }
+    }
+    return false
+  }
+
+  canRead(user: User): boolean {
+    const allowed = ['admin', 'sup', 'dispatch', 'line']
+    return this.checkAuthorization(user, allowed)
+  }
+  
+  canEdit(user: User): boolean {
+    const allowed = ['admin', 'sup', 'dispatch']
+    return this.checkAuthorization(user, allowed)
   }
 }
