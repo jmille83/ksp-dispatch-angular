@@ -40,8 +40,12 @@ export class AuthService {
   }
 
   logout() {
+    console.log("Auth service: Logging out.")
     this.firebaseAuth.auth.signOut()
-    .then((res) => this.router.navigate(['/']));
+    .then((res) => {
+      console.log("Auth service: Redirecting to root.");
+      this.router.navigate(['/'])
+    });
   }
 
   loginWithEmail(email, password) {

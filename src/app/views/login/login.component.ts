@@ -49,7 +49,9 @@ export class LoginComponent implements OnInit {
     this.buildForms();
     this.authSubscription = this.authService.getAuthState$().subscribe((auth) => {
       this.alreadyLoggedIn = auth !== null;
-      this.currentUserEmail = auth.email;
+      if (auth !== null) {
+        this.currentUserEmail = auth.email;
+      }
     });
   }
 
