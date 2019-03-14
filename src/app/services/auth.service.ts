@@ -96,4 +96,9 @@ export class AuthService {
     const allowed = ['admin', 'sup', 'dispatch']
     return this.checkAuthorization(user, allowed)
   }
+
+  isDispatch(user: User): boolean {
+    const allowed = ['admin', 'sup', 'dispatch'];
+    return this.checkAuthorization(user, allowed);
+  }
 }

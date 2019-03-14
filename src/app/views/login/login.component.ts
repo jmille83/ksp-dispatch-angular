@@ -107,8 +107,7 @@ export class LoginComponent implements OnInit {
     
     this.authService.signUpWithEmail(email, password)
       .then((res) => {
-        console.log("Login success: " + res);
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['nowhere']);
       })
       .catch((err) => console.log(err));
   }
