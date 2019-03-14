@@ -28,6 +28,7 @@ import { OpeningsService } from './services/openings.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { LoginComponent } from './views/login/login.component';
+import { NoPermissionComponent } from './views/no-permission/no-permission.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { LoginComponent } from './views/login/login.component';
     PatrollerFilterPipe,
     SideMenuComponent,
     OpeningsComponent,
-    LoginComponent
+    LoginComponent,
+    NoPermissionComponent
   ],
   imports: [
     BrowserModule,

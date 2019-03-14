@@ -7,5 +7,5 @@ import * as moment from 'moment';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'KSP Dispatch';
+  title = 'Keystone Ski Patrol';
 }

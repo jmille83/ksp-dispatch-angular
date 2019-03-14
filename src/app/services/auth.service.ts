@@ -11,7 +11,7 @@ import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firesto
 export class AuthService {
 
   private authState$: Observable<firebase.User>;
-  private user$: Observable<User>;
+  user$: Observable<User>;
 
   constructor(private firebaseAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
     this.authState$ = firebaseAuth.authState;
@@ -46,7 +46,7 @@ export class AuthService {
     this.firebaseAuth.auth.signOut()
     .then((res) => {
       console.log("Auth service: Redirecting to root.");
-      this.router.navigate(['/'])
+      this.router.navigate(['/login'])
     });
   }
 
@@ -74,6 +74,9 @@ export class AuthService {
   }
 
   // Roles
+  // Create a function for each type of authorization, or ability, needed.
+  //   e.g. isDispatch, isSup, or canRead, canModifySchedule
+  // (Consider moving to a new class.
   private checkAuthorization(user: User, allowedRoles: string[]): boolean {
     if (!user) return false;
     for (const role of allowedRoles) {

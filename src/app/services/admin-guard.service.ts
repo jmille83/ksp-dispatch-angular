@@ -1,9 +1,33 @@
 import { Injectable } from '@angular/core';
+import { AuthService } from './auth.service';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { tap, map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuardService {
+export class AdminGuard implements CanActivate {
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
+
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    return this.authService.user$.pipe(
+      
+      // Take the next available value of user.
+      take(1),
+
+      // Turn it into a boolean that checks if the user exists and if it has the admin role.
+      map(user => user && user.roles.admin ? true : false),
+
+      // That boolean will be returned like CanActivate wants, this log is just for our sake.
+      tap(isAdmin => {
+        if (!isAdmin) {
+          console.log("Admins only.");
+          this.router.navigate(['/nowhere']);
+        }
+      })
+    );
+      
+  }
 }
