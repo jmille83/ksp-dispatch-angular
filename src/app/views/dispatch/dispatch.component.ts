@@ -16,7 +16,7 @@ export class DispatchComponent implements OnInit {
   user: User;
   subscription: Subscription = null;
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
     this.subscription = this.authService.user$.subscribe((user) => {
