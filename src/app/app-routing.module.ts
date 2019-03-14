@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { OpeningsComponent } from './views/openings/openings.component';
 import { LoginComponent } from './views/login/login.component';
 import { AuthGuard } from './services/auth-guard.service';
+import { PatrolGuard } from './services/patrol-guard.service';
+import { NoPermissionComponent } from './views/no-permission/no-permission.component';
+import { DispatchComponent } from './views/dispatch/dispatch.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent},
-  { path: 'dashboard', canActivate: [AuthGuard], component: DashboardComponent },
-  { path: 'openings/:peak', component: OpeningsComponent}
+  { path: '', redirectTo: 'dispatch', pathMatch: 'full' },
+  { path: 'nowhere', canActivate: [ AuthGuard ], component: NoPermissionComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'dispatch', canActivate: [AuthGuard, PatrolGuard ], component: DispatchComponent },
+  { path: 'openings/:peak', canActivate: [AuthGuard, PatrolGuard], component: OpeningsComponent }
 ];
 
 @NgModule({

@@ -1,0 +1,13 @@
+.container {
+    display: inline-grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 50px;
+    width: 100%;
+}
+
+.container2 {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 50px;
+    width: 100%;
+}

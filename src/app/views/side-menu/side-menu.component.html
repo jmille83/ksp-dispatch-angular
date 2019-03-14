@@ -2,7 +2,7 @@
 <div id="border-line"></div>
 <ul class="side-menu">
   <li class="clickable">
-    <a routerLink="/dashboard" (click)="linkClicked()" id="dashboardSideMenuLink">Dashboard</a>
+    <a routerLink="/dispatch" (click)="linkClicked()" id="dashboardSideMenuLink">Dispatch</a>
   </li>
   <div id="border-line"></div>
   <li>Openings</li>
@@ -21,4 +21,10 @@
   <ul class="sub-side-menu">
     <li *ngFor="let worksheet of worksheets">{{ worksheet }}</li>
   </ul>
+  <div id="border-line"></div>
+  <div class="user-info">
+    <h6>Logged in as:</h6>  
+    <h5>{{ currentUserEmail }}</h5>
+    <button mat-raised-button (click)="logoutClicked()">Logout</button>
+  </div>
 </ul>

@@ -14,6 +14,9 @@ export class AuthGuard implements CanActivate {
     return this.authService.getAuthState$().pipe(
       take(1), 
       map((authState) => !!authState),
+
+      // The boolean of 'authenticated' will be returned (after it's mapped)
+      //   but this is for our benefit to do an action as a result as well.
       tap(authenticated => {
         if (!authenticated) this.router.navigate(['/login']);
       })

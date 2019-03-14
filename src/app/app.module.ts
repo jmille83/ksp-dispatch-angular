@@ -17,7 +17,7 @@ import { AppComponent } from './app.component';
 import { RecordsService } from './services/records.service';
 import { RecordsComponent } from './views/records/records.component';
 import { AppRoutingModule } from './app-routing.module';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { DispatchComponent } from './views/dispatch/dispatch.component';
 import { RecordDetailComponent } from './views/record-detail/record-detail.component';
 import { NotesComponent } from './views/notes/notes.component';
 import { PatrollerService } from './services/patroller.service';
@@ -28,18 +28,20 @@ import { OpeningsService } from './services/openings.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { LoginComponent } from './views/login/login.component';
+import { NoPermissionComponent } from './views/no-permission/no-permission.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RecordsComponent,
-    DashboardComponent,
+    DispatchComponent,
     RecordDetailComponent,
     NotesComponent,
     PatrollerFilterPipe,
     SideMenuComponent,
     OpeningsComponent,
-    LoginComponent
+    LoginComponent,
+    NoPermissionComponent
   ],
   imports: [
     BrowserModule,

@@ -49,7 +49,9 @@ export class LoginComponent implements OnInit {
     this.buildForms();
     this.authSubscription = this.authService.getAuthState$().subscribe((auth) => {
       this.alreadyLoggedIn = auth !== null;
-      this.currentUserEmail = auth.email;
+      if (auth !== null) {
+        this.currentUserEmail = auth.email;
+      }
     });
   }
 
@@ -105,8 +107,7 @@ export class LoginComponent implements OnInit {
     
     this.authService.signUpWithEmail(email, password)
       .then((res) => {
-        console.log("Login success: " + res);
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['nowhere']);
       })
       .catch((err) => console.log(err));
   }
