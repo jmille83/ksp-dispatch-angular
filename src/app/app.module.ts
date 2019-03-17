@@ -41,7 +41,7 @@ import { NoPermissionComponent } from './views/no-permission/no-permission.compo
     SideMenuComponent,
     OpeningsComponent,
     LoginComponent,
-    NoPermissionComponent
+    NoPermissionComponent,
   ],
   imports: [
     BrowserModule,

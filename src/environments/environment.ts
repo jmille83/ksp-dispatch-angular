@@ -12,5 +12,6 @@ export const environment = {
     projectId: "patient-records-46858",
     storageBucket: "patient-records-46858.appspot.com",
     messagingSenderId: "45545519954"
-  }
+  },
+  password: "j0hnmirus"
 };

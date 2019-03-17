@@ -21,7 +21,7 @@ export class PatrolGuard implements CanActivate {
       
         // Take the next available value of user.
         take(1),
-  
+
         // Turn it into a boolean that checks if the user exists and if it has the admin role.
         map(user => user && user.roles.line ? true : false),
   

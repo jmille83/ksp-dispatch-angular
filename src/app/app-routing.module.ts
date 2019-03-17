@@ -8,11 +8,11 @@ import { NoPermissionComponent } from './views/no-permission/no-permission.compo
 import { DispatchComponent } from './views/dispatch/dispatch.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dispatch', pathMatch: 'full' },
+  { path: '', redirectTo: '/dispatch', pathMatch: 'full' },
   { path: 'nowhere', canActivate: [ AuthGuard ], component: NoPermissionComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'dispatch', canActivate: [AuthGuard, PatrolGuard ], component: DispatchComponent },
-  { path: 'openings/:peak', canActivate: [AuthGuard, PatrolGuard], component: OpeningsComponent }
+  { path: 'dispatch', canActivate: [AuthGuard], component: DispatchComponent },
+  { path: 'openings/:peak', canActivate: [AuthGuard], component: OpeningsComponent }
 ];
 
 @NgModule({
