@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     },
     'password': {
       'required':      'Password is required.',
-      'pattern':       'Password must be include at one letter and one number.',
+      'pattern':       'Password must include at least one letter and one number.',
       'minlength':     'Password must be at least 6 characters long.',
       'maxlength':     'Password cannot be more than 25 characters long.',
     },
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
         ]
       ],
       'password': ['', [
-        Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
+        Validators.pattern('(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z\d$@$!%*?&].{6,25}'),
         Validators.minLength(6),
         Validators.maxLength(25)
         ]
