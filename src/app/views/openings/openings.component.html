@@ -11,14 +11,10 @@
 
 <div class="table-container">
   <table align="center">
-    <tr>
-      <th>Opening</th>
-      <th>Patroller</th>
-    </tr>
-    <tr *ngFor="let opening of combinationOpenings">
-      <td>{{ opening.text }}</td>
+    <tr *ngFor="let opening of combinationPersonnelOpenings">
+      <td><div class="opening-text">{{ opening.text }}</div></td>
       <td class="patroller-cells">
-        <mat-select placeholder="Patroller"
+        <mat-select [disabled]="!canEdit()" placeholder="Patroller"
         [(ngModel)]="opening.patrollerId" name="patroller">
           <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
             {{ patroller.name }}
@@ -29,7 +25,27 @@
   </table>
 </div>
 
-<div class="button-container">
+<div class="table-container">
+  <table align="center">
+    <tr>
+      <th>Opening</th>
+      <th>Patroller</th>
+    </tr>
+    <tr *ngFor="let opening of combinationOpenings">
+      <td><div class="opening-text">{{ opening.text }}</div></td>
+      <td class="patroller-cells">
+        <mat-select [disabled]="!canEdit()" placeholder="Patroller"
+        [(ngModel)]="opening.patrollerId" name="patroller">
+          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
+            {{ patroller.name }}
+          </mat-option>
+        </mat-select>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="button-container" *ngIf="canEdit()">
   <button mat-raised-button class="submit-button" id="submitRecordButton"
   color="primary" (click)="onSubmitButtonClicked()">Submit</button>
   <button mat-raised-button color="gray" 

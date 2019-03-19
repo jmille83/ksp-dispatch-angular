@@ -101,4 +101,14 @@ export class AuthService {
     const allowed = ['admin', 'sup', 'dispatch'];
     return this.checkAuthorization(user, allowed);
   }
+
+  canNorthPeak(user: User): boolean {
+    const allowed = ['admin', 'sup', 'dispatch', 'north-peak'];
+    return this.checkAuthorization(user, allowed);
+  }
+
+  canOutback(user: User): boolean {
+    const allowed = ['admin', 'sup', 'dispatch', 'outback'];
+    return this.checkAuthorization(user, allowed);
+  }
 }
