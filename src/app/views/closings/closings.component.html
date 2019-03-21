@@ -1,0 +1,37 @@
+<div class="title-container">
+  <h2>{{ peakName }} Sweeps</h2>
+  <mat-form-field>
+    <input matInput [matDatepicker]="closingsDatePicker" 
+    placeholder="Choose a date" [(ngModel)]="date"
+    (dateChange)="onDateChanged()">
+    <mat-datepicker-toggle matSuffix [for]="closingsDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #closingsDatePicker></mat-datepicker>
+  </mat-form-field>
+</div>
+
+<div class="table-container">
+  <table align="center">
+    <tr>
+      <th>Closing</th>
+      <th>Patroller</th>
+    </tr>
+    <tr *ngFor="let closing of combinationClosings">
+      <td><div class="closing-text">{{ closing.text }}</div></td>
+      <td class="patroller-cells">
+        <mat-select [disabled]="!canEdit()" placeholder="Patroller"
+        [(ngModel)]="closing.patrollerId" name="patroller">
+          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
+            {{ patroller.name }}
+          </mat-option>
+        </mat-select>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="button-container" *ngIf="canEdit()">
+  <button mat-raised-button class="submit-button" id="submitRecordButton"
+  color="primary" (click)="onSubmitButtonClicked()">Submit</button>
+  <button mat-raised-button color="gray" 
+  (click)="onClearButtonClicked()">Clear</button>
+</div>

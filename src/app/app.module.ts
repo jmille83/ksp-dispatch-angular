@@ -29,6 +29,7 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { LoginComponent } from './views/login/login.component';
 import { NoPermissionComponent } from './views/no-permission/no-permission.component';
+import { ClosingsComponent } from './views/closings/closings.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { NoPermissionComponent } from './views/no-permission/no-permission.compo
     OpeningsComponent,
     LoginComponent,
     NoPermissionComponent,
+    ClosingsComponent,
   ],
   imports: [
     BrowserModule,
