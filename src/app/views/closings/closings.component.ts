@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { MatRadioChange } from '@angular/material';
 
 import { Patroller } from '../../objects/patroller'
 import { PatrollerService } from '../../services/patroller.service';
-
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../objects/user';
 import { Subscription } from 'rxjs';
@@ -23,6 +23,7 @@ export class ClosingsComponent implements OnInit {
 
   peak: string = "";
   peakName: string = "";
+  typeOfFrontsideSweeps = "Day";
   patrollers: Patroller[];
 
   closings: Closing[];
@@ -64,7 +65,16 @@ export class ClosingsComponent implements OnInit {
   
   setPeakNameForPeak() {
     if (this.peak === "frontside") {
-      this.peakName = "Frontside";
+      if (this.typeOfFrontsideSweeps === "Day") {
+        this.peak = "frontside-day";
+      } else {
+        this.peak = "frontside-night";
+      }
+    }
+    if (this.peak === "frontside-day") {
+      this.peakName = "Frontside Day";
+    } else if (this.peak === "frontside-night") {
+      this.peakName = "Frontside Night";
     } else if (this.peak === "north-peak") {
       this.peakName = "North Peak";
     } else if (this.peak === "outback") {
@@ -148,5 +158,21 @@ export class ClosingsComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  isFrontside(): boolean {
+    return this.peak === "frontside";
+  }
+
+  onRadioChange(event: MatRadioChange) {
+    if (event.value === "Day") {
+      this.peak = "frontside-day";
+      this.peakName = "Frontside Day";
+    } else {
+      this.peak = "frontside-night";
+      this.peakName = "Frontside Night";
+    }
+
+    this.onNewClosingSelected();
   }
 }

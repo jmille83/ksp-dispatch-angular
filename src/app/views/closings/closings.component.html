@@ -9,6 +9,13 @@
   </mat-form-field>
 </div>
 
+<div class="radio-group-container">
+  <mat-radio-group [(ngModel)]="typeOfFrontsideSweeps" name="type" class="radio-group" layout="row">
+    <mat-radio-button value="Day" class="radio" (change)="onRadioChange($event)">Day</mat-radio-button>
+    <mat-radio-button value="Night" class="radio" (change)="onRadioChange($event)">Night</mat-radio-button>
+  </mat-radio-group>
+</div>
+
 <div class="table-container">
   <table align="center">
     <tr>

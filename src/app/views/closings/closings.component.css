@@ -32,3 +32,12 @@ td {
 .closing-text {
     text-align: center;
 }
+
+.radio-group-container {
+    width: 100%;
+    text-align: center;
+}
+
+.radio {
+    margin-right: 10px;
+}
