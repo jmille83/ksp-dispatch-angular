@@ -33,6 +33,12 @@ td {
     text-align: center;
 }
 
+.closing-header-text {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+}
+
 .radio-group-container {
     width: 100%;
     text-align: center;
@@ -40,4 +46,12 @@ td {
 
 .radio {
     margin-right: 10px;
+}
+
+#border-line {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: #caccce;
 }

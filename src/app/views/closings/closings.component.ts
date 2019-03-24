@@ -44,6 +44,7 @@ export class ClosingsComponent implements OnInit {
   ngOnInit() {
     this.route.params.forEach(params => {
       this.peak = this.route.snapshot.paramMap.get('peak');
+      this.typeOfFrontsideSweeps = this.getTypeOfFrontsideSweeps();
       this.setPeakNameForPeak();
 
       // Reset date.
@@ -61,6 +62,15 @@ export class ClosingsComponent implements OnInit {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  getTypeOfFrontsideSweeps(): string {
+    let dayOfWeek = this.date.day();
+    if (dayOfWeek === 1 || dayOfWeek === 2) {
+      return "Day";
+    } else {
+      return "Night";
+    }
   }
   
   setPeakNameForPeak() {
@@ -86,11 +96,26 @@ export class ClosingsComponent implements OnInit {
     this.closingsLoaded = false;
     this.closingRecordsLoaded = false;
     
-    this.closingsService.getClosingsListForPeak(this.peak).subscribe(closings => {
-      this.closings = closings;
-      this.closingsLoaded = true;
-      this.createCombinationRecords();
-    });
+    if (this.peak === "frontside-day") {
+      this.closingsService.getFrontsideClosingsListForType("day").subscribe(closings => {
+        this.closings = closings;
+        this.closingsLoaded = true;
+        this.createCombinationRecords();
+      });
+    } else if (this.peak === "frontside-night") {
+      this.closingsService.getFrontsideClosingsListForType("night").subscribe(closings => {
+        this.closings = closings;
+        this.closingsLoaded = true;
+        this.createCombinationRecords();
+      });
+    } else {
+      this.closingsService.getClosingsListForPeak(this.peak).subscribe(closings => {
+        this.closings = closings;
+        this.closingsLoaded = true;
+        this.createCombinationRecords();
+      });
+    }
+    
     this.closingsService.getClosingRecordsForPeakAndDate(this.peak, this.date.format('YYYY-MM-DD'))
     .subscribe(closingRecords => {
       this.closingRecords = closingRecords;
@@ -107,6 +132,7 @@ export class ClosingsComponent implements OnInit {
         let combo = new CombinationClosing();
         combo.id = closing.id;
         combo.text = closing.text;
+        combo.header = closing.header;
   
         let closingRecord: ClosingRecord = this.closingRecords.find(record => record.id == combo.id);
         if (closingRecord) {
@@ -153,7 +179,7 @@ export class ClosingsComponent implements OnInit {
       return true;
     } else if (this.peak === "outback" && this.authService.canOutback(this.user)) {
       return true;
-    } else if (this.peak === "frontside" && this.authService.isDispatch(this.user)) {
+    } else if (this.peak === "frontside-day" || "frontside-night" && this.authService.isDispatch(this.user)) {
       return true;
     } else {
       return false;
@@ -161,7 +187,7 @@ export class ClosingsComponent implements OnInit {
   }
 
   isFrontside(): boolean {
-    return this.peak === "frontside";
+    return this.peak === "frontside-day" || this.peak === "frontside-night";
   }
 
   onRadioChange(event: MatRadioChange) {

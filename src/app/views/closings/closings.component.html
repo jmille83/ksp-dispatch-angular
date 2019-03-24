@@ -10,7 +10,8 @@
 </div>
 
 <div class="radio-group-container">
-  <mat-radio-group [(ngModel)]="typeOfFrontsideSweeps" name="type" class="radio-group" layout="row">
+  <mat-radio-group [(ngModel)]="typeOfFrontsideSweeps" name="type" class="radio-group" 
+  *ngIf="isFrontside()" layout="row">
     <mat-radio-button value="Day" class="radio" (change)="onRadioChange($event)">Day</mat-radio-button>
     <mat-radio-button value="Night" class="radio" (change)="onRadioChange($event)">Night</mat-radio-button>
   </mat-radio-group>
@@ -23,9 +24,16 @@
       <th>Patroller</th>
     </tr>
     <tr *ngFor="let closing of combinationClosings">
-      <td><div class="closing-text">{{ closing.text }}</div></td>
+      <td>
+        <div *ngIf="closing.header">
+          <!-- <div id="border-line"></div> -->
+          <div class="closing-header-text">{{ closing.text }}</div>
+          <!-- <div id="border-line"></div> -->
+        </div>
+        <div *ngIf="!closing.header" class="closing-text">{{ closing.text }}</div>
+      </td>
       <td class="patroller-cells">
-        <mat-select [disabled]="!canEdit()" placeholder="Patroller"
+        <mat-select *ngIf="!closing.header" [disabled]="!canEdit()" placeholder="Patroller"
         [(ngModel)]="closing.patrollerId" name="patroller">
           <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
             {{ patroller.name }}
