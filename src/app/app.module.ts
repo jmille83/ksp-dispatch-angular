@@ -6,13 +6,13 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-          MatCheckboxModule } from '@angular/material';
+          MatCheckboxModule, MatDialogModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker'
 
 import { environment } from '../environments/environment'
-
 import { AppComponent } from './app.component';
 import { RecordsService } from './services/records.service';
 import { RecordsComponent } from './views/records/records.component';
@@ -30,6 +30,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { LoginComponent } from './views/login/login.component';
 import { NoPermissionComponent } from './views/no-permission/no-permission.component';
 import { ClosingsComponent } from './views/closings/closings.component';
+import { RecordDetailDialogComponent } from './views/record-detail-dialog/record-detail-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ClosingsComponent } from './views/closings/closings.component';
     RecordsComponent,
     DispatchComponent,
     RecordDetailComponent,
+    RecordDetailDialogComponent,
     NotesComponent,
     PatrollerFilterPipe,
     SideMenuComponent,
@@ -44,6 +46,7 @@ import { ClosingsComponent } from './views/closings/closings.component';
     LoginComponent,
     NoPermissionComponent,
     ClosingsComponent,
+    RecordDetailDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -54,10 +57,14 @@ import { ClosingsComponent } from './views/closings/closings.component';
     AngularFireAuthModule,
     MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule, 
     MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-    MatCheckboxModule,
+    MatCheckboxModule, MatDialogModule,
     MatMomentDateModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaterialTimepickerModule
+  ],
+  entryComponents: [
+    RecordDetailDialogComponent
   ],
   providers: [
     RecordsService,
@@ -68,4 +75,4 @@ import { ClosingsComponent } from './views/closings/closings.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

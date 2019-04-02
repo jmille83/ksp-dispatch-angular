@@ -1,9 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 
 import { Record } from '../../objects/record';
 import { RecordsService } from '../../services/records.service';
 import { Patroller } from '../../objects/patroller'
 import { PatrollerService } from '../../services/patroller.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { RecordDetailDialogComponent } from '../record-detail-dialog/record-detail-dialog.component';
+
+export interface DialogData {
+  record: Record;
+}
 
 @Component({
   selector: 'app-record-detail',
@@ -23,7 +29,8 @@ export class RecordDetailComponent implements OnInit {
 
   patrollers: Patroller[];
 
-  constructor(private recordsService: RecordsService, private patrollerService: PatrollerService) { }
+  constructor(private recordsService: RecordsService, private patrollerService: PatrollerService,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getPatrollers();
@@ -80,5 +87,19 @@ export class RecordDetailComponent implements OnInit {
 
     // Reset background color.
     this.onRadioButtonChange();
+  }
+
+  onMoreInfoButtonClicked() {
+    this.openDialog();
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(RecordDetailDialogComponent, {
+      data: {record: this.record}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }

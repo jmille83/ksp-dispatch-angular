@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>Additional Details</h2>
+<mat-dialog-content>
+    <div>
+        <h4>Equipment</h4>
+        <mat-checkbox>BLS Pack</mat-checkbox>
+        <mat-checkbox>Crash Pack</mat-checkbox>
+        <mat-checkbox>ALS Pack</mat-checkbox>
+        <br>
+        <mat-checkbox>Zoll</mat-checkbox>
+        <mat-checkbox>Red bed</mat-checkbox>
+        <mat-form-field class="rig-type">
+            <mat-select placeholder="Rig" name="rig-type">
+              <mat-option *ngFor="let rig of rigTypes" [value]="rig.value">
+                {{ rig.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div>
+      <h4>Pick-Up Information</h4>
+      <mat-form-field class="transport-type">
+        <mat-select placeholder="Transport" name="transport-type">
+          <mat-option *ngFor="let transport of transportTypes" [value]="transport.value">
+            {{ transport.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="location">
+        <input matInput placeholder="Location" name="location">
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field class="time-called">
+        <input matInput placeholder="Time called" name="timeCalled">
+      </mat-form-field>
+      <button mat-raised-button id="now-button">Now</button>
+      
+      <mat-form-field>
+        <input matInput placeholder="ETA" name="eta">
+      </mat-form-field>
+      <button mat-raised-button>+5 mins</button>
+    </div>
+    <div>
+      <h4>Patient Information</h4>
+      <mat-form-field class="patient-info">
+        <textarea matInput placeholder="Age, gender, chief complaint, vitals, etc."></textarea>
+      </mat-form-field>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close>Dimiss</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">Update</button>
+</mat-dialog-actions>

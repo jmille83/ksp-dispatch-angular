@@ -1,0 +1,21 @@
+* {
+    font-family: Roboto, sans-serif;
+    font-weight: 400, 700;
+    color: darkslategray;
+}
+
+mat-checkbox {
+    margin-right: 20px;
+}
+
+mat-form-field {
+    margin-right: 20px;
+}
+
+.patient-info {
+    width: 100%;
+}
+
+#now-button {
+    margin-right: 20px;
+}
