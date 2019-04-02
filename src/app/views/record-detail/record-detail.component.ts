@@ -99,7 +99,13 @@ export class RecordDetailComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result) {
+        // Could submit here. Not sure though because other data may not
+        //   be ready to be submitted.
+
+        // Set to true if they exited with submit from dialog.
+        this.record.hasSecondaryInfo = true;
+      }
     });
   }
 }

@@ -10,7 +10,6 @@ import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker'
 
 import { environment } from '../environments/environment'
 import { AppComponent } from './app.component';
@@ -60,8 +59,7 @@ import { RecordDetailDialogComponent } from './views/record-detail-dialog/record
     MatCheckboxModule, MatDialogModule,
     MatMomentDateModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
-    NgxMaterialTimepickerModule
+    ReactiveFormsModule
   ],
   entryComponents: [
     RecordDetailDialogComponent
