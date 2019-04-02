@@ -11,8 +11,16 @@ export class RecordsService {
 
   constructor(private db: AngularFirestore) { }
 
-  getRecords(): Observable<any[]> {
-    return this.db.collection('records', ref => ref.orderBy('timeReported', 'desc')).valueChanges();
+  getRecordsForDay(day: Date): Observable<any[]> {
+    let start = day;
+    start.setHours(0);
+    start.setMinutes(0);
+    let end = new Date(start);
+    end.setHours(23);
+    end.setMinutes(59);
+    return this.db.collection('records', ref => ref.where('timeReported', '>', start.getTime())
+                                                    .where('timeReported', '<', end.getTime())
+                                                    .orderBy('timeReported', 'desc')).valueChanges();
   }
 
   addRecord(record: Record) {

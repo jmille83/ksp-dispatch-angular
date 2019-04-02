@@ -1,5 +1,15 @@
 <h2>Records</h2>
 
+<div class="date-picker-container">
+  <mat-form-field>
+    <input matInput [matDatepicker]="recordsDatePicker" 
+    placeholder="Choose a date" [(ngModel)]="date"
+    (dateChange)="onDateChanged()">
+    <mat-datepicker-toggle matSuffix [for]="recordsDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #recordsDatePicker></mat-datepicker>
+  </mat-form-field>
+</div>
+
 <div *ngIf="records; else noRecords" class="records-container">
   <ul class="records-list">
     <li *ngFor="let record of records"
@@ -17,7 +27,11 @@
       </div>
       <div class="time-label">{{record.timeReported | date: 'medium'}}</div>
     </li>
-  </ul>  
+  </ul>
+</div>
+
+<div class="totals-container">
+    <p>Today's totals: <b>{{ total1050s }} 10-50's</b> and <b>{{ totalTaxis }} taxis</b>.</p>
 </div>
 
 <ng-template #noRecords>

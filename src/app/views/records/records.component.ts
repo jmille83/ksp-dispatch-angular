@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import * as moment from 'moment';
 
 import { Record } from '../../objects/record'
 import { RecordsService } from '../../services/records.service';
@@ -15,6 +16,9 @@ export class RecordsComponent implements OnInit {
   @Output() onRecordClicked = new EventEmitter<Record>();
   records: Record[];
   patrollers: Patroller[];
+  date: moment.Moment = moment();
+  total1050s = 0;
+  totalTaxis = 0;
 
   constructor(private recordsService: RecordsService, private patrollerService: PatrollerService) { }
 
@@ -24,7 +28,23 @@ export class RecordsComponent implements OnInit {
   }
 
   getRecords(): void {
-    this.recordsService.getRecords().subscribe(records => this.records = records);
+    let start = this.date.toDate();
+    this.recordsService.getRecordsForDay(start).subscribe(records => {
+      this.records = records
+      this.countRecords();
+    });
+  }
+
+  countRecords() {
+    this.total1050s = 0;
+    this.totalTaxis = 0;
+    this.records.forEach(record => {
+      if (record.type === "10-50") {
+        this.total1050s++;
+      } else {
+        this.totalTaxis++;
+      } 
+    });
   }
 
   getPatrollers(): void {
@@ -33,5 +53,9 @@ export class RecordsComponent implements OnInit {
 
   onRecordClick(record: Record) {
     this.onRecordClicked.emit(record);
+  }
+
+  onDateChanged() {
+    this.getRecords();
   }
 }

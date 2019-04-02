@@ -17,7 +17,8 @@ export class RecordDetailComponent implements OnInit {
   equipments = [
     {value: 'Skier'},
     {value: 'Snowboarder'},
-    {value: 'Tele'}
+    {value: 'Tele'},
+    {value: 'Other'}
   ];
 
   patrollers: Patroller[];
