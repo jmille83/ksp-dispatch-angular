@@ -86,3 +86,7 @@ ul li:not(:last-child):after {
     width: 100%;
     text-align: center;
 }
+
+.indicator {
+    text-align: right;
+}
