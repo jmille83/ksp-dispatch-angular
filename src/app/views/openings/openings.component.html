@@ -26,7 +26,7 @@
 </div>
 
 <div class="table-container">
-  <table align="center">
+  <table [style.border-color]="hasUnsubmittedChanges ? 'red' : 'black'" align="center">
     <tr>
       <th>Opening</th>
       <th>Patroller</th>
@@ -35,7 +35,7 @@
       <td><div class="opening-text">{{ opening.text }}</div></td>
       <td class="patroller-cells">
         <mat-select [disabled]="!canEdit()" placeholder="Patroller"
-        [(ngModel)]="opening.patrollerId" name="patroller">
+        [(ngModel)]="opening.patrollerId" name="patroller" (selectionChange)="onOpeningValueChanged()">
           <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
             {{ patroller.name }}
           </mat-option>

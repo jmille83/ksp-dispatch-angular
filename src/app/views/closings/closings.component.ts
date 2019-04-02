@@ -38,6 +38,8 @@ export class ClosingsComponent implements OnInit {
   user: User;
   subscription: Subscription = null;
 
+  hasUnsubmittedChanges: boolean = false;
+
   constructor(private route: ActivatedRoute, private patrollerService: PatrollerService,
     private closingsService: ClosingsService, private authService: AuthService) { }
 
@@ -160,6 +162,7 @@ export class ClosingsComponent implements OnInit {
     });
 
     this.closingsService.submitClosingRecords(this.closingRecords, this.peak, this.date.format('YYYY-MM-DD'));
+    this.hasUnsubmittedChanges = false;
   }
 
   onClearButtonClicked() {
@@ -200,5 +203,9 @@ export class ClosingsComponent implements OnInit {
     }
 
     this.onNewClosingSelected();
+  }
+
+  onValueChanged() {
+    this.hasUnsubmittedChanges = true;
   }
 }

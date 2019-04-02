@@ -29,7 +29,7 @@ export class OpeningsService {
     
     openingRecords.forEach(record => {
       var newData = JSON.parse(JSON.stringify(record));
-      openingRecordsCollection.doc(record.id).set(newData);  
+      openingRecordsCollection.doc(record.id).set(newData);
     });
   }
 }

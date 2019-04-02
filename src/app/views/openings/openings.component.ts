@@ -32,6 +32,8 @@ export class OpeningsComponent implements OnInit {
   personnelOpenings: Opening[];
   combinationPersonnelOpenings: CombinationOpening[] = [];
   personnelOpeningsLoaded: boolean = false;
+
+  hasUnsubmittedChanges: boolean = false;
   
   // Date starts as today by default.
   date: moment.Moment = moment();
@@ -159,6 +161,7 @@ export class OpeningsComponent implements OnInit {
     });
 
     this.openingsService.submitOpeningRecords(this.openingRecords, this.peak, this.date.format('YYYY-MM-DD'));
+    this.hasUnsubmittedChanges = false;
   }
 
   onClearButtonClicked() {
@@ -171,6 +174,10 @@ export class OpeningsComponent implements OnInit {
 
   getPatrollers(): void {
     this.patrollerService.getAllPatrollers().subscribe(patrollers => this.patrollers = patrollers);
+  }
+
+  onOpeningValueChanged() {
+    this.hasUnsubmittedChanges = true;
   }
 
   canEdit(): boolean {
