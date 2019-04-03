@@ -76,7 +76,9 @@
       <button mat-raised-button class="submit-button" id="submitRecordButton"
       color="primary" (click)="onSubmitButtonClick()">Submit</button>
       <button mat-raised-button class="clear-button" id="clearRecordButton"
-      color="gray" (click)="onClearButtonClick()">Clear</button>
+      (click)="onClearButtonClick()">Clear</button>
+      <button mat-raised-button id="moreInfoButton" 
+      color="accent" (click)="onMoreInfoButtonClicked()">(+) More Info</button>
     </div>
   </form>
 </div>

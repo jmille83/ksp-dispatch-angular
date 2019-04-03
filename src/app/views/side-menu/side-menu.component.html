@@ -14,7 +14,9 @@
   <div id="border-line"></div>
   <li>Closings</li>
   <ul class="sub-side-menu">
-    <li *ngFor="let peak of peaks" (click)="linkClicked()" class="clickable">{{ peak.name }}</li>
+    <li *ngFor="let peak of peaks" class="clickable">
+      <a routerLink="/closings/{{ peak.value }}" (click)="linkClicked()">{{ peak.name }}</a>
+    </li>
   </ul>
   <div id="border-line"></div>
   <li>Worksheets</li>

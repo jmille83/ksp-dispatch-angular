@@ -1,4 +1,4 @@
-export class OpeningRecord { 
+export class ClosingRecord { 
     id: string;
     patrollerId: string;
 }

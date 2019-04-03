@@ -12,11 +12,15 @@ export class OpeningsService {
   constructor(private db: AngularFirestore) { }
 
   getOpeningsListForPeak(peak: string): Observable<Opening[]> {
-    return this.db.collection<Opening>('openings', ref => ref.where('peak', '==', peak)).valueChanges();
+    return this.db.collection<Opening>('openings', ref => ref.where('peak', '==', peak).orderBy('order')).valueChanges();
   }
 
   getOpeningRecordsForPeakAndDate(peak: string, date: string): Observable<OpeningRecord[]> {
     return this.db.collection('opening-records').doc(date).collection<OpeningRecord>(peak).valueChanges();
+  }
+
+  getPersonnelOpeningsListForPeak(peak: string): Observable<Opening[]> {
+    return this.db.collection<Opening>('openings-personnel', ref => ref.where('peak', '==', peak).orderBy('order')).valueChanges();
   }
   
   submitOpeningRecords(openingRecords: OpeningRecord[], peak: string, date:string) {
@@ -25,7 +29,7 @@ export class OpeningsService {
     
     openingRecords.forEach(record => {
       var newData = JSON.parse(JSON.stringify(record));
-      openingRecordsCollection.doc(record.id).set(newData);  
+      openingRecordsCollection.doc(record.id).set(newData);
     });
   }
 }

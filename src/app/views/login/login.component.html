@@ -26,6 +26,11 @@
       Passwords do not match.
     </div>
     <br>
+    <mat-form-field class="text-input">
+        <input matInput name="patrolPassword" placeholder="Team password" 
+        formControlName="patrolPassword" required>
+    </mat-form-field>
+    <br>
     <button mat-raised-button color="primary" (click)="signUpWithEmail()" [disabled]="!registerForm.valid">Register</button>
     <button mat-flat-button color="secondary" (click)="toggleForm()">Already have an account?</button>
   </form>

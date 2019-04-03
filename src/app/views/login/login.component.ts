@@ -3,6 +3,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router'
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -37,13 +39,13 @@ export class LoginComponent implements OnInit {
     },
     'password': {
       'required':      'Password is required.',
-      'pattern':       'Password must be include at one letter and one number.',
+      'pattern':       'Password must include at least one letter and one number.',
       'minlength':     'Password must be at least 6 characters long.',
       'maxlength':     'Password cannot be more than 25 characters long.',
     },
   };
 
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { }
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private afs: AngularFirestore) { }
 
   ngOnInit() {
     this.buildForms();
@@ -67,12 +69,13 @@ export class LoginComponent implements OnInit {
         ]
       ],
       'password': ['', [
-        Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
+        Validators.pattern('(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z\d$@$!%*?&].{6,25}'),
         Validators.minLength(6),
         Validators.maxLength(25)
         ]
       ],
-      'confirmedPassword': []});
+      'confirmedPassword': [],
+      'patrolPassword': []});
 
     this.registerForm.valueChanges.subscribe(data => this.onValueChanged(data));
     this.onValueChanged(); // Reset validation messages.
@@ -104,12 +107,29 @@ export class LoginComponent implements OnInit {
     } else {
       this.passwordsMatch = true;
     }
+
+    if (!this.checkTeamPassword()) {
+      return;
+    }
     
     this.authService.signUpWithEmail(email, password)
-      .then((res) => {
+      .then((result) => {
         this.router.navigate(['nowhere']);
       })
       .catch((err) => console.log(err));
+  }
+
+  checkTeamPassword(): boolean {
+    let input = this.registerForm.get("patrolPassword").value;
+    let pass = environment.password;
+
+    console.log("tried: " + input + " need: " + pass);
+
+    if (pass != input) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   loginWithEmail() {
@@ -118,7 +138,7 @@ export class LoginComponent implements OnInit {
       .then((res) => {
         console.log("Login success: " + res);
         this.hadLoginError = false;
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['dispatch']);
       })
       .catch((err) => {
         console.log('LoginComponent: ' + err);

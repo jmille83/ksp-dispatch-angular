@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>Additional Details</h2>
+<mat-dialog-content>
+    <div>
+        <h4>Equipment</h4>
+        <mat-checkbox [(ngModel)]="record.blsPack">BLS Pack</mat-checkbox>
+        <mat-checkbox [(ngModel)]="record.crashPack">Crash Pack</mat-checkbox>
+        <mat-checkbox [(ngModel)]="record.alsPack">ALS Pack</mat-checkbox>
+        <br>
+        <mat-checkbox [(ngModel)]="record.zoll">Zoll</mat-checkbox>
+        <mat-checkbox [(ngModel)]="record.redBed">Red bed</mat-checkbox>
+        <mat-form-field class="rig-type">
+            <mat-select placeholder="Rig" name="rig-type" [(ngModel)]="record.rigType">
+              <mat-option *ngFor="let rig of rigTypes" [value]="rig.value">
+                {{ rig.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div>
+      <h4>Pick-Up Information</h4>
+      <mat-form-field class="transport-type">
+        <mat-select placeholder="Transport" name="transport-type" [(ngModel)]="record.transportType">
+          <mat-option *ngFor="let transport of transportTypes" [value]="transport.value">
+            {{ transport.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="location">
+        <input matInput placeholder="Location" name="location" [(ngModel)]="record.transportLocation">
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field class="time-called">
+        <input matInput id="timeCalled" placeholder="Time called" name="timeCalled" [(ngModel)]="record.transportTimeCalled">
+      </mat-form-field>
+      <button mat-raised-button id="now-button" (click)="onNowButtonClicked()">Now</button>
+      
+      <mat-form-field>
+        <input matInput id="eta" placeholder="ETA" name="eta" [(ngModel)]="record.transportEta">
+      </mat-form-field>
+      <button mat-raised-button (click)="onPlus5ButtonClicked()">+5 mins</button>
+    </div>
+    <div>
+      <h4>Patient Information</h4>
+      <mat-form-field class="patient-info">
+        <textarea matInput placeholder="Age, gender, chief complaint, vitals, etc." [(ngModel)]="record.patientInfo"></textarea>
+      </mat-form-field>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close>Dimiss</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">Update</button>
+</mat-dialog-actions>
