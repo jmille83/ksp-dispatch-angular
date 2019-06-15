@@ -97,6 +97,7 @@ export class ClosingsComponent implements OnInit {
   onNewClosingSelected() {
     this.closingsLoaded = false;
     this.closingRecordsLoaded = false;
+    this.hasUnsubmittedChanges = false;
     
     if (this.peak === "frontside-day") {
       this.closingsService.getFrontsideClosingsListForType("day").subscribe(closings => {

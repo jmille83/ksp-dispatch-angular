@@ -80,6 +80,7 @@ export class OpeningsComponent implements OnInit {
     this.openingsLoaded = false;
     this.openingRecordsLoaded = false;
     this.personnelOpeningsLoaded = false;
+    this.hasUnsubmittedChanges = false;
     
     this.openingsService.getOpeningsListForPeak(this.peak).subscribe(openings => {
       this.openings = openings;

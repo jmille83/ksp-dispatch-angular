@@ -16,10 +16,10 @@
     [ngClass]="[record.type, record.peak]"
     (click)="onRecordClick(record)">
       <div class="grid-container">
-          <span class="info-label">Name</span>{{record.name}}
-          <span class="info-label">Sex</span>{{record.sex}}
-          <span class="info-label">Gear</span>{{record.gear}}
-          <span class="info-label">Clothing</span>{{record.topColor}}/{{record.bottomColor}}
+          <span class="info-label">Name</span><span>{{record.name}}</span>
+          <span class="info-label">Sex</span><span>{{record.sex}}</span>
+          <span class="info-label">Gear</span><span>{{record.gear}}</span>
+          <span class="info-label">Clothing</span><span>{{record.topColor}}/{{record.bottomColor}}</span>
           
           <span class="info-label">Complaint</span><span class="long-row">{{record.chiefComplaint}}</span>
           <span class="info-label">Location</span><span class="long-row">{{record.location}}</span>
