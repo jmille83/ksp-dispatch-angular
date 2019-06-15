@@ -13,19 +13,27 @@
 <div *ngIf="records; else noRecords" class="records-container">
   <ul class="records-list">
     <li *ngFor="let record of records"
-    [ngClass]="[record.type, record.peak]"
-    (click)="onRecordClick(record)">
+    [ngClass]="[record.type, record.peak]">
+    <div id="record-row">
+    <div id="record-column-1" (click)="onRecordClick(record)"> 
       <div class="grid-container">
-          <span class="info-label">Name</span><span>{{record.name}}</span>
-          <span class="info-label">Sex</span><span>{{record.sex}}</span>
-          <span class="info-label">Gear</span><span>{{record.gear}}</span>
-          <span class="info-label">Clothing</span><span>{{record.topColor}}/{{record.bottomColor}}</span>
-          
-          <span class="info-label">Complaint</span><span class="long-row">{{record.chiefComplaint}}</span>
-          <span class="info-label">Location</span><span class="long-row">{{record.location}}</span>
-          <span class="info-label">Patroller</span><span>{{ patrollers | patrollerFilter: record.respondingPatrollerId }}</span><div></div><div *ngIf="record.hasSecondaryInfo" class="indicator"><b>*more info</b></div>
+            <span class="info-label">Name</span><span>{{record.name}}</span>
+            <span class="info-label">Sex</span><span>{{record.sex}}</span>
+            <span class="info-label">Gear</span><span>{{record.gear}}</span>
+            <span class="info-label">Clothing</span><span>{{record.topColor}}/{{record.bottomColor}}</span>
+            
+            <span class="info-label">Complaint</span><span class="long-row">{{record.chiefComplaint}}</span>
+            <span class="info-label">Location</span><span class="long-row">{{record.location}}</span>
+            <span class="info-label">Patroller</span><span>{{ patrollers | patrollerFilter: record.respondingPatrollerId }}</span><div></div><div *ngIf="record.hasSecondaryInfo" class="indicator"><b>*more info</b></div>
+        </div>
+      </div>  
+      <div id="record-column-2"> 
+        <button mat-icon-button id="delete-button" (click)="onDeleteButtonClicked(record)">
+          <mat-icon class="material-icons">clear</mat-icon>
+        </button>
       </div>
-      <div class="time-label">{{record.timeReported | date: 'medium'}}</div>
+    </div>  
+    <div class="time-label">{{record.timeReported | date: 'medium'}}</div>
     </li>
   </ul>
 </div>

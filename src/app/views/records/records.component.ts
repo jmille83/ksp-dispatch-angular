@@ -5,6 +5,8 @@ import { Record } from '../../objects/record'
 import { RecordsService } from '../../services/records.service';
 import { Patroller } from '../../objects/patroller'
 import { PatrollerService } from '../../services/patroller.service';
+import { MatDialog } from '@angular/material';
+import { RecordDeleteDialogComponent } from '../record-delete-dialog/record-delete-dialog.component';
 
 @Component({
   selector: 'app-records',
@@ -20,7 +22,8 @@ export class RecordsComponent implements OnInit {
   total1050s = 0;
   totalTaxis = 0;
 
-  constructor(private recordsService: RecordsService, private patrollerService: PatrollerService) { }
+  constructor(private recordsService: RecordsService, private patrollerService: PatrollerService,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getRecords();
@@ -57,5 +60,16 @@ export class RecordsComponent implements OnInit {
 
   onDateChanged() {
     this.getRecords();
+  }
+
+  onDeleteButtonClicked(record: Record) {
+    // Dialog box.
+    const dialogRef = this.dialog.open(RecordDeleteDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.recordsService.deleteRecord(record);
+      }
+    });
   }
 }

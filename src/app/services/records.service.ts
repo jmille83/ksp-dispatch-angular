@@ -42,4 +42,8 @@ export class RecordsService {
     
     this.db.collection('records').doc(record.id).set(newData);
   }
+
+  deleteRecord(record: Record) {
+    this.db.collection('records').doc(record.id).delete();
+  }
 }

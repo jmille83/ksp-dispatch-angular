@@ -10,7 +10,7 @@ export class Record {
     timeReported: number;
     respondingPatrollerId: string;
     peak: string = "Frontside";
-    type: string;
+    type: string = "10-50";
 
     // Secondary information.
     hasSecondaryInfo: boolean;

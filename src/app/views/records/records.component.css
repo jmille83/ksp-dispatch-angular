@@ -17,7 +17,8 @@ h2 {
 	background-repeat: no-repeat;
 	background-color: white;
 	background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
-	background-attachment: local, local, scroll, scroll;
+    background-attachment: local, local, scroll, scroll;
+    padding-left: 20px;
 }
 
 .totals-container {
@@ -27,10 +28,7 @@ h2 {
 
 .records-list {
     list-style-type: none;
-}
-
-.records-list li:hover {
-    color: dodgerblue;
+    padding-left: 0px;
 }
 
 .Taxi {
@@ -68,7 +66,7 @@ h2 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 10px;
-    padding-top: 20px;
+    padding-top: 5px;
     padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 10px;
@@ -89,4 +87,25 @@ ul li:not(:last-child):after {
 
 .indicator {
     text-align: right;
+}
+
+#delete-button {
+    color: accent;
+}
+
+#record-row {
+    display: flex;
+}
+
+#record-column-1 {
+    flex: 95%;
+    padding-top: 10px
+}
+
+#record-column-1 div:hover {
+    color: dodgerblue;
+}
+
+#record-column-2 {
+    flex: 5%;
 }

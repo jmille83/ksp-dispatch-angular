@@ -30,6 +30,7 @@ import { LoginComponent } from './views/login/login.component';
 import { NoPermissionComponent } from './views/no-permission/no-permission.component';
 import { ClosingsComponent } from './views/closings/closings.component';
 import { RecordDetailDialogComponent } from './views/record-detail-dialog/record-detail-dialog.component';
+import { RecordDeleteDialogComponent } from './views/record-delete-dialog/record-delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,6 @@ import { RecordDetailDialogComponent } from './views/record-detail-dialog/record
     RecordsComponent,
     DispatchComponent,
     RecordDetailComponent,
-    RecordDetailDialogComponent,
     NotesComponent,
     PatrollerFilterPipe,
     SideMenuComponent,
@@ -45,7 +45,8 @@ import { RecordDetailDialogComponent } from './views/record-detail-dialog/record
     LoginComponent,
     NoPermissionComponent,
     ClosingsComponent,
-    RecordDetailDialogComponent
+    RecordDetailDialogComponent,
+    RecordDeleteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +63,8 @@ import { RecordDetailDialogComponent } from './views/record-detail-dialog/record
     ReactiveFormsModule
   ],
   entryComponents: [
-    RecordDetailDialogComponent
+    RecordDetailDialogComponent,
+    RecordDeleteDialogComponent
   ],
   providers: [
     RecordsService,
