@@ -7,6 +7,7 @@ import { Patroller } from '../../objects/patroller'
 import { PatrollerService } from '../../services/patroller.service';
 import { MatDialog } from '@angular/material';
 import { RecordDeleteDialogComponent } from '../record-delete-dialog/record-delete-dialog.component';
+import { RecordEditTimeDialogComponent } from '../record-edit-time-dialog/record-edit-time-dialog.component';
 
 @Component({
   selector: 'app-records',
@@ -17,11 +18,12 @@ export class RecordsComponent implements OnInit {
 
   @Output() onRecordClicked = new EventEmitter<Record>();
   records: Record[];
+  editTimeRecord: Record;
   patrollers: Patroller[];
   date: moment.Moment = moment();
   total1050s = 0;
   totalTaxis = 0;
-
+  
   constructor(private recordsService: RecordsService, private patrollerService: PatrollerService,
               public dialog: MatDialog) { }
 
@@ -38,15 +40,16 @@ export class RecordsComponent implements OnInit {
     });
   }
 
+  // Just a basic reporting tool.
   countRecords() {
     this.total1050s = 0;
     this.totalTaxis = 0;
     this.records.forEach(record => {
       if (record.type === "10-50") {
         this.total1050s++;
-      } else {
+      } else if (record.type === "Taxi") {
         this.totalTaxis++;
-      } 
+      }
     });
   }
 
@@ -63,12 +66,23 @@ export class RecordsComponent implements OnInit {
   }
 
   onDeleteButtonClicked(record: Record) {
-    // Dialog box.
     const dialogRef = this.dialog.open(RecordDeleteDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.recordsService.deleteRecord(record);
+      }
+    });
+  }
+
+  onEditTimeButtonClicked(record: Record) {
+    const dialogRef = this.dialog.open(RecordEditTimeDialogComponent, {
+      data: {record: record}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.recordsService.updateRecord(record);
       }
     });
   }

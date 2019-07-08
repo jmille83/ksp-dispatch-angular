@@ -31,9 +31,9 @@ h2 {
     padding-left: 0px;
 }
 
-.Taxi {
+/* .Taxi {
     color: #919396;
-}
+} */
 
 .North {
     background-color: #e8eefc;
@@ -89,16 +89,21 @@ ul li:not(:last-child):after {
     text-align: right;
 }
 
-#delete-button {
-    color: accent;
-}
-
 #record-row {
     display: flex;
 }
 
+#record-column-0 {
+    flex: 5%;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    text-align: center;
+    padding: 5px;
+    color: gray;
+}
+
 #record-column-1 {
-    flex: 95%;
+    flex: 90%;
     padding-top: 10px
 }
 

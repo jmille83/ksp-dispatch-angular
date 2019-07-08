@@ -6,7 +6,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-          MatCheckboxModule, MatDialogModule } from '@angular/material';
+          MatCheckboxModule, MatDialogModule, MatMenuModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
@@ -31,6 +31,7 @@ import { NoPermissionComponent } from './views/no-permission/no-permission.compo
 import { ClosingsComponent } from './views/closings/closings.component';
 import { RecordDetailDialogComponent } from './views/record-detail-dialog/record-detail-dialog.component';
 import { RecordDeleteDialogComponent } from './views/record-delete-dialog/record-delete-dialog.component';
+import { RecordEditTimeDialogComponent } from './views/record-edit-time-dialog/record-edit-time-dialog.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { RecordDeleteDialogComponent } from './views/record-delete-dialog/record
     NoPermissionComponent,
     ClosingsComponent,
     RecordDetailDialogComponent,
-    RecordDeleteDialogComponent
+    RecordDeleteDialogComponent,
+    RecordEditTimeDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -57,14 +59,15 @@ import { RecordDeleteDialogComponent } from './views/record-delete-dialog/record
     AngularFireAuthModule,
     MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule, 
     MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-    MatCheckboxModule, MatDialogModule,
+    MatCheckboxModule, MatDialogModule, MatMenuModule,
     MatMomentDateModule,
     BrowserAnimationsModule,
     ReactiveFormsModule
   ],
   entryComponents: [
     RecordDetailDialogComponent,
-    RecordDeleteDialogComponent
+    RecordDeleteDialogComponent,
+    RecordEditTimeDialogComponent
   ],
   providers: [
     RecordsService,
