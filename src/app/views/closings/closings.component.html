@@ -27,9 +27,7 @@
     <tr *ngFor="let closing of combinationClosings">
       <td>
         <div *ngIf="closing.header">
-          <!-- <div id="border-line"></div> -->
           <div class="closing-header-text">{{ closing.text }}</div>
-          <!-- <div id="border-line"></div> -->
         </div>
         <div *ngIf="!closing.header" class="closing-text">{{ closing.text }}</div>
       </td>

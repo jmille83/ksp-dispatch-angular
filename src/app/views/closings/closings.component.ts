@@ -36,34 +36,26 @@ export class ClosingsComponent implements OnInit {
   date: moment.Moment = moment();
 
   user: User;
-  subscription: Subscription = null;
-
   hasUnsubmittedChanges: boolean = false;
 
   constructor(private route: ActivatedRoute, private patrollerService: PatrollerService,
     private closingsService: ClosingsService, private authService: AuthService) { }
 
   ngOnInit() {
+    // This wrap ensures that when a new peak is selected from the side menu, the page updates.
+    //  Not sure exactly why, but it acts as a listener to URL updates without the page reloading.
     this.route.params.forEach(params => {
       this.peak = this.route.snapshot.paramMap.get('peak');
       this.typeOfFrontsideSweeps = this.getTypeOfFrontsideSweeps();
       this.setPeakNameForPeak();
-
-      // Reset date.
-      this.date = moment();
-
       this.onNewClosingSelected();
     });
 
     this.getPatrollers();
 
-    this.subscription = this.authService.user$.subscribe((user) => {
+    this.authService.user$.subscribe((user) => {
       this.user = user;
     });
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   getTypeOfFrontsideSweeps(): string {
@@ -99,6 +91,7 @@ export class ClosingsComponent implements OnInit {
     this.closingRecordsLoaded = false;
     this.hasUnsubmittedChanges = false;
     
+    // Pick one layout to produce: day, night, north, or outback.
     if (this.peak === "frontside-day") {
       this.closingsService.getFrontsideClosingsListForType("day").subscribe(closings => {
         this.closings = closings;
@@ -119,11 +112,13 @@ export class ClosingsComponent implements OnInit {
       });
     }
     
-    this.closingsService.getClosingRecordsForPeakAndDate(this.peak, this.date.format('YYYY-MM-DD'))
+    // Get the closing records associated with this closing.
+    let ref = this.closingsService.getClosingRecordsForPeakAndDate(this.peak, this.date.format('YYYY-MM-DD'))
     .subscribe(closingRecords => {
       this.closingRecords = closingRecords;
       this.closingRecordsLoaded = true;
       this.createCombinationRecords();
+      ref.unsubscribe();
     });
   }
 
@@ -149,7 +144,7 @@ export class ClosingsComponent implements OnInit {
   }
 
   onSubmitButtonClicked() {
-    // Take new data from combination records and put back into opening records.
+    // Take new data from combination records and put back into closing records.
     this.combinationClosings.forEach(combo => {
       let closingRecord: ClosingRecord = this.closingRecords.find(record => record.id == combo.id);
       

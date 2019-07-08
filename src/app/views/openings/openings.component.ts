@@ -39,8 +39,8 @@ export class OpeningsComponent implements OnInit {
   date: moment.Moment = moment();
 
   user: User;
-  subscription: Subscription = null;
-
+  canEditStored: boolean = false;
+  
   constructor(private route: ActivatedRoute, private patrollerService: PatrollerService,
               private openingsService: OpeningsService, private authService: AuthService) { }
 
@@ -48,22 +48,15 @@ export class OpeningsComponent implements OnInit {
     this.route.params.forEach(params => {
       this.peak = this.route.snapshot.paramMap.get('peak');
       this.setPeakNameForPeak();
-
-      // Reset date.
-      this.date = moment();
-
       this.onNewOpeningSelected();
     });
 
     this.getPatrollers();
 
-    this.subscription = this.authService.user$.subscribe((user) => {
+    let ref = this.authService.user$.subscribe((user) => {
       this.user = user;
+      ref.unsubscribe();
     });
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   setPeakNameForPeak() {
@@ -87,16 +80,18 @@ export class OpeningsComponent implements OnInit {
       this.openingsLoaded = true;
       this.createCombinationRecords();
     });
-    this.openingsService.getOpeningRecordsForPeakAndDate(this.peak, this.date.format('YYYY-MM-DD'))
+    let ref = this.openingsService.getOpeningRecordsForPeakAndDate(this.peak, this.date.format('YYYY-MM-DD'))
     .subscribe(openingRecords => {
       this.openingRecords = openingRecords;
       this.openingRecordsLoaded = true;
       this.createCombinationRecords();
+      ref.unsubscribe();
     });
-    this.openingsService.getPersonnelOpeningsListForPeak(this.peak).subscribe(personnel => {
+    let ref2 = this.openingsService.getPersonnelOpeningsListForPeak(this.peak).subscribe(personnel => {
       this.personnelOpenings = personnel;
       this.personnelOpeningsLoaded = true;
       this.createCombinationRecords();
+      ref2.unsubscribe(); 
     });
   }
 
@@ -185,14 +180,24 @@ export class OpeningsComponent implements OnInit {
   }
 
   canEdit(): boolean {
-    if (this.peak === "north-peak" && this.authService.canNorthPeak(this.user)) {
+    // If the check's been approved once, go with it.
+    if (this.canEditStored) {
       return true;
-    } else if (this.peak === "outback" && this.authService.canOutback(this.user)) {
-      return true;
-    } else if (this.peak === "frontside" && this.authService.isDispatch(this.user)) {
-      return true;
+
+    // If not, check.
     } else {
-      return false;
+      console.log(this.user);
+      if (this.peak === "north-peak" && this.authService.canNorthPeak(this.user)) {
+        this.canEditStored = true;
+      } else if (this.peak === "outback" && this.authService.canOutback(this.user)) {
+        this.canEditStored = true;
+      } else if (this.peak === "frontside" && this.authService.isDispatch(this.user)) {
+        this.canEditStored = true;
+      } else {
+        return false;
+      }
+      return this.canEditStored;
     }
+    
   }
 }
