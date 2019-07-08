@@ -30,6 +30,7 @@
     <tr>
       <th>Opening</th>
       <th>Patroller</th>
+      <th>Notes</th>
     </tr>
     <tr *ngFor="let opening of combinationOpenings">
       <td><div class="opening-text">{{ opening.text }}</div></td>
@@ -40,6 +41,9 @@
             {{ patroller.name }}
           </mat-option>
         </mat-select>
+      </td>
+      <td>
+        <textarea class="notes-input" matInput placeholder="..." [(ngModel)]="opening.notes" (change)="onOpeningValueChanged()"></textarea>
       </td>
     </tr>
   </table>

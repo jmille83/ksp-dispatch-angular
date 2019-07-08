@@ -44,7 +44,7 @@ h2 {
 }
 
 .info-label {
-    font-size: 60%;
+    font-size: 65%;
     text-align: right;
     line-height: 2em;
     vertical-align: middle;
@@ -60,6 +60,11 @@ h2 {
 .long-row {
     grid-column-start: 2;
     grid-column-end: 5;
+}
+
+.medium-row {
+    grid-column-start: 2;
+    grid-column-end: 4;
 }
 
 .grid-container {
@@ -87,6 +92,7 @@ ul li:not(:last-child):after {
 
 .indicator {
     text-align: right;
+    font-size: 80%;
 }
 
 #record-row {

@@ -22,6 +22,7 @@
     <tr>
       <th>Closing</th>
       <th>Patroller</th>
+      <th>Notes</th>
     </tr>
     <tr *ngFor="let closing of combinationClosings">
       <td>
@@ -39,6 +40,10 @@
             {{ patroller.name }}
           </mat-option>
         </mat-select>
+      </td>
+      <td>
+        <textarea *ngIf="!closing.header" class="notes-input" 
+        matInput placeholder="..." [(ngModel)]="closing.notes" (change)="onValueChanged()"></textarea>
       </td>
     </tr>
   </table>

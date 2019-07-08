@@ -140,6 +140,7 @@ export class ClosingsComponent implements OnInit {
         let closingRecord: ClosingRecord = this.closingRecords.find(record => record.id == combo.id);
         if (closingRecord) {
           combo.patrollerId = closingRecord.patrollerId;
+          combo.notes = closingRecord.notes;
         }
   
         this.combinationClosings.push(combo);
@@ -154,10 +155,12 @@ export class ClosingsComponent implements OnInit {
       
       if (closingRecord) {
         closingRecord.patrollerId = combo.patrollerId;
+        closingRecord.notes = combo.notes;
       } else {
         let newRecord = new ClosingRecord();
         newRecord.id = combo.id;
         newRecord.patrollerId = combo.patrollerId;
+        newRecord.notes = combo.notes;
         this.closingRecords.push(newRecord);
       }
     });

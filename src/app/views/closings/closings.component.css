@@ -13,7 +13,7 @@ table {
 }
 
 .patroller-cells {
-    width: 200px;
+    width: 140px;
 }
 
 th {
@@ -54,4 +54,9 @@ td {
     height: 1px;
     width: 100%;
     background: #caccce;
+}
+
+.notes-input {
+    width: 200px;
+    height: 20px;
 }

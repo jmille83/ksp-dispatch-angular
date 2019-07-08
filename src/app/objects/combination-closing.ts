@@ -3,4 +3,5 @@ export class CombinationClosing {
     text: string;
     patrollerId: string;
     header: boolean;
+    notes: string;
 }

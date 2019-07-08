@@ -113,6 +113,7 @@ export class OpeningsComponent implements OnInit {
         let openingRecord: OpeningRecord = this.openingRecords.find(record => record.id == combo.id);
         if (openingRecord) {
           combo.patrollerId = openingRecord.patrollerId;
+          combo.notes = openingRecord.notes;
         }
   
         this.combinationOpenings.push(combo);
@@ -140,10 +141,12 @@ export class OpeningsComponent implements OnInit {
       
       if (openingRecord) {
         openingRecord.patrollerId = combo.patrollerId;
+        openingRecord.notes = combo.notes;
       } else {
         let newRecord = new OpeningRecord();
         newRecord.id = combo.id;
         newRecord.patrollerId = combo.patrollerId;
+        newRecord.notes = combo.notes;
         this.openingRecords.push(newRecord);
       }
     });

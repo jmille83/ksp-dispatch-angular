@@ -27,7 +27,8 @@
             
             <span class="info-label">Complaint</span><span class="long-row">{{record.chiefComplaint}}</span>
             <span class="info-label">Location</span><span class="long-row">{{record.location}}</span>
-            <span class="info-label">Patroller</span><span>{{ patrollers | patrollerFilter: record.respondingPatrollerId }}</span><div></div><div *ngIf="record.hasSecondaryInfo" class="indicator"><b>*more info</b></div>
+            <span class="info-label">Patroller</span><span class="medium-row">{{ patrollers | patrollerFilter: record.respondingPatrollerId }}</span>
+            <div *ngIf="record.hasSecondaryInfo" class="indicator"><b>*more info</b></div>
           </div>
         </div>  
         <div id="record-column-2"> 
