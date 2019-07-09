@@ -1,3 +1,47 @@
 <h2>Daily Notes</h2>
-
-<p>No notes.</p>
+<div id="container">
+    <div id="notes-top-bar">
+        <div id="new-note-entry" class="notes-top-bar">
+            <input matInput placeholder="Enter a new note..." [(ngModel)]="newNote.text"
+                    (keyup.enter)="addNote()">
+        </div>
+        <div id="period-menu" class="notes-top-bar">
+            <button mat-icon-button [matMenuTriggerFor]="notesPeriodMenu">
+                <mat-icon class="material-icons">date_range</mat-icon>
+            </button>
+            <mat-menu #notesPeriodMenu="matMenu">
+                <ng-container *ngFor="let timePeriod of timePeriods">
+                    <button mat-menu-item (click)="onNewTimePeriodClicked(timePeriod.value)">{{timePeriod.text}}</button>
+                </ng-container>
+            </mat-menu>
+        </div>
+    </div>
+    <div id="in-progress-notes-container">
+        <div class="notes-subsection-title">In Progress</div>
+        <ul id="in-progress-notes-list">
+            <li *ngFor="let note of inProgressNotes" >
+                <div id="in-progress-note" class="note-grid">
+                    <mat-checkbox (click)="toggleNoteComplete(note)" [checked]="note.completed"></mat-checkbox>
+                    <label>{{note.text}}</label>
+                    <button mat-icon-button class="delete-note-button" (click)="deleteNote(note)">
+                        <mat-icon class="material-icons">close</mat-icon>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div id="completed-notes">
+        <div class="notes-subsection-title">Completed</div>
+        <ul id="completed-notes-list">
+            <li *ngFor="let note of completedNotes" >
+                <div id="completed-note" class="note-grid">
+                    <mat-checkbox (click)="toggleNoteComplete(note)" [checked]="note.completed"></mat-checkbox>
+                    <label>{{note.text}}</label>
+                    <button mat-icon-button class="delete-note-button" (click)="deleteNote(note)">
+                        <mat-icon class="material-icons">close</mat-icon>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

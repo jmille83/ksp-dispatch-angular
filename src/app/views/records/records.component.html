@@ -32,10 +32,10 @@
           </div>
         </div>  
         <div id="record-column-2"> 
-          <button mat-icon-button [matMenuTriggerFor]="appMenu">
+          <button mat-icon-button [matMenuTriggerFor]="recordEditMenu">
             <mat-icon class="material-icons">more_vert</mat-icon>
           </button>
-          <mat-menu #appMenu="matMenu">
+          <mat-menu #recordEditMenu="matMenu">
             <button mat-menu-item (click)="onEditTimeButtonClicked(record)">
               <mat-icon>edit</mat-icon>
               <span>Edit time</span>

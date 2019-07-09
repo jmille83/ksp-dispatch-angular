@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable'
 
-import * as firebase from 'firebase';
-
 import { Record } from '../objects/record'
 
 @Injectable()

@@ -186,7 +186,6 @@ export class OpeningsComponent implements OnInit {
 
     // If not, check.
     } else {
-      console.log(this.user);
       if (this.peak === "north-peak" && this.authService.canNorthPeak(this.user)) {
         this.canEditStored = true;
       } else if (this.peak === "outback" && this.authService.canOutback(this.user)) {

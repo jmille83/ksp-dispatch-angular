@@ -1,3 +1,39 @@
 h2 {
     text-align: center;
 }
+
+#container {
+    padding-right: 10px;
+}
+
+.notes-top-bar {
+    display: inline-block;
+}
+
+#new-note-entry {
+    width: 80%;
+}
+
+.delete-note-button {
+    opacity: 0;
+}
+
+li:hover .delete-note-button {
+    opacity: 1;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+li {
+    padding-bottom: 8px;
+}
+
+.note-grid {
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr;
+    grid-gap: 10px;
+    align-items: center;
+}
