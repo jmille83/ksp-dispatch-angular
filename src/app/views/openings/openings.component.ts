@@ -34,6 +34,7 @@ export class OpeningsComponent implements OnInit {
   personnelOpeningsLoaded: boolean = false;
 
   hasUnsubmittedChanges: boolean = false;
+  comboRecordsCreated: boolean = false;
   
   // Date starts as today by default.
   date: moment.Moment = moment();
@@ -53,9 +54,8 @@ export class OpeningsComponent implements OnInit {
 
     this.getPatrollers();
 
-    let ref = this.authService.user$.subscribe((user) => {
+    this.authService.user$.subscribe((user) => {
       this.user = user;
-      ref.unsubscribe();
     });
   }
 
@@ -76,27 +76,28 @@ export class OpeningsComponent implements OnInit {
     this.hasUnsubmittedChanges = false;
     
     this.openingsService.getOpeningsListForPeak(this.peak).subscribe(openings => {
+      console.log('got update.')
       this.openings = openings;
       this.openingsLoaded = true;
       this.createCombinationRecords();
     });
-    let ref = this.openingsService.getOpeningRecordsForPeakAndDate(this.peak, this.date.format('YYYY-MM-DD'))
+    this.openingsService.getOpeningRecordsForPeakAndDate(this.peak, this.date.format('YYYY-MM-DD'))
     .subscribe(openingRecords => {
+      console.log('got update.')
       this.openingRecords = openingRecords;
       this.openingRecordsLoaded = true;
       this.createCombinationRecords();
-      ref.unsubscribe();
     });
-    let ref2 = this.openingsService.getPersonnelOpeningsListForPeak(this.peak).subscribe(personnel => {
+    this.openingsService.getPersonnelOpeningsListForPeak(this.peak).subscribe(personnel => {
+      console.log('got update.')
       this.personnelOpenings = personnel;
       this.personnelOpeningsLoaded = true;
       this.createCombinationRecords();
-      ref2.unsubscribe(); 
     });
   }
 
   createCombinationRecords() {
-    if (this.openingsLoaded && this.openingRecordsLoaded && this.personnelOpeningsLoaded) {
+    if (this.openingsLoaded && this.openingRecordsLoaded && this.personnelOpeningsLoaded && !this.comboRecordsCreated) {
       this.combinationOpenings = [];
       this.combinationPersonnelOpenings = [];
 
@@ -126,6 +127,8 @@ export class OpeningsComponent implements OnInit {
   
         this.combinationPersonnelOpenings.push(combo);
       });
+
+      this.comboRecordsCreated = true;
     }
   }
 
