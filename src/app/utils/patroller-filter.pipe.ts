@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Patroller } from './objects/patroller';
+import { Patroller } from '../objects/patroller';
 
 @Pipe({
   name: 'patrollerFilter'

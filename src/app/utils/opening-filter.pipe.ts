@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { OpeningRecord } from './objects/opening-record';
+import { OpeningRecord } from '../objects/opening-record';
 
 @Pipe({
   name: 'openingFilter'
