@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
           MatCheckboxModule, MatDialogModule, MatMenuModule } from '@angular/material';
