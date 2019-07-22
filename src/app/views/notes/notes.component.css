@@ -41,3 +41,22 @@ li {
 .time-period-span {
     float: right;
 }
+
+.notes-subsection-title {
+    font-size: 90%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.notes-list {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.notes-container {
+    padding-bottom: 15px;
+}
+
+.no-notes-text {
+    padding-left: 15px;
+}

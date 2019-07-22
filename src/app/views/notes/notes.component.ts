@@ -18,6 +18,8 @@ export class NotesComponent implements OnInit, OnDestroy {
   notes: Note[];
   currentUser: User;
   newNote = new Note();
+  hasCompleted: boolean = false;
+  hasInProgress: boolean = false;
 
   timePeriods = [ {text: "Today", value: 0}, 
                   {text: "Last 3 days", value: 1}, 
@@ -49,6 +51,8 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.subscription.add(
     this.notesService.getNotesBetween(dates[0], dates[1]).subscribe(notes => {
       this.notes = notes;
+      this.hasCompleted = this.notes.some(note => note.completed == true);
+      this.hasInProgress = this.notes.some(note => note.completed == false);
     }));
   }
 
