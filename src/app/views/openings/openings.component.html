@@ -11,7 +11,7 @@
 
 <div class="table-container">
   <table align="center">
-    <tr *ngFor="let opening of combinationPersonnelOpenings">
+    <tr *ngFor="let opening of openingRecords | openingFilter: true">
       <td><div class="opening-text">{{ opening.text }}</div></td>
       <td class="patroller-cells">
         <mat-select [disabled]="!canEdit()" placeholder="Patroller"
@@ -26,13 +26,13 @@
 </div>
 
 <div class="table-container">
-  <table [style.border-color]="hasUnsubmittedChanges ? 'red' : 'black'" align="center">
+  <table id="openings-table" [style.border-color]="hasUnsubmittedChanges ? 'red' : 'black'" align="center">
     <tr>
       <th>Opening</th>
       <th>Patroller</th>
       <th>Notes</th>
     </tr>
-    <tr *ngFor="let opening of combinationOpenings">
+    <tr *ngFor="let opening of openingRecords | openingFilter: false">
       <td><div class="opening-text">{{ opening.text }}</div></td>
       <td class="patroller-cells">
         <mat-select [disabled]="!canEdit()" placeholder="Patroller"
