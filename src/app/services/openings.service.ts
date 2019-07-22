@@ -11,28 +11,34 @@ export class OpeningsService {
 
   constructor(private db: AngularFirestore) { }
 
-  getOpeningsListForPeak(peak: string): Observable<Opening[]> {
-    return this.db.collection<Opening>('openings', ref => ref.where('peak', '==', peak).orderBy('order')).valueChanges();
+  getListForTypeAndPeak(type: string, peak: string): Observable<Opening[]> {
+    if (peak === "frontside-day") {
+      return this.db.collection<Opening>(type, ref => ref.where('day', '==', true).orderBy('order')).valueChanges();
+    } else if (peak === "frontside-night") {
+      return this.db.collection<Opening>(type, ref => ref.where('night', '==', true).orderBy('order')).valueChanges();
+    } else {
+      return this.db.collection<Opening>(type, ref => ref.where('peak', '==', peak).orderBy('order')).valueChanges();
+    }
   }
 
   getPersonnelOpeningsListForPeak(peak: string): Observable<Opening[]> {
     return this.db.collection<Opening>('openings-personnel', ref => ref.where('peak', '==', peak).orderBy('order')).valueChanges();
   }
 
-  getInitialOpeningRecordsForPeakAndDate(peak: string, date: string): Observable<OpeningRecord[]> {
-    return this.db.collection('opening-records').doc(date).collection<OpeningRecord>(peak, ref => ref.orderBy('order')).valueChanges();
+  getInitialRecordsForTypeAndPeakAndDate(type: string, peak: string, date: string): Observable<OpeningRecord[]> {
+    return this.db.collection(type + '-records').doc(date).collection<OpeningRecord>(peak, ref => ref.orderBy('order')).valueChanges();
   }
 
-  getOpeningRecordChangesForPeakAndDate(peak: string, date: string) {
-    return this.db.collection('opening-records').doc(date).collection<OpeningRecord>(peak).stateChanges(['modified']);
+  getChangesForTypeAndPeakAndDate(type: string, peak: string, date: string) {
+    return this.db.collection(type + '-records').doc(date).collection<OpeningRecord>(peak).stateChanges(['modified']);
   }
   
-  submitOpeningRecords(openingRecords: OpeningRecord[], peak: string, date:string) {
-    let openingRecordsCollection = this.db.collection('opening-records').doc(date).collection<OpeningRecord>(peak);
+  submitRecordsForTypeAndPeakAndDate(openingRecords: OpeningRecord[], type: string, peak: string, date:string) {
+    let collection = this.db.collection(type + '-records').doc(date).collection<OpeningRecord>(peak);
     
     openingRecords.forEach(record => {
       var newData = JSON.parse(JSON.stringify(record));
-      openingRecordsCollection.doc(record.id).set(newData);
+      collection.doc(record.id).set(newData);
     });
   }
 }

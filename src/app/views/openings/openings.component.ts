@@ -7,12 +7,11 @@ import { PatrollerService } from '../../services/patroller.service';
 import { Opening } from '../../objects/opening'
 import { OpeningsService } from '../../services/openings.service'
 import { OpeningRecord } from '../../objects/opening-record';
-import { CombinationOpening } from '../../objects/combination-opening'
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../objects/user';
-import { Observable } from 'rxjs/Observable'
-import { map, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { MatRadioChange } from '@angular/material';
 
 @Component({
   selector: 'app-openings',
@@ -21,6 +20,9 @@ import { Subscription } from 'rxjs';
 })
 export class OpeningsComponent implements OnInit, OnDestroy {
 
+  isOpening: boolean = true;
+  openingOrClosing: string = "";
+  openingOrClosingName: string = "";
   peak: string = "";
   peakName: string = "";
   patrollers: Patroller[];
@@ -30,10 +32,8 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   personnelOpenings: Opening[];
   
   hasUnsubmittedChanges: boolean = false;
-  
-  // Date starts as today by default.
-  date: moment.Moment = moment();
-
+  date: moment.Moment = moment(); // Today.
+  typeOfFrontsideSweeps = "Day";
   user: User;
 
   // For storing all subs so we can unsub on destroy.
@@ -44,8 +44,11 @@ export class OpeningsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.params.forEach(() => {
+      this.openingOrClosing = this.route.snapshot.paramMap.get('type');
       this.peak = this.route.snapshot.paramMap.get('peak');
+      this.typeOfFrontsideSweeps = this.getTypeOfFrontsideSweeps();
       this.setPeakNameForPeak();
+      this.setOpeningOrClosingName();
       this.onNewOpeningSelected();
     });
 
@@ -61,13 +64,11 @@ export class OpeningsComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  setPeakNameForPeak() {
-    if (this.peak === "frontside") {
-      this.peakName = "Frontside";
-    } else if (this.peak === "north-peak") {
-      this.peakName = "North Peak";
-    } else if (this.peak === "outback") {
-      this.peakName = "Outback";
+  setOpeningOrClosingName() {
+    if (this.openingOrClosing === "openings") {
+      this.openingOrClosingName = "Openings";
+    } else {
+      this.openingOrClosingName = "Sweeps";
     }
   }
 
@@ -75,21 +76,23 @@ export class OpeningsComponent implements OnInit, OnDestroy {
     this.hasUnsubmittedChanges = false;
     
     // Get openings once to create opening records.
-    this.openingsService.getOpeningsListForPeak(this.peak)
+    this.openingsService.getListForTypeAndPeak(this.openingOrClosing, this.peak)
     .pipe(take(1))
     .subscribe(openings => {
       this.openings = openings;
     });
 
-    // Get personnel openings once.
-    this.openingsService.getPersonnelOpeningsListForPeak(this.peak)
-    .pipe(take(1))
-    .subscribe(personnel => {
-      this.personnelOpenings = personnel;
-    });
+    // Get personnel openings once for openings.
+    if (this.isOpening) {
+      this.openingsService.getPersonnelOpeningsListForPeak(this.peak)
+      .pipe(take(1))
+      .subscribe(personnel => {
+        this.personnelOpenings = personnel;
+      });
+    }
 
     // Get initial state of opening records once, either from previous data, or to create.
-    this.openingsService.getInitialOpeningRecordsForPeakAndDate(this.peak, this.date.format('YYYY-MM-DD'))
+    this.openingsService.getInitialRecordsForTypeAndPeakAndDate(this.openingOrClosing, this.peak, this.date.format('YYYY-MM-DD'))
     .pipe(take(1))
     .subscribe(openingRecords => {
       this.openingRecords = openingRecords;
@@ -100,12 +103,11 @@ export class OpeningsComponent implements OnInit, OnDestroy {
 
     // Open subscription to changes in the 'opening records'.
     this.subscription.add(
-    this.openingsService.getOpeningRecordChangesForPeakAndDate(this.peak, this.date.format('YYYY-MM-DD'))
+    this.openingsService.getChangesForTypeAndPeakAndDate(this.openingOrClosing, this.peak, this.date.format('YYYY-MM-DD'))
     .subscribe(actions => {
       actions.forEach(action => {      
         let update = action.payload.doc.data() as OpeningRecord;
         let rec = this.openingRecords.find(rec => rec.id == update.id);
-        console.log(update.id + " " + action.type);
         if (update.patrollerId === rec.patrollerId && update.notes === rec.notes) {
         } else {
           rec.patrollerId = update.patrollerId;
@@ -125,21 +127,26 @@ export class OpeningsComponent implements OnInit, OnDestroy {
       rec.text = opening.text;
       rec.order = opening.order;
       rec.personnel = false;
+      rec.header = opening.header ? true : false;
+      rec.day = opening.day ? true : false;
+      rec.night = opening.night ? true : false;
       this.openingRecords.push(rec);
     });
-    this.personnelOpenings.forEach(pOpening => {
-      var rec = new OpeningRecord();
-      rec.id = pOpening.id;
-      rec.text = pOpening.text;
-      rec.order = pOpening.order;
-      rec.personnel = true;
-      this.openingRecords.push(rec)
-    });
+    if (this.isOpening) {
+      this.personnelOpenings.forEach(pOpening => {
+        var rec = new OpeningRecord();
+        rec.id = pOpening.id;
+        rec.text = pOpening.text;
+        rec.order = pOpening.order;
+        rec.personnel = true;
+        this.openingRecords.push(rec)
+      });
+    }
     this.onSubmitButtonClicked();
   }
 
   onSubmitButtonClicked() {
-    this.openingsService.submitOpeningRecords(this.openingRecords, this.peak, this.date.format('YYYY-MM-DD'));
+    this.openingsService.submitRecordsForTypeAndPeakAndDate(this.openingRecords, this.openingOrClosing, this.peak, this.date.format('YYYY-MM-DD'));
     this.hasUnsubmittedChanges = false;
   }
 
@@ -166,10 +173,66 @@ export class OpeningsComponent implements OnInit, OnDestroy {
       return true;
     } else if (this.peak === "outback" && this.authService.canOutback(this.user)) {
       return true;
-    } else if (this.peak === "frontside" && this.authService.isDispatch(this.user)) {
+    } else if (this.peak === "frontside" || "frontside-day" || "frontside-night" && this.authService.isDispatch(this.user)) {
       return true;
     } else {
       return false;
     }  
+  }
+
+  getTypeOfFrontsideSweeps(): string {
+    let dayOfWeek = this.date.day();
+    if (dayOfWeek === 1 || dayOfWeek === 2) {
+      return "Day";
+    } else {
+      return "Night";
+    }
+  }
+
+  onRadioChange(event: MatRadioChange) {
+    if (event.value === "Day") {
+      this.peak = "frontside-day";
+      this.peakName = "Frontside Day";
+    } else {
+      this.peak = "frontside-night";
+      this.peakName = "Frontside Night";
+    }
+  
+    this.onNewOpeningSelected();
+  }
+  
+  isClosingAndFrontside(): boolean {
+    return this.peak === "frontside-day" || this.peak === "frontside-night";
+  }
+
+  setPeakNameForPeak() {
+    if (this.openingOrClosing === "openings") {
+      if (this.peak === "frontside") {
+        this.peakName = "Frontside";
+      } else if (this.peak === "north-peak") {
+        this.peakName = "North Peak";
+      } else if (this.peak === "outback") {
+        this.peakName = "Outback";
+      }
+      this.isOpening = true;
+    } else {
+      if (this.peak === "frontside") {
+        if (this.typeOfFrontsideSweeps === "Day") {
+          this.peak = "frontside-day";
+        } else {
+          this.peak = "frontside-night";
+        }
+      }
+      if (this.peak === "frontside-day") {
+        this.peakName = "Frontside Day";
+      } else if (this.peak === "frontside-night") {
+        this.peakName = "Frontside Night";
+      } else if (this.peak === "north-peak") {
+        this.peakName = "North Peak";
+      } else if (this.peak === "outback") {
+        this.peakName = "Outback";
+      }
+      this.isOpening = false;
+    }
   }
 }

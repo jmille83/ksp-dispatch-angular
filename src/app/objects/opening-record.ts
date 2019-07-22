@@ -5,4 +5,9 @@ export class OpeningRecord {
     text: string;
     order: number;
     personnel: boolean;
+    
+    // Only relevant to closings.
+    header: boolean;
+    day: boolean;
+    night: boolean;
 }
