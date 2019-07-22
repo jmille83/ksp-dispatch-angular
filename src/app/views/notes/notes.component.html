@@ -25,7 +25,7 @@
     <div id="in-progress-notes-container">
         <div class="notes-subsection-title">In Progress</div>
         <ul id="in-progress-notes-list">
-            <li *ngFor="let note of inProgressNotes" >
+            <li *ngFor="let note of notes | notesFilter: false" >
                 <div id="in-progress-note" class="note-grid">
                     <mat-checkbox (click)="toggleNoteComplete(note)" [checked]="note.completed"></mat-checkbox>
                     <label>{{note.text}}</label>
@@ -39,7 +39,7 @@
     <div id="completed-notes">
         <div class="notes-subsection-title">Completed</div>
         <ul id="completed-notes-list">
-            <li *ngFor="let note of completedNotes" >
+            <li *ngFor="let note of notes | notesFilter: true" >
                 <div id="completed-note" class="note-grid">
                     <mat-checkbox (click)="toggleNoteComplete(note)" [checked]="note.completed"></mat-checkbox>
                     <label>{{note.text}}</label>

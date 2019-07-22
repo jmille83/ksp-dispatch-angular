@@ -11,7 +11,7 @@ export class NotesService {
 
   constructor(private db: AngularFirestore) { }
 
-  getNotesBetweenIf(day1: Date, day2: Date, completed: boolean): Observable<any[]> {
+  getNotesBetween(day1: Date, day2: Date): Observable<any[]> {
     
     // Set the days to starting at midnight and ending at 11:59pm.
     let start = day1;
@@ -26,7 +26,6 @@ export class NotesService {
     // Calling .getTime() converts to milliseconds which matches how timeCreated is stored.
     return this.db.collection('notes', ref => ref.where('timeCreated', '>', start.getTime())
                                                     .where('timeCreated', '<', end.getTime())
-                                                    .where('completed', '==', completed)
                                                     .orderBy('timeCreated', 'desc')).valueChanges();
   }
 

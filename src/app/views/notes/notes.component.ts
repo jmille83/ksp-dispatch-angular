@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Note } from '../../objects/note';
 import { NotesService } from '../../services/notes.service';
 import { User } from '../../objects/user'
 
 import * as moment from 'moment';
 import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.css']
 })
-export class NotesComponent implements OnInit {
+export class NotesComponent implements OnInit, OnDestroy {
 
   date: moment.Moment = moment();
-  inProgressNotes: Note[];
-  completedNotes: Note[];
+  notes: Note[];
   currentUser: User;
   newNote = new Note();
 
@@ -25,6 +25,8 @@ export class NotesComponent implements OnInit {
                   {text: "Last 30 days", value: 3}];
 
   currentTimePeriod: number = 0;
+
+  subscription: Subscription = new Subscription();
   
   constructor(private notesService: NotesService, public authService: AuthService) { }
 
@@ -37,9 +39,17 @@ export class NotesComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   getNotes() {
-    this.getInProgressNotes(this.getDateRange());
-    this.getCompletedNotes(this.getDateRange());
+    let dates: Date[] = this.getDateRange();
+    
+    this.subscription.add(
+    this.notesService.getNotesBetween(dates[0], dates[1]).subscribe(notes => {
+      this.notes = notes;
+    }));
   }
 
   getDateRange(): Date[] {
@@ -68,18 +78,6 @@ export class NotesComponent implements OnInit {
     let end = this.date.toDate();
     let dates = [start, end];
     return dates;
-  }
-
-  getInProgressNotes(dates: Date[]) {
-    this.notesService.getNotesBetweenIf(dates[0], dates[1], false).subscribe(notes => {
-      this.inProgressNotes = notes;
-    });
-  }
-
-  getCompletedNotes(dates: Date[]) {
-    this.notesService.getNotesBetweenIf(dates[0], dates[1], true).subscribe(notes => {
-      this.completedNotes = notes;
-    });
   }
 
   addNote() {

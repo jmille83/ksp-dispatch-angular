@@ -32,6 +32,7 @@ import { RecordDetailDialogComponent } from './views/record-detail-dialog/record
 import { RecordDeleteDialogComponent } from './views/record-delete-dialog/record-delete-dialog.component';
 import { RecordEditTimeDialogComponent } from './views/record-edit-time-dialog/record-edit-time-dialog.component';
 import { OpeningFilterPipe } from './utils/opening-filter.pipe';
+import { NotesFilterPipe } from './utils/notes-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { OpeningFilterPipe } from './utils/opening-filter.pipe';
     RecordDetailDialogComponent,
     RecordDeleteDialogComponent,
     RecordEditTimeDialogComponent,
-    OpeningFilterPipe
+    OpeningFilterPipe,
+    NotesFilterPipe
   ],
   imports: [
     BrowserModule,
