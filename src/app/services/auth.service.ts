@@ -12,14 +12,17 @@ export class AuthService {
 
   private authState$: Observable<firebase.User>;
   user$: Observable<User>;
+  private currentUser: User;
 
   constructor(private firebaseAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
     this.authState$ = firebaseAuth.authState;
-    this.authState$.subscribe(
-      (user) => {
+    this.authState$.subscribe((user) => {
         if (user) {
           this.user$ = this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-          console.log("Auth service: " + user.email);
+          this.afs.doc<User>(`users/${user.uid}`).ref.get().then(userSnapshot => {
+            this.currentUser = userSnapshot.data() as User;           
+          });
+          console.log("Auth service: " + user.email + "\n" + this.currentUser.inits);
         } else {
           this.user$ = null;
         }
@@ -29,6 +32,10 @@ export class AuthService {
 
   getAuthState$() {
     return this.authState$;
+  }
+
+  getCurrentUser() {
+    return this.currentUser;
   }
 
   isLoggedIn() {
@@ -66,7 +73,7 @@ export class AuthService {
     const data: User = {
       uid: user.uid,
       email: user.email,
-      initials: user.initials,
+      inits: "test",
       roles: {
         default: true
       }

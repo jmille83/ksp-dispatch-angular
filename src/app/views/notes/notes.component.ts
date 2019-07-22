@@ -1,23 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Note } from '../../objects/note';
 import { NotesService } from '../../services/notes.service';
 import { User } from '../../objects/user'
 
 import * as moment from 'moment';
 import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.css']
 })
-export class NotesComponent implements OnInit {
+export class NotesComponent implements OnInit, OnDestroy {
 
   date: moment.Moment = moment();
-  inProgressNotes: Note[];
-  completedNotes: Note[];
-  currentUser: User;
+  notes: Note[];
+  user: User;
   newNote = new Note();
+  hasCompleted: boolean = false;
+  hasInProgress: boolean = false;
 
   timePeriods = [ {text: "Today", value: 0}, 
                   {text: "Last 3 days", value: 1}, 
@@ -25,21 +27,36 @@ export class NotesComponent implements OnInit {
                   {text: "Last 30 days", value: 3}];
 
   currentTimePeriod: number = 0;
+
+  subscription: Subscription = new Subscription();
   
   constructor(private notesService: NotesService, public authService: AuthService) { }
 
   ngOnInit() {
+    this.subscription.add(
+      this.authService.user$.subscribe((user) => {
+          this.user = user;
+      })
+    );
+    // This takes the current value of user from auth service. 
+    // If it updates, the subscription will update it.
+    this.user = this.authService.getCurrentUser();
     this.getNotes();
-    
-    let ref = this.authService.user$.subscribe((user) => {
-      this.currentUser = user;
-      ref.unsubscribe();
-    });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   getNotes() {
-    this.getInProgressNotes(this.getDateRange());
-    this.getCompletedNotes(this.getDateRange());
+    let dates: Date[] = this.getDateRange();
+
+    this.subscription.add(
+    this.notesService.getNotesBetween(dates[0], dates[1]).subscribe(notes => {
+      this.notes = notes;
+      this.hasCompleted = this.notes.some(note => note.completed == true);
+      this.hasInProgress = this.notes.some(note => note.completed == false);
+    }));
   }
 
   getDateRange(): Date[] {
@@ -70,18 +87,6 @@ export class NotesComponent implements OnInit {
     return dates;
   }
 
-  getInProgressNotes(dates: Date[]) {
-    this.notesService.getNotesBetweenIf(dates[0], dates[1], false).subscribe(notes => {
-      this.inProgressNotes = notes;
-    });
-  }
-
-  getCompletedNotes(dates: Date[]) {
-    this.notesService.getNotesBetweenIf(dates[0], dates[1], true).subscribe(notes => {
-      this.completedNotes = notes;
-    });
-  }
-
   addNote() {
     this.notesService.addNote(this.newNote);
     
@@ -91,6 +96,11 @@ export class NotesComponent implements OnInit {
 
   toggleNoteComplete(note: Note) {
     note.completed = !note.completed;
+    
+    // If, after updating, it's complete, add user's inits.
+    if (note.completed) {
+      note.completersInitials = this.user.inits;
+    }
     this.notesService.updateNote(note);
   }
 

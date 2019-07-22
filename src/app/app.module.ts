@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
           MatCheckboxModule, MatDialogModule, MatMenuModule } from '@angular/material';
@@ -20,7 +20,7 @@ import { DispatchComponent } from './views/dispatch/dispatch.component';
 import { RecordDetailComponent } from './views/record-detail/record-detail.component';
 import { NotesComponent } from './views/notes/notes.component';
 import { PatrollerService } from './services/patroller.service';
-import { PatrollerFilterPipe } from './patroller-filter.pipe';
+import { PatrollerFilterPipe } from './utils/patroller-filter.pipe';
 import { SideMenuComponent } from './views/side-menu/side-menu.component';
 import { OpeningsComponent } from './views/openings/openings.component';
 import { OpeningsService } from './services/openings.service';
@@ -31,7 +31,8 @@ import { NoPermissionComponent } from './views/no-permission/no-permission.compo
 import { RecordDetailDialogComponent } from './views/record-detail-dialog/record-detail-dialog.component';
 import { RecordDeleteDialogComponent } from './views/record-delete-dialog/record-delete-dialog.component';
 import { RecordEditTimeDialogComponent } from './views/record-edit-time-dialog/record-edit-time-dialog.component';
-import { OpeningFilterPipe } from './opening-filter.pipe';
+import { OpeningFilterPipe } from './utils/opening-filter.pipe';
+import { NotesFilterPipe } from './utils/notes-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { OpeningFilterPipe } from './opening-filter.pipe';
     RecordDetailDialogComponent,
     RecordDeleteDialogComponent,
     RecordEditTimeDialogComponent,
-    OpeningFilterPipe
+    OpeningFilterPipe,
+    NotesFilterPipe
   ],
   imports: [
     BrowserModule,
