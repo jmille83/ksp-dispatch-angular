@@ -35,6 +35,8 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   date: moment.Moment = moment(); // Today.
   typeOfFrontsideSweeps = "Day";
   user: User;
+  canEditStored: boolean = false;
+  canEditHasBeenChecked: boolean = false;
 
   // For storing all subs so we can unsub on destroy.
   private subscription = new Subscription();
@@ -169,15 +171,20 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   }
 
   canEdit(): boolean {
-    if (this.peak === "north-peak" && this.authService.canNorthPeak(this.user)) {
-      return true;
-    } else if (this.peak === "outback" && this.authService.canOutback(this.user)) {
-      return true;
-    } else if (this.peak === "frontside" || "frontside-day" || "frontside-night" && this.authService.isDispatch(this.user)) {
-      return true;
-    } else {
-      return false;
-    }  
+    if (!this.canEditHasBeenChecked) {
+      let val = false;
+      if (this.peak === "north-peak" && this.authService.canNorthPeak(this.user)) {
+        val = true;
+      } else if (this.peak === "outback" && this.authService.canOutback(this.user)) {
+        val = true;
+      } else if (this.peak === "frontside" || "frontside-day" || "frontside-night" && this.authService.isDispatch(this.user)) {
+        val = true;
+      } else {
+        val = false;
+      }
+      this.canEditStored = val;
+    }
+    return this.canEditStored;
   }
 
   getTypeOfFrontsideSweeps(): string {
