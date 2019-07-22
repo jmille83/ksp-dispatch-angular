@@ -20,7 +20,7 @@ import { DispatchComponent } from './views/dispatch/dispatch.component';
 import { RecordDetailComponent } from './views/record-detail/record-detail.component';
 import { NotesComponent } from './views/notes/notes.component';
 import { PatrollerService } from './services/patroller.service';
-import { PatrollerFilterPipe } from './patroller-filter.pipe';
+import { PatrollerFilterPipe } from './utils/patroller-filter.pipe';
 import { SideMenuComponent } from './views/side-menu/side-menu.component';
 import { OpeningsComponent } from './views/openings/openings.component';
 import { OpeningsService } from './services/openings.service';
@@ -31,7 +31,7 @@ import { NoPermissionComponent } from './views/no-permission/no-permission.compo
 import { RecordDetailDialogComponent } from './views/record-detail-dialog/record-detail-dialog.component';
 import { RecordDeleteDialogComponent } from './views/record-delete-dialog/record-delete-dialog.component';
 import { RecordEditTimeDialogComponent } from './views/record-edit-time-dialog/record-edit-time-dialog.component';
-import { OpeningFilterPipe } from './opening-filter.pipe';
+import { OpeningFilterPipe } from './utils/opening-filter.pipe';
 
 @NgModule({
   declarations: [
