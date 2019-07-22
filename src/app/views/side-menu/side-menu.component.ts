@@ -20,7 +20,7 @@ export class SideMenuComponent implements OnInit {
     {name: "North Peak", value: "north-peak"}, 
     {name: "Outback", value: "outback"}];
   
-    worksheets = ["10-33", "10-minute Lift Evac"];
+  worksheets = ["10-33", "10-minute Lift Evac"];
 
   constructor(private authService: AuthService, private router: Router) { }
 

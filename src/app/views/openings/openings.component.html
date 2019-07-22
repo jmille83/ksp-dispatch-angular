@@ -1,5 +1,5 @@
 <div class="title-container">
-  <h2>{{ peakName }} Openings</h2>
+  <h2>{{ peakName }} {{openingOrClosingName}}</h2>
   <mat-form-field>
     <input matInput [matDatepicker]="openingsDatePicker" 
     placeholder="Choose a date" [(ngModel)]="date"
@@ -9,9 +9,17 @@
   </mat-form-field>
 </div>
 
+<div class="radio-group-container">
+  <mat-radio-group [(ngModel)]="typeOfFrontsideSweeps" name="type" class="radio-group" 
+  *ngIf="isClosingAndFrontside()" layout="row">
+    <mat-radio-button value="Day" class="radio" (change)="onRadioChange($event)">Day</mat-radio-button>
+    <mat-radio-button value="Night" class="radio" (change)="onRadioChange($event)">Night</mat-radio-button>
+  </mat-radio-group>
+</div>
+
 <div class="table-container">
-  <table align="center">
-    <tr *ngFor="let opening of combinationPersonnelOpenings">
+  <table *ngIf="isOpening" align="center">
+    <tr *ngFor="let opening of openingRecords | openingFilter: true">
       <td><div class="opening-text">{{ opening.text }}</div></td>
       <td class="patroller-cells">
         <mat-select [disabled]="!canEdit()" placeholder="Patroller"
@@ -26,16 +34,23 @@
 </div>
 
 <div class="table-container">
-  <table [style.border-color]="hasUnsubmittedChanges ? 'red' : 'black'" align="center">
+  <table id="openings-table" [style.border-color]="hasUnsubmittedChanges ? 'red' : 'black'" align="center">
     <tr>
       <th>Opening</th>
       <th>Patroller</th>
       <th>Notes</th>
     </tr>
-    <tr *ngFor="let opening of combinationOpenings">
-      <td><div class="opening-text">{{ opening.text }}</div></td>
+    <tr *ngFor="let opening of openingRecords | openingFilter: false">
+      
+      <td>
+        <div *ngIf="opening.header">
+          <div class="closing-header-text">{{ opening.text }}</div>
+        </div>
+        <div *ngIf="!opening.header" class="opening-text">{{ opening.text }}</div>
+      </td>
+
       <td class="patroller-cells">
-        <mat-select [disabled]="!canEdit()" placeholder="Patroller"
+        <mat-select *ngIf="!opening.header" [disabled]="!canEdit()" placeholder="Patroller"
         [(ngModel)]="opening.patrollerId" name="patroller" (selectionChange)="onOpeningValueChanged()">
           <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
             {{ patroller.name }}
@@ -43,7 +58,7 @@
         </mat-select>
       </td>
       <td>
-        <textarea class="notes-input" matInput placeholder="..." [(ngModel)]="opening.notes" (change)="onOpeningValueChanged()"></textarea>
+        <textarea *ngIf="!opening.header" class="notes-input" matInput placeholder="..." [(ngModel)]="opening.notes" (change)="onOpeningValueChanged()"></textarea>
       </td>
     </tr>
   </table>

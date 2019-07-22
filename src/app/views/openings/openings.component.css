@@ -33,7 +33,22 @@ td {
     text-align: center;
 }
 
+.closing-header-text {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+}
+
 .notes-input {
     width: 200px;
     height: 20px;
+}
+
+.radio-group-container {
+    width: 100%;
+    text-align: center;
+}
+
+.radio {
+    margin-right: 10px;
 }

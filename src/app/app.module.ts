@@ -28,10 +28,10 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { LoginComponent } from './views/login/login.component';
 import { NoPermissionComponent } from './views/no-permission/no-permission.component';
-import { ClosingsComponent } from './views/closings/closings.component';
 import { RecordDetailDialogComponent } from './views/record-detail-dialog/record-detail-dialog.component';
 import { RecordDeleteDialogComponent } from './views/record-delete-dialog/record-delete-dialog.component';
 import { RecordEditTimeDialogComponent } from './views/record-edit-time-dialog/record-edit-time-dialog.component';
+import { OpeningFilterPipe } from './opening-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -45,10 +45,10 @@ import { RecordEditTimeDialogComponent } from './views/record-edit-time-dialog/r
     OpeningsComponent,
     LoginComponent,
     NoPermissionComponent,
-    ClosingsComponent,
     RecordDetailDialogComponent,
     RecordDeleteDialogComponent,
-    RecordEditTimeDialogComponent
+    RecordEditTimeDialogComponent,
+    OpeningFilterPipe
   ],
   imports: [
     BrowserModule,

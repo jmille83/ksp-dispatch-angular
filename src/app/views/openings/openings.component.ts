@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
@@ -7,162 +7,148 @@ import { PatrollerService } from '../../services/patroller.service';
 import { Opening } from '../../objects/opening'
 import { OpeningsService } from '../../services/openings.service'
 import { OpeningRecord } from '../../objects/opening-record';
-import { CombinationOpening } from '../../objects/combination-opening'
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../objects/user';
+import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { MatRadioChange } from '@angular/material';
 
 @Component({
   selector: 'app-openings',
   templateUrl: './openings.component.html',
   styleUrls: ['./openings.component.css']
 })
-export class OpeningsComponent implements OnInit {
+export class OpeningsComponent implements OnInit, OnDestroy {
 
+  isOpening: boolean = true;
+  openingOrClosing: string = "";
+  openingOrClosingName: string = "";
   peak: string = "";
   peakName: string = "";
   patrollers: Patroller[];
   
   openings: Opening[];
   openingRecords: OpeningRecord[];
-  combinationOpenings: CombinationOpening[] = [];
-  openingsLoaded: boolean = false;
-  openingRecordsLoaded: boolean = false;
-
   personnelOpenings: Opening[];
-  combinationPersonnelOpenings: CombinationOpening[] = [];
-  personnelOpeningsLoaded: boolean = false;
-
-  hasUnsubmittedChanges: boolean = false;
-  comboRecordsCreated: boolean = false;
   
-  // Date starts as today by default.
-  date: moment.Moment = moment();
-
+  hasUnsubmittedChanges: boolean = false;
+  date: moment.Moment = moment(); // Today.
+  typeOfFrontsideSweeps = "Day";
   user: User;
   canEditStored: boolean = false;
+  canEditHasBeenChecked: boolean = false;
+
+  // For storing all subs so we can unsub on destroy.
+  private subscription = new Subscription();
   
   constructor(private route: ActivatedRoute, private patrollerService: PatrollerService,
               private openingsService: OpeningsService, private authService: AuthService) { }
 
   ngOnInit() {
-    this.route.params.forEach(params => {
+    this.route.params.forEach(() => {
+      this.openingOrClosing = this.route.snapshot.paramMap.get('type');
       this.peak = this.route.snapshot.paramMap.get('peak');
+      this.typeOfFrontsideSweeps = this.getTypeOfFrontsideSweeps();
       this.setPeakNameForPeak();
+      this.setOpeningOrClosingName();
       this.onNewOpeningSelected();
     });
 
     this.getPatrollers();
 
-    this.authService.user$.subscribe((user) => {
-      this.user = user;
-    });
+    this.subscription.add(
+      this.authService.user$.subscribe((user) => {
+        this.user = user;
+      }));
   }
 
-  setPeakNameForPeak() {
-    if (this.peak === "frontside") {
-      this.peakName = "Frontside";
-    } else if (this.peak === "north-peak") {
-      this.peakName = "North Peak";
-    } else if (this.peak === "outback") {
-      this.peakName = "Outback";
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  setOpeningOrClosingName() {
+    if (this.openingOrClosing === "openings") {
+      this.openingOrClosingName = "Openings";
+    } else {
+      this.openingOrClosingName = "Sweeps";
     }
   }
 
   onNewOpeningSelected() {
-    this.openingsLoaded = false;
-    this.openingRecordsLoaded = false;
-    this.personnelOpeningsLoaded = false;
     this.hasUnsubmittedChanges = false;
     
-    this.openingsService.getOpeningsListForPeak(this.peak).subscribe(openings => {
-      console.log('got update.')
+    // Get openings once to create opening records.
+    this.openingsService.getListForTypeAndPeak(this.openingOrClosing, this.peak)
+    .pipe(take(1))
+    .subscribe(openings => {
       this.openings = openings;
-      this.openingsLoaded = true;
-      this.createCombinationRecords();
     });
-    this.openingsService.getOpeningRecordsForPeakAndDate(this.peak, this.date.format('YYYY-MM-DD'))
+
+    // Get personnel openings once for openings.
+    if (this.isOpening) {
+      this.openingsService.getPersonnelOpeningsListForPeak(this.peak)
+      .pipe(take(1))
+      .subscribe(personnel => {
+        this.personnelOpenings = personnel;
+      });
+    }
+
+    // Get initial state of opening records once, either from previous data, or to create.
+    this.openingsService.getInitialRecordsForTypeAndPeakAndDate(this.openingOrClosing, this.peak, this.date.format('YYYY-MM-DD'))
+    .pipe(take(1))
     .subscribe(openingRecords => {
-      console.log('got update.')
       this.openingRecords = openingRecords;
-      this.openingRecordsLoaded = true;
-      this.createCombinationRecords();
+      if (openingRecords.length === 0) {
+        this.createRecords();
+      }
     });
-    this.openingsService.getPersonnelOpeningsListForPeak(this.peak).subscribe(personnel => {
-      console.log('got update.')
-      this.personnelOpenings = personnel;
-      this.personnelOpeningsLoaded = true;
-      this.createCombinationRecords();
-    });
+
+    // Open subscription to changes in the 'opening records'.
+    this.subscription.add(
+    this.openingsService.getChangesForTypeAndPeakAndDate(this.openingOrClosing, this.peak, this.date.format('YYYY-MM-DD'))
+    .subscribe(actions => {
+      actions.forEach(action => {      
+        let update = action.payload.doc.data() as OpeningRecord;
+        let rec = this.openingRecords.find(rec => rec.id == update.id);
+        if (update.patrollerId === rec.patrollerId && update.notes === rec.notes) {
+        } else {
+          rec.patrollerId = update.patrollerId;
+          rec.notes = update.notes;
+        }  
+      });
+    }));
   }
 
-  createCombinationRecords() {
-    if (this.openingsLoaded && this.openingRecordsLoaded && this.personnelOpeningsLoaded && !this.comboRecordsCreated) {
-      this.combinationOpenings = [];
-      this.combinationPersonnelOpenings = [];
-
-      this.openings.forEach(opening => {
-        let combo = new CombinationOpening();
-        combo.id = opening.id;
-        combo.text = opening.text;
-  
-        let openingRecord: OpeningRecord = this.openingRecords.find(record => record.id == combo.id);
-        if (openingRecord) {
-          combo.patrollerId = openingRecord.patrollerId;
-          combo.notes = openingRecord.notes;
-        }
-  
-        this.combinationOpenings.push(combo);
+  // Adds id, text, and order to a brand new 'opening record' from its 'opening' parent.
+  // Plus, whether it's personnel or not. 
+  // Now it's ready for specific data.
+  createRecords() {
+    this.openings.forEach(opening => {
+      var rec = new OpeningRecord();
+      rec.id = opening.id;
+      rec.text = opening.text;
+      rec.order = opening.order;
+      rec.personnel = false;
+      rec.header = opening.header ? true : false;
+      rec.day = opening.day ? true : false;
+      rec.night = opening.night ? true : false;
+      this.openingRecords.push(rec);
+    });
+    if (this.isOpening) {
+      this.personnelOpenings.forEach(pOpening => {
+        var rec = new OpeningRecord();
+        rec.id = pOpening.id;
+        rec.text = pOpening.text;
+        rec.order = pOpening.order;
+        rec.personnel = true;
+        this.openingRecords.push(rec)
       });
-
-      this.personnelOpenings.forEach(opening => {
-        let combo = new CombinationOpening();
-        combo.id = opening.id;
-        combo.text = opening.text;
-  
-        let openingRecord: OpeningRecord = this.openingRecords.find(record => record.id == combo.id);
-        if (openingRecord) {
-          combo.patrollerId = openingRecord.patrollerId;
-        }
-  
-        this.combinationPersonnelOpenings.push(combo);
-      });
-
-      this.comboRecordsCreated = true;
     }
+    this.onSubmitButtonClicked();
   }
 
   onSubmitButtonClicked() {
-    // Take new data from combination records and put back into opening records.
-    this.combinationOpenings.forEach(combo => {
-      let openingRecord: OpeningRecord = this.openingRecords.find(record => record.id == combo.id);
-      
-      if (openingRecord) {
-        openingRecord.patrollerId = combo.patrollerId;
-        openingRecord.notes = combo.notes;
-      } else {
-        let newRecord = new OpeningRecord();
-        newRecord.id = combo.id;
-        newRecord.patrollerId = combo.patrollerId;
-        newRecord.notes = combo.notes;
-        this.openingRecords.push(newRecord);
-      }
-    });
-
-    this.combinationPersonnelOpenings.forEach(combo => {
-      let openingRecord: OpeningRecord = this.openingRecords.find(record => record.id == combo.id);
-      
-      if (openingRecord) {
-        openingRecord.patrollerId = combo.patrollerId;
-      } else {
-        let newRecord = new OpeningRecord();
-        newRecord.id = combo.id;
-        newRecord.patrollerId = combo.patrollerId;
-        this.openingRecords.push(newRecord);
-      }
-    });
-
-    this.openingsService.submitOpeningRecords(this.openingRecords, this.peak, this.date.format('YYYY-MM-DD'));
+    this.openingsService.submitRecordsForTypeAndPeakAndDate(this.openingRecords, this.openingOrClosing, this.peak, this.date.format('YYYY-MM-DD'));
     this.hasUnsubmittedChanges = false;
   }
 
@@ -175,7 +161,9 @@ export class OpeningsComponent implements OnInit {
   }
 
   getPatrollers(): void {
-    this.patrollerService.getAllPatrollers().subscribe(patrollers => this.patrollers = patrollers);
+    this.subscription.add(
+      this.patrollerService.getAllPatrollers().subscribe(patrollers => this.patrollers = patrollers)
+    );
   }
 
   onOpeningValueChanged() {
@@ -183,23 +171,75 @@ export class OpeningsComponent implements OnInit {
   }
 
   canEdit(): boolean {
-    // If the check's been approved once, go with it.
-    if (this.canEditStored) {
-      return true;
-
-    // If not, check.
-    } else {
+    if (!this.canEditHasBeenChecked) {
+      let val = false;
       if (this.peak === "north-peak" && this.authService.canNorthPeak(this.user)) {
-        this.canEditStored = true;
+        val = true;
       } else if (this.peak === "outback" && this.authService.canOutback(this.user)) {
-        this.canEditStored = true;
-      } else if (this.peak === "frontside" && this.authService.isDispatch(this.user)) {
-        this.canEditStored = true;
+        val = true;
+      } else if (this.peak === "frontside" || "frontside-day" || "frontside-night" && this.authService.isDispatch(this.user)) {
+        val = true;
       } else {
-        return false;
+        val = false;
       }
-      return this.canEditStored;
+      this.canEditStored = val;
     }
-    
+    return this.canEditStored;
+  }
+
+  getTypeOfFrontsideSweeps(): string {
+    let dayOfWeek = this.date.day();
+    if (dayOfWeek === 1 || dayOfWeek === 2) {
+      return "Day";
+    } else {
+      return "Night";
+    }
+  }
+
+  onRadioChange(event: MatRadioChange) {
+    if (event.value === "Day") {
+      this.peak = "frontside-day";
+      this.peakName = "Frontside Day";
+    } else {
+      this.peak = "frontside-night";
+      this.peakName = "Frontside Night";
+    }
+  
+    this.onNewOpeningSelected();
+  }
+  
+  isClosingAndFrontside(): boolean {
+    return this.peak === "frontside-day" || this.peak === "frontside-night";
+  }
+
+  setPeakNameForPeak() {
+    if (this.openingOrClosing === "openings") {
+      if (this.peak === "frontside") {
+        this.peakName = "Frontside";
+      } else if (this.peak === "north-peak") {
+        this.peakName = "North Peak";
+      } else if (this.peak === "outback") {
+        this.peakName = "Outback";
+      }
+      this.isOpening = true;
+    } else {
+      if (this.peak === "frontside") {
+        if (this.typeOfFrontsideSweeps === "Day") {
+          this.peak = "frontside-day";
+        } else {
+          this.peak = "frontside-night";
+        }
+      }
+      if (this.peak === "frontside-day") {
+        this.peakName = "Frontside Day";
+      } else if (this.peak === "frontside-night") {
+        this.peakName = "Frontside Night";
+      } else if (this.peak === "north-peak") {
+        this.peakName = "North Peak";
+      } else if (this.peak === "outback") {
+        this.peakName = "Outback";
+      }
+      this.isOpening = false;
+    }
   }
 }
