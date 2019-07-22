@@ -17,7 +17,8 @@ h2 {
 	background-repeat: no-repeat;
 	background-color: white;
 	background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
-	background-attachment: local, local, scroll, scroll;
+    background-attachment: local, local, scroll, scroll;
+    padding-left: 20px;
 }
 
 .totals-container {
@@ -27,15 +28,12 @@ h2 {
 
 .records-list {
     list-style-type: none;
+    padding-left: 0px;
 }
 
-.records-list li:hover {
-    color: dodgerblue;
-}
-
-.Taxi {
+/* .Taxi {
     color: #919396;
-}
+} */
 
 .North {
     background-color: #e8eefc;
@@ -46,7 +44,7 @@ h2 {
 }
 
 .info-label {
-    font-size: 60%;
+    font-size: 65%;
     text-align: right;
     line-height: 2em;
     vertical-align: middle;
@@ -64,11 +62,16 @@ h2 {
     grid-column-end: 5;
 }
 
+.medium-row {
+    grid-column-start: 2;
+    grid-column-end: 4;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 10px;
-    padding-top: 20px;
+    padding-top: 5px;
     padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 10px;
@@ -89,4 +92,31 @@ ul li:not(:last-child):after {
 
 .indicator {
     text-align: right;
+    font-size: 80%;
+}
+
+#record-row {
+    display: flex;
+}
+
+#record-column-0 {
+    flex: 5%;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    text-align: center;
+    padding: 5px;
+    color: gray;
+}
+
+#record-column-1 {
+    flex: 90%;
+    padding-top: 10px
+}
+
+#record-column-1 div:hover {
+    color: dodgerblue;
+}
+
+#record-column-2 {
+    flex: 5%;
 }

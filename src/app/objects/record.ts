@@ -8,9 +8,11 @@ export class Record {
     bottomColor: string;
     location: string;
     timeReported: number;
+    timeReportedString: string;
     respondingPatrollerId: string;
     peak: string = "Frontside";
-    type: string;
+    type: string = "10-50";
+    typeLabel: string;
 
     // Secondary information.
     hasSecondaryInfo: boolean;

@@ -66,6 +66,7 @@ export class AuthService {
     const data: User = {
       uid: user.uid,
       email: user.email,
+      initials: user.initials,
       roles: {
         default: true
       }

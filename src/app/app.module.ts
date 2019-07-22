@@ -6,7 +6,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-          MatCheckboxModule, MatDialogModule } from '@angular/material';
+          MatCheckboxModule, MatDialogModule, MatMenuModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
@@ -28,8 +28,10 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { LoginComponent } from './views/login/login.component';
 import { NoPermissionComponent } from './views/no-permission/no-permission.component';
-import { ClosingsComponent } from './views/closings/closings.component';
 import { RecordDetailDialogComponent } from './views/record-detail-dialog/record-detail-dialog.component';
+import { RecordDeleteDialogComponent } from './views/record-delete-dialog/record-delete-dialog.component';
+import { RecordEditTimeDialogComponent } from './views/record-edit-time-dialog/record-edit-time-dialog.component';
+import { OpeningFilterPipe } from './opening-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -37,15 +39,16 @@ import { RecordDetailDialogComponent } from './views/record-detail-dialog/record
     RecordsComponent,
     DispatchComponent,
     RecordDetailComponent,
-    RecordDetailDialogComponent,
     NotesComponent,
     PatrollerFilterPipe,
     SideMenuComponent,
     OpeningsComponent,
     LoginComponent,
     NoPermissionComponent,
-    ClosingsComponent,
-    RecordDetailDialogComponent
+    RecordDetailDialogComponent,
+    RecordDeleteDialogComponent,
+    RecordEditTimeDialogComponent,
+    OpeningFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -56,13 +59,15 @@ import { RecordDetailDialogComponent } from './views/record-detail-dialog/record
     AngularFireAuthModule,
     MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule, 
     MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-    MatCheckboxModule, MatDialogModule,
+    MatCheckboxModule, MatDialogModule, MatMenuModule,
     MatMomentDateModule,
     BrowserAnimationsModule,
     ReactiveFormsModule
   ],
   entryComponents: [
-    RecordDetailDialogComponent
+    RecordDetailDialogComponent,
+    RecordDeleteDialogComponent,
+    RecordEditTimeDialogComponent
   ],
   providers: [
     RecordsService,

@@ -1,39 +1,61 @@
-<h2>Records</h2>
+  <h2>Records</h2>
 
-<div class="date-picker-container">
-  <mat-form-field>
-    <input matInput [matDatepicker]="recordsDatePicker" 
-    placeholder="Choose a date" [(ngModel)]="date"
-    (dateChange)="onDateChanged()">
-    <mat-datepicker-toggle matSuffix [for]="recordsDatePicker"></mat-datepicker-toggle>
-    <mat-datepicker #recordsDatePicker></mat-datepicker>
-  </mat-form-field>
-</div>
+  <div class="date-picker-container">
+    <mat-form-field>
+      <input matInput [matDatepicker]="recordsDatePicker" 
+      placeholder="Choose a date" [(ngModel)]="date"
+      (dateChange)="onDateChanged()">
+      <mat-datepicker-toggle matSuffix [for]="recordsDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #recordsDatePicker></mat-datepicker>
+    </mat-form-field>
+  </div>
 
-<div *ngIf="records; else noRecords" class="records-container">
-  <ul class="records-list">
-    <li *ngFor="let record of records"
-    [ngClass]="[record.type, record.peak]"
-    (click)="onRecordClick(record)">
-      <div class="grid-container">
-          <span class="info-label">Name</span>{{record.name}}
-          <span class="info-label">Sex</span>{{record.sex}}
-          <span class="info-label">Gear</span>{{record.gear}}
-          <span class="info-label">Clothing</span>{{record.topColor}}/{{record.bottomColor}}
-          
-          <span class="info-label">Complaint</span><span class="long-row">{{record.chiefComplaint}}</span>
-          <span class="info-label">Location</span><span class="long-row">{{record.location}}</span>
-          <span class="info-label">Patroller</span><span>{{ patrollers | patrollerFilter: record.respondingPatrollerId }}</span><div></div><div *ngIf="record.hasSecondaryInfo" class="indicator"><b>*more info</b></div>
-      </div>
-      <div class="time-label">{{record.timeReported | date: 'medium'}}</div>
-    </li>
-  </ul>
-</div>
+  <div *ngIf="records; else noRecords" class="records-container">
+    <ul class="records-list">
+      <li *ngFor="let record of records"
+      [ngClass]="[record.type, record.peak]">
+      <div id="record-row">
+        <div id="record-column-0">
+          {{record.typeLabel}}
+        </div>
+        <div id="record-column-1" (click)="onRecordClick(record)"> 
+          <div class="grid-container">
+            <span class="info-label">Name</span><span>{{record.name}}</span>
+            <span class="info-label">Sex</span><span>{{record.sex}}</span>
+            <span class="info-label">Gear</span><span>{{record.gear}}</span>
+            <span class="info-label">Clothing</span><span>{{record.topColor}}/{{record.bottomColor}}</span>
+            
+            <span class="info-label">Complaint</span><span class="long-row">{{record.chiefComplaint}}</span>
+            <span class="info-label">Location</span><span class="long-row">{{record.location}}</span>
+            <span class="info-label">Patroller</span><span class="medium-row">{{ patrollers | patrollerFilter: record.respondingPatrollerId }}</span>
+            <div *ngIf="record.hasSecondaryInfo" class="indicator"><b>*more info</b></div>
+          </div>
+        </div>  
+        <div id="record-column-2"> 
+          <button mat-icon-button [matMenuTriggerFor]="recordEditMenu">
+            <mat-icon class="material-icons">more_vert</mat-icon>
+          </button>
+          <mat-menu #recordEditMenu="matMenu">
+            <button mat-menu-item (click)="onEditTimeButtonClicked(record)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit time</span>
+            </button>
+            <button mat-menu-item (click)="onDeleteButtonClicked(record)">
+              <mat-icon>clear</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>  
+      <div class="time-label">{{record.timeReportedString}}</div>
+      </li>
+    </ul>
+  </div>
 
-<div class="totals-container">
-    <p>Today's totals: <b>{{ total1050s }} 10-50's</b> and <b>{{ totalTaxis }} taxis</b>.</p>
-</div>
+  <div class="totals-container">
+      <p>Today's totals: <b>{{ total1050s }} 10-50's</b> and <b>{{ totalTaxis }} taxis</b>.</p>
+  </div>
 
-<ng-template #noRecords>
-  <p>No records.</p>
-</ng-template>
+  <ng-template #noRecords>
+    <p>No records.</p>
+  </ng-template>

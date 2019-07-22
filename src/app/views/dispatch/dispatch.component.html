@@ -1,9 +1,7 @@
 <div class="container">
-    <app-records
-    (onRecordClicked)="onRecordClicked($event)"></app-records>
+    <app-records (onRecordClicked)="onRecordClicked($event)"></app-records>
     <div class="container2" *ngIf="authService.isDispatch(user)">
-    <app-record-detail
-    [record]="currentRecord"></app-record-detail>
-    <app-notes></app-notes>
-</div>
+        <app-record-detail [record]="currentRecord"></app-record-detail>
+        <app-notes></app-notes>
+    </div>
 </div>

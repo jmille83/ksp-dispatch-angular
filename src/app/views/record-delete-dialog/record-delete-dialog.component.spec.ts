@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClosingsComponent } from './closings.component';
+import { RecordDeleteDialogComponent } from './record-delete-dialog.component';
 
-describe('ClosingsComponent', () => {
-  let component: ClosingsComponent;
-  let fixture: ComponentFixture<ClosingsComponent>;
+describe('RecordDeleteDialogComponent', () => {
+  let component: RecordDeleteDialogComponent;
+  let fixture: ComponentFixture<RecordDeleteDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClosingsComponent ]
+      declarations: [ RecordDeleteDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClosingsComponent);
+    fixture = TestBed.createComponent(RecordDeleteDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
