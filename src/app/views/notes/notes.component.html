@@ -11,7 +11,13 @@
             </button>
             <mat-menu #notesPeriodMenu="matMenu">
                 <ng-container *ngFor="let timePeriod of timePeriods">
-                    <button mat-menu-item (click)="onNewTimePeriodClicked(timePeriod.value)">{{timePeriod.text}}</button>
+                    <div class="time-period-menu-item">
+                        <button class="time-period-menu-item-label" mat-menu-item 
+                        (click)="onNewTimePeriodClicked(timePeriod.value)">
+                            <mat-icon *ngIf="currentTimePeriod==timePeriod.value">done</mat-icon>
+                            <span class="time-period-span">{{timePeriod.text}}</span>
+                        </button>
+                    </div>
                 </ng-container>
             </mat-menu>
         </div>
