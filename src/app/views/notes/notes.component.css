@@ -77,14 +77,12 @@ li {
     padding-left: 15px;
 }
 
-#completed-note {
-    color: gray;
-}
-
 #completed-note-text {
+    color: gray;
     text-decoration: line-through;
 }
 
 #completed-note-inits {
+    color: gray;
     font-size: small;
 }

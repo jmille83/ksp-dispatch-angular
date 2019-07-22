@@ -30,6 +30,7 @@
                     <div id="in-progress-note" class="note-grid">
                         <mat-checkbox (click)="toggleNoteComplete(note)" [checked]="note.completed"></mat-checkbox>
                         <label>{{note.text}}</label>
+                        <label></label>
                         <button mat-icon-button class="delete-note-button" (click)="deleteNote(note)">
                             <mat-icon class="material-icons">close</mat-icon>
                         </button>
