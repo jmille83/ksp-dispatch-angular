@@ -5,6 +5,22 @@ h2 {
 #container {
     padding-right: 10px;
 }
+#list-container {
+    max-height: 500px;
+    overflow: auto;
+
+    background:
+		/* Shadow covers */
+		linear-gradient(rgb(250, 250, 250), rgba(255,255,255,0)),
+		linear-gradient(rgba(255,255,255,0), rgb(250, 250, 250)) 0 100%,
+		
+		/* Shadows */
+		radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.2), rgba(0,0,0,0)),
+		radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.2), rgba(0,0,0,0)) 0 100%;
+	background-repeat: no-repeat;
+	background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+    background-attachment: local, local, scroll, scroll;
+}
 
 .notes-top-bar {
     display: inline-block;
@@ -33,7 +49,7 @@ li {
 
 .note-grid {
     display: grid;
-    grid-template-columns: 1fr 10fr 1fr;
+    grid-template-columns: 1fr 10fr 1fr 1fr;
     grid-gap: 10px;
     align-items: center;
 }
@@ -59,4 +75,16 @@ li {
 
 .no-notes-text {
     padding-left: 15px;
+}
+
+#completed-note {
+    color: gray;
+}
+
+#completed-note-text {
+    text-decoration: line-through;
+}
+
+#completed-note-inits {
+    font-size: small;
 }

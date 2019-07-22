@@ -16,7 +16,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   date: moment.Moment = moment();
   notes: Note[];
-  currentUser: User;
+  user: User;
   newNote = new Note();
   hasCompleted: boolean = false;
   hasInProgress: boolean = false;
@@ -33,12 +33,15 @@ export class NotesComponent implements OnInit, OnDestroy {
   constructor(private notesService: NotesService, public authService: AuthService) { }
 
   ngOnInit() {
+    this.subscription.add(
+      this.authService.user$.subscribe((user) => {
+          this.user = user;
+      })
+    );
+    // This takes the current value of user from auth service. 
+    // If it updates, the subscription will update it.
+    this.user = this.authService.getCurrentUser();
     this.getNotes();
-    
-    let ref = this.authService.user$.subscribe((user) => {
-      this.currentUser = user;
-      ref.unsubscribe();
-    });
   }
 
   ngOnDestroy() {
@@ -47,7 +50,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   getNotes() {
     let dates: Date[] = this.getDateRange();
-    
+
     this.subscription.add(
     this.notesService.getNotesBetween(dates[0], dates[1]).subscribe(notes => {
       this.notes = notes;
@@ -93,6 +96,11 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   toggleNoteComplete(note: Note) {
     note.completed = !note.completed;
+    
+    // If, after updating, it's complete, add user's inits.
+    if (note.completed) {
+      note.completersInitials = this.user.inits;
+    }
     this.notesService.updateNote(note);
   }
 

@@ -22,34 +22,37 @@
             </mat-menu>
         </div>
     </div>
-    <div id="in-progress-notes-container" class="notes-container">
-        <div class="notes-subsection-title">In Progress</div>
-        <ul id="in-progress-notes-list" class="notes-list">
-            <li *ngFor="let note of notes | notesFilter: false" >
-                <div id="in-progress-note" class="note-grid">
-                    <mat-checkbox (click)="toggleNoteComplete(note)" [checked]="note.completed"></mat-checkbox>
-                    <label>{{note.text}}</label>
-                    <button mat-icon-button class="delete-note-button" (click)="deleteNote(note)">
-                        <mat-icon class="material-icons">close</mat-icon>
-                    </button>
-                </div>
-            </li>
-        </ul>
-        <div *ngIf="!hasInProgress" id="in-progress-no-notes" class="no-notes-text">No notes.</div>
-    </div>
-    <div id="completed-notes" class="notes-container">
-        <div class="notes-subsection-title">Completed</div>
-        <ul id="completed-notes-list" class="notes-list">
-            <li *ngFor="let note of notes | notesFilter: true" >
-                <div id="completed-note" class="note-grid">
-                    <mat-checkbox (click)="toggleNoteComplete(note)" [checked]="note.completed"></mat-checkbox>
-                    <label>{{note.text}}</label>
-                    <button mat-icon-button class="delete-note-button" (click)="deleteNote(note)">
-                        <mat-icon class="material-icons">close</mat-icon>
-                    </button>
-                </div>
-            </li>
-        </ul>
-        <div *ngIf="!hasCompleted" id="completed-no-notes" class="no-notes-text">No notes.</div>
+    <div id="list-container">
+        <div id="in-progress-notes-container" class="notes-container">
+            <div class="notes-subsection-title">In Progress</div>
+            <ul id="in-progress-notes-list" class="notes-list">
+                <li *ngFor="let note of notes | notesFilter: false" >
+                    <div id="in-progress-note" class="note-grid">
+                        <mat-checkbox (click)="toggleNoteComplete(note)" [checked]="note.completed"></mat-checkbox>
+                        <label>{{note.text}}</label>
+                        <button mat-icon-button class="delete-note-button" (click)="deleteNote(note)">
+                            <mat-icon class="material-icons">close</mat-icon>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <div *ngIf="!hasInProgress" id="in-progress-no-notes" class="no-notes-text">No notes.</div>
+        </div>
+        <div id="completed-notes" class="notes-container">
+            <div class="notes-subsection-title">Completed</div>
+            <ul id="completed-notes-list" class="notes-list">
+                <li *ngFor="let note of notes | notesFilter: true" >
+                    <div id="completed-note" class="note-grid">
+                        <mat-checkbox (click)="toggleNoteComplete(note)" [checked]="note.completed"></mat-checkbox>
+                        <label id="completed-note-text">{{note.text}}</label>
+                        <label id="completed-note-inits">{{note.completersInitials}}</label>
+                        <button mat-icon-button class="delete-note-button" (click)="deleteNote(note)">
+                            <mat-icon class="material-icons">close</mat-icon>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <div *ngIf="!hasCompleted" id="completed-no-notes" class="no-notes-text">No notes.</div>
+        </div>
     </div>
 </div>
