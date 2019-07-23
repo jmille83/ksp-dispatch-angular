@@ -21,6 +21,19 @@ export class RecordsService {
                                                     .orderBy('timeReported', 'desc')).valueChanges();
   }
 
+  get1050sForDay(day: Date): Observable<any[]> {
+    let start = day;
+    start.setHours(0);
+    start.setMinutes(0);
+    let end = new Date(start);
+    end.setHours(23);
+    end.setMinutes(59);
+    return this.db.collection('records', ref => ref.where('timeReported', '>', start.getTime())
+                                                    .where('timeReported', '<', end.getTime())
+                                                    .where('type', '==', '10-50')
+                                                    .orderBy('timeReported', 'desc')).valueChanges();
+  }
+
   addRecord(record: Record) {
     // Create a unique id in Firebase.
     record.id = this.db.createId();

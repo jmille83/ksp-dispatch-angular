@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 
 import { Record } from '../../objects/record'
@@ -8,13 +8,15 @@ import { PatrollerService } from '../../services/patroller.service';
 import { MatDialog } from '@angular/material';
 import { RecordDeleteDialogComponent } from '../record-delete-dialog/record-delete-dialog.component';
 import { RecordEditTimeDialogComponent } from '../record-edit-time-dialog/record-edit-time-dialog.component';
+import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-records',
   templateUrl: './records.component.html',
   styleUrls: ['./records.component.css']
 })
-export class RecordsComponent implements OnInit {
+export class RecordsComponent implements OnInit, OnDestroy {
 
   @Output() onRecordClicked = new EventEmitter<Record>();
   records: Record[];
@@ -23,6 +25,8 @@ export class RecordsComponent implements OnInit {
   date: moment.Moment = moment();
   total1050s = 0;
   totalTaxis = 0;
+
+  subscription: Subscription = new Subscription();
   
   constructor(private recordsService: RecordsService, private patrollerService: PatrollerService,
               public dialog: MatDialog) { }
@@ -32,12 +36,16 @@ export class RecordsComponent implements OnInit {
     this.getPatrollers();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   getRecords(): void {
     let start = this.date.toDate();
-    this.recordsService.getRecordsForDay(start).subscribe(records => {
+    this.subscription.add(this.recordsService.getRecordsForDay(start).subscribe(records => {
       this.records = records
       this.countRecords();
-    });
+    }));
   }
 
   // Just a basic reporting tool.
@@ -54,7 +62,9 @@ export class RecordsComponent implements OnInit {
   }
 
   getPatrollers(): void {
-    this.patrollerService.getAllPatrollers().subscribe(patrollers => this.patrollers = patrollers);
+    this.patrollerService.getAllPatrollers()
+    .pipe(take(1))
+    .subscribe(patrollers => this.patrollers = patrollers);
   }
 
   onRecordClick(record: Record) {
