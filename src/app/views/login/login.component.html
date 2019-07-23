@@ -3,6 +3,24 @@
     
     <h2>Sign Up</h2>    
     <mat-form-field class="text-input">
+      <input matInput type="text" name="firstName" placeholder="First name" 
+      formControlName="firstName" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="text-input">
+      <input matInput type="text" name="lastName" placeholder="Last name" 
+      formControlName="lastName" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="text-input">
+      <input matInput type="text" name="initials" placeholder="Initials (2-3 letters)" 
+      formControlName="initials" required>
+    </mat-form-field>
+    <div class="form-errors" *ngIf="formErrors.initials">
+      {{ formErrors.initials }}
+    </div>
+    <br>
+    <mat-form-field class="text-input">
         <input matInput type="email" name="email" placeholder="Email" 
         formControlName="email" required>
     </mat-form-field>

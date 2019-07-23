@@ -27,11 +27,16 @@ export class LoginComponent implements OnInit {
   };
 
   formErrors = {
+    'initials': '',
     'email': '',
     'password': '',
   };
 
   validationMessages = {
+    'initials': {
+      'minlength':      'Initials must be at least 2 letters.',
+      'maxlength':      "Initials can't be more than 3 letters."
+    },
     'email': {
       'required':      'Email is required.',
       'email':         'Email must be a valid email.'
@@ -62,6 +67,13 @@ export class LoginComponent implements OnInit {
 
   buildForms(): void {
     this.registerForm = this.fb.group({
+      'firstName': [],
+      'lastName': [],
+      'initials': ['', [
+          Validators.minLength(2),
+          Validators.maxLength(3)
+        ]
+      ],
       'email': ['', [
           Validators.required,
           Validators.email
@@ -98,7 +110,10 @@ export class LoginComponent implements OnInit {
   }
 
   signUpWithEmail() {
-    let email = this.registerForm.get("email").value
+    let firstName = this.registerForm.get("firstName").value;
+    let lastName = this.registerForm.get("lastName").value;
+    let initials = this.registerForm.get("initials").value;
+    let email = this.registerForm.get("email").value;
     let password = this.registerForm.get("password").value;
     if (password != this.registerForm.get("confirmedPassword").value) {
       this.passwordsMatch = false;
@@ -111,7 +126,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     
-    this.authService.signUpWithEmail(email, password)
+    this.authService.signUpWithEmail(email, password, firstName, lastName, initials)
       .then((result) => {
         this.router.navigate(['nowhere']);
       })

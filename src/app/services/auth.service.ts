@@ -21,7 +21,7 @@ export class AuthService {
           this.user$ = this.afs.doc<User>(`users/${user.uid}`).valueChanges();
           this.afs.doc<User>(`users/${user.uid}`).ref.get().then(userSnapshot => {
             this.currentUser = userSnapshot.data() as User;           
-            console.log("Auth service: " + user.email + "\n" + this.currentUser.inits);
+            console.log("Auth service: " + user.email + "\n" + this.currentUser.firstName);
           });
         } else {
           this.user$ = null;
@@ -50,6 +50,7 @@ export class AuthService {
 
   logout() {
     console.log("Auth service: Logging out.")
+    this.currentUser = null;
     this.firebaseAuth.auth.signOut()
     .then((res) => {
       console.log("Auth service: Redirecting to root.");
@@ -61,25 +62,26 @@ export class AuthService {
     return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
-  signUpWithEmail(email, password) {
+  signUpWithEmail(email, password, firstName, lastName, initials) {
     return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((credential) => {
-        this.createUserInFirebase(credential.user);
+        this.createUserInFirebase(credential.user, firstName, lastName, initials);
       });
   }
 
-  private createUserInFirebase(user) {
+  private createUserInFirebase(user: firebase.User, firstName: string, lastName: string, initials: string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const data: User = {
       uid: user.uid,
       email: user.email,
-      inits: "test",
-      firstName: "john",
-      lastName: "mirus",
+      initials: initials,
+      firstName: firstName,
+      lastName: lastName,
       roles: {
         default: true
       }
     }
+    // The 'default' role allows the user to write themself to the Firestore (with set()).
     userRef.set(data).catch((err) => console.log(err));
   }
 
