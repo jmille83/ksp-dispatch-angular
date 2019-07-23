@@ -152,7 +152,13 @@ export class LoginComponent implements OnInit {
       .then((res) => {
         console.log("Login success: " + res);
         this.hadLoginError = false;
-        this.router.navigate(['dispatch']);
+        
+        // Redirect most people to dispatch screen, KMC to kmc screen.
+        if (res.user.email === "keystonemedicalclinic@gmail.com") {
+          this.router.navigate(['kmc']);
+        } else {
+          this.router.navigate(['dispatch']);
+        }
       })
       .catch((err) => {
         console.log('LoginComponent: ' + err);

@@ -33,6 +33,7 @@ import { RecordDeleteDialogComponent } from './views/record-delete-dialog/record
 import { RecordEditTimeDialogComponent } from './views/record-edit-time-dialog/record-edit-time-dialog.component';
 import { OpeningFilterPipe } from './utils/opening-filter.pipe';
 import { NotesFilterPipe } from './utils/notes-filter.pipe';
+import { KmcComponent } from './views/kmc/kmc.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { NotesFilterPipe } from './utils/notes-filter.pipe';
     RecordDeleteDialogComponent,
     RecordEditTimeDialogComponent,
     OpeningFilterPipe,
-    NotesFilterPipe
+    NotesFilterPipe,
+    KmcComponent
   ],
   imports: [
     BrowserModule,
