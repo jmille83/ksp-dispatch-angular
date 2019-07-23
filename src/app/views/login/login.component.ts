@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router'
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -45,7 +44,7 @@ export class LoginComponent implements OnInit {
     },
   };
 
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private afs: AngularFirestore) { }
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.buildForms();

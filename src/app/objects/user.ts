@@ -12,4 +12,6 @@ export interface User {
     email: string;
     roles: Roles;
     inits: string;
+    firstName: string;
+    lastName: string;
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs/Observable'
-import * as moment from 'moment';
 
 import { Opening } from '../objects/opening';
 import { OpeningRecord } from '../objects/opening-record';

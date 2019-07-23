@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../objects/user';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 @Injectable()
 export class AuthService {
@@ -21,8 +21,8 @@ export class AuthService {
           this.user$ = this.afs.doc<User>(`users/${user.uid}`).valueChanges();
           this.afs.doc<User>(`users/${user.uid}`).ref.get().then(userSnapshot => {
             this.currentUser = userSnapshot.data() as User;           
+            console.log("Auth service: " + user.email + "\n" + this.currentUser.inits);
           });
-          console.log("Auth service: " + user.email + "\n" + this.currentUser.inits);
         } else {
           this.user$ = null;
         }
@@ -74,6 +74,8 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       inits: "test",
+      firstName: "john",
+      lastName: "mirus",
       roles: {
         default: true
       }
