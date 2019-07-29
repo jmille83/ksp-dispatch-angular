@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
 export class RecordsComponent implements OnInit, OnDestroy {
 
   @Output() onRecordClicked = new EventEmitter<Record>();
-  records: Record[];
+  records: Record[] = [];
   editTimeRecord: Record;
   patrollers: Patroller[];
   date: moment.Moment = moment();

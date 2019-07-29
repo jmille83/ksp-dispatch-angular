@@ -20,8 +20,8 @@ export class RecordDetailDialogComponent implements OnInit {
 
   transportTypes = [
     {value: 'Ambulance'},
-    {value: 'Flights / Helicopter'},
-    {value: 'Flights / Ambulance'}
+    {value: 'Flights (Helicopter)'},
+    {value: 'Flights (Ambulance)'}
   ];
 
   time: Date = new Date();

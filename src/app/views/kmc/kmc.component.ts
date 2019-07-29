@@ -44,4 +44,8 @@ export class KmcComponent implements OnInit, OnDestroy {
       this.patrollers = patrollers;
     });
   }
+
+  onDateChanged() {
+    this.getRecords();
+  }
 }

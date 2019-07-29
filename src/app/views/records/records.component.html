@@ -10,7 +10,7 @@
     </mat-form-field>
   </div>
 
-  <div *ngIf="records; else noRecords" class="records-container">
+  <div *ngIf="records.length > 0; else noRecords" class="records-container">
     <ul class="records-list">
       <li *ngFor="let record of records"
       [ngClass]="[record.type, record.peak]">
