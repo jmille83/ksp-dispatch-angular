@@ -11,6 +11,6 @@ export class LinksService {
   constructor(private db: AngularFirestore) { }
 
   getUsefulLinks(): Observable<any[]> {
-    return this.db.collection("useful-links-groups").valueChanges();
+    return this.db.collection("useful-links-groups", ref => ref.orderBy('order', 'asc')).valueChanges();
   }
 }

@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { LinksService } from '../../services/links.service';
 import { take } from 'rxjs/operators';
-import { LinkGroup } from 'src/app/objects/link-group';
+import { LinkGroup } from '../../objects/link-group';
+import { Link } from '../../objects/link';
 
 @Component({
   selector: 'app-useful-links',
@@ -23,15 +24,13 @@ export class UsefulLinksComponent implements OnInit {
     this.linksService.getUsefulLinks()
     .pipe(take(1)).subscribe(linkGroups => {
       this.linkGroups = linkGroups as LinkGroup[];
-      this.linkGroups.forEach(group => {
-        console.log(group.name + ": ");
-        group.links.forEach(link => {
-          console.log(link.text + ": " + link.link);
-          if (link.roles["dispatch"]) {
-            console.log("(Dispatch only)")
-          }
-        });  
-      });
     });
+  }
+
+  canDisplay(link: Link) {
+    if (link.roles["dispatch"] && !this.authService.isDispatch(this.authService.getCurrentUser())) {
+      return false;
+    }
+    return true;
   }
 }

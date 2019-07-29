@@ -1,3 +1,16 @@
-<p>
-  useful-links works!
-</p>
+<h2>Useful Links</h2>
+
+<div id="container">
+    <div id="links-container">
+      <ul>
+        <li *ngFor="let linkGroup of linkGroups" class="link-group-header">
+          <h4>{{linkGroup.name}}</h4>
+          <ul>
+            <li *ngFor="let link of linkGroup.links" class="link-list-item">
+              <a *ngIf="canDisplay(link)" mat-button href="{{link.link}}" color="primary" target="_blank" rel="noopener">{{link.text}}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+</div>
