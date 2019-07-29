@@ -41,11 +41,6 @@ export class RecordsService {
     record.timeReported = new Date().getTime();
     record.timeReportedString = new Date().toLocaleTimeString();
 
-    // This label is for the side of records. Notably 10-50s don't get one.
-    if (record.type === "Taxi" || record.type === "Non-event") {
-      record.typeLabel = record.type;
-    }
-
     // Firebase needs data as plain JSON.
     var data = JSON.parse(JSON.stringify(record));
 
