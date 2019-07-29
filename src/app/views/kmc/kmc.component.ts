@@ -15,7 +15,7 @@ import * as moment from 'moment';
 export class KmcComponent implements OnInit, OnDestroy {
 
   records: Record[] = [];
-  patrollers: Patroller[] = [];
+  patrollers: Patroller[];
   subscription = new Subscription();
   date: moment.Moment = moment();
 
