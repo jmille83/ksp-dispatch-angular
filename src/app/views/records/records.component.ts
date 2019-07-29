@@ -96,4 +96,9 @@ export class RecordsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  onTraumaActivationButtonClicked(record: Record) {
+    record.traumaActivated = !record.traumaActivated;
+    this.recordsService.updateRecord(record);
+  }
 }
