@@ -35,6 +35,7 @@ import { OpeningFilterPipe } from './utils/opening-filter.pipe';
 import { NotesFilterPipe } from './utils/notes-filter.pipe';
 import { KmcComponent } from './views/kmc/kmc.component';
 import { UsefulLinksComponent } from './views/useful-links/useful-links.component';
+import { LinksService } from './services/links.service';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { UsefulLinksComponent } from './views/useful-links/useful-links.componen
     PatrollerService,
     OpeningsService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    LinksService
   ],
   bootstrap: [AppComponent]
 })
