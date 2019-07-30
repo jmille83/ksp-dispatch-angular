@@ -28,15 +28,16 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { LoginComponent } from './views/login/login.component';
 import { NoPermissionComponent } from './views/no-permission/no-permission.component';
-import { RecordDetailDialogComponent } from './views/record-detail-dialog/record-detail-dialog.component';
-import { RecordDeleteDialogComponent } from './views/record-delete-dialog/record-delete-dialog.component';
-import { RecordEditTimeDialogComponent } from './views/record-edit-time-dialog/record-edit-time-dialog.component';
+import { RecordDetailDialogComponent } from './views/dialogs/record-detail-dialog/record-detail-dialog.component';
+import { RecordDeleteDialogComponent } from './views/dialogs/record-delete-dialog/record-delete-dialog.component';
+import { RecordEditTimeDialogComponent } from './views/dialogs/record-edit-time-dialog/record-edit-time-dialog.component';
 import { OpeningFilterPipe } from './utils/opening-filter.pipe';
 import { NotesFilterPipe } from './utils/notes-filter.pipe';
 import { KmcComponent } from './views/kmc/kmc.component';
 import { UsefulLinksComponent } from './views/useful-links/useful-links.component';
 import { LinksService } from './services/links.service';
 import { DirectoryComponent } from './views/directory/directory.component';
+import { LinkEditComponent } from './views/dialogs/link-edit/link-edit.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { DirectoryComponent } from './views/directory/directory.component';
     NotesFilterPipe,
     KmcComponent,
     UsefulLinksComponent,
-    DirectoryComponent
+    DirectoryComponent,
+    LinkEditComponent
   ],
   imports: [
     BrowserModule,

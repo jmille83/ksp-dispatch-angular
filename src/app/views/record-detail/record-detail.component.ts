@@ -4,8 +4,8 @@ import { Record } from '../../objects/record';
 import { RecordsService } from '../../services/records.service';
 import { Patroller } from '../../objects/patroller'
 import { PatrollerService } from '../../services/patroller.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { RecordDetailDialogComponent } from '../record-detail-dialog/record-detail-dialog.component';
+import { MatDialog } from '@angular/material';
+import { RecordDetailDialogComponent } from '../dialogs/record-detail-dialog/record-detail-dialog.component';
 
 export interface DialogData {
   record: Record;

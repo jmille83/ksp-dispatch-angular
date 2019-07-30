@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 
 import { Record } from '../../objects/record'
@@ -6,8 +6,8 @@ import { RecordsService } from '../../services/records.service';
 import { Patroller } from '../../objects/patroller'
 import { PatrollerService } from '../../services/patroller.service';
 import { MatDialog } from '@angular/material';
-import { RecordDeleteDialogComponent } from '../record-delete-dialog/record-delete-dialog.component';
-import { RecordEditTimeDialogComponent } from '../record-edit-time-dialog/record-edit-time-dialog.component';
+import { RecordDeleteDialogComponent } from '../dialogs/record-delete-dialog/record-delete-dialog.component';
+import { RecordEditTimeDialogComponent } from '../dialogs/record-edit-time-dialog/record-edit-time-dialog.component';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
