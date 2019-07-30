@@ -13,7 +13,7 @@ export class DirectoryComponent implements OnInit {
 
   contacts: Contact[];
   tableDataSource: MatTableDataSource<Contact>;
-  displayedColumns: string[] = ['name', 'phone', 'email'];
+  displayedColumns: string[] = ['name', 'extension', 'phone', 'email'];
 
   constructor(private directoryService: DirectoryService) { }
 

@@ -10,6 +10,6 @@ export class DirectoryService {
   constructor(private db: AngularFirestore) { }
 
   getAllContacts(): Observable<any[]> {
-    return this.db.collection('contacts').valueChanges();
+    return this.db.collection('contacts', ref => ref.orderBy('name', 'asc')).valueChanges();
   }
 }
