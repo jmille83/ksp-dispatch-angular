@@ -1,3 +1,9 @@
-<p>
-  link-edit works!
-</p>
+<h2 mat-dialog-title>Edit link</h2>
+<mat-dialog-content>
+    It will not be recoverable.
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-raised-button color="accent" [mat-dialog-close]="true">Submit</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true">Delete</button>  
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

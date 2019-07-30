@@ -78,7 +78,8 @@ import { LinkEditComponent } from './views/dialogs/link-edit/link-edit.component
   entryComponents: [
     RecordDetailDialogComponent,
     RecordDeleteDialogComponent,
-    RecordEditTimeDialogComponent
+    RecordEditTimeDialogComponent,
+    LinkEditComponent
   ],
   providers: [
     RecordsService,

@@ -4,6 +4,8 @@ import { LinksService } from '../../services/links.service';
 import { take } from 'rxjs/operators';
 import { LinkGroup } from '../../objects/link-group';
 import { Link } from '../../objects/link';
+import { LinkEditComponent } from '../dialogs/link-edit/link-edit.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-useful-links',
@@ -14,7 +16,7 @@ export class UsefulLinksComponent implements OnInit {
 
   linkGroups: LinkGroup[];
 
-  constructor(public authService: AuthService, private linksService: LinksService) { }
+  constructor(public authService: AuthService, private linksService: LinksService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getLinks();
@@ -32,5 +34,17 @@ export class UsefulLinksComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  isSup() {
+    return this.authService.isSup(this.authService.getCurrentUser());
+  }
+
+  onEditButtonClicked(link: Link, linkGroup: LinkGroup) {
+    const dialogRef = this.dialog.open(LinkEditComponent);
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 }

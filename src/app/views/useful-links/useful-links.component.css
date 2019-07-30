@@ -23,3 +23,11 @@ ul {
 .link-list-item {
     margin-left: 10px;
 }
+
+.hover-buttons {
+    opacity: 0;
+}
+
+.hoverable:hover .hover-buttons {
+    opacity: 1;
+}
