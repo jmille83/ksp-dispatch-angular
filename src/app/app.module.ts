@@ -6,7 +6,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-          MatCheckboxModule, MatDialogModule, MatMenuModule } from '@angular/material';
+          MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
@@ -36,6 +36,7 @@ import { NotesFilterPipe } from './utils/notes-filter.pipe';
 import { KmcComponent } from './views/kmc/kmc.component';
 import { UsefulLinksComponent } from './views/useful-links/useful-links.component';
 import { LinksService } from './services/links.service';
+import { DirectoryComponent } from './views/directory/directory.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { LinksService } from './services/links.service';
     OpeningFilterPipe,
     NotesFilterPipe,
     KmcComponent,
-    UsefulLinksComponent
+    UsefulLinksComponent,
+    DirectoryComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,7 @@ import { LinksService } from './services/links.service';
     AngularFireAuthModule,
     MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule, 
     MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-    MatCheckboxModule, MatDialogModule, MatMenuModule,
+    MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule,
     MatMomentDateModule,
     BrowserAnimationsModule,
     ReactiveFormsModule

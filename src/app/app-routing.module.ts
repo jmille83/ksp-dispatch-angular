@@ -7,6 +7,7 @@ import { NoPermissionComponent } from './views/no-permission/no-permission.compo
 import { DispatchComponent } from './views/dispatch/dispatch.component';
 import { KmcComponent } from './views/kmc/kmc.component';
 import { UsefulLinksComponent } from './views/useful-links/useful-links.component';
+import { DirectoryComponent } from './views/directory/directory.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dispatch', pathMatch: 'full' },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'dispatch', canActivate: [AuthGuard], component: DispatchComponent },
   { path: 'daily/:type/:peak', canActivate: [AuthGuard], component: OpeningsComponent },
   { path: 'kmc', canActivate: [AuthGuard], component: KmcComponent },
-  { path: 'useful-links', canActivate: [AuthGuard], component: UsefulLinksComponent }
+  { path: 'useful-links', canActivate: [AuthGuard], component: UsefulLinksComponent },
+  { path: 'directory', canActivate: [AuthGuard], component: DirectoryComponent }
 ];
 
 @NgModule({
