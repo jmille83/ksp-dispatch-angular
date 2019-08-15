@@ -35,6 +35,10 @@ export class UsefulLinksComponent implements OnInit {
   canDisplay(link: Link) {
     if (link.roles["dispatch"] && !this.authService.isDispatch(this.authService.getCurrentUser())) {
       return false;
+    } else if (link.roles["specialist"] && !this.authService.isSpecialist(this.authService.getCurrentUser())) {
+      return false;
+    } else  if (link.roles["sup"] && !this.authService.isSup(this.authService.getCurrentUser())) {
+      return false;
     }
     return true;
   }
@@ -44,10 +48,18 @@ export class UsefulLinksComponent implements OnInit {
   }
 
   onEditButtonClicked(link: Link, linkGroup: LinkGroup) {
-    const dialogRef = this.dialog.open(LinkEditComponent);
+    const dialogRef = this.dialog.open(LinkEditComponent, {
+      data: { link: link,
+              linkGroup: linkGroup}
+    });
     
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      
     });
   }
+}
+
+export interface DialogData {
+  link: Link;
+  linkGroup: LinkGroup;
 }
