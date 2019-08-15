@@ -25,6 +25,9 @@ export class UsefulLinksComponent implements OnInit {
   getLinks() {
     this.linksService.getUsefulLinks()
     .pipe(take(1)).subscribe(linkGroups => {
+      linkGroups.forEach(linkGroup => {
+        linkGroup.links = linkGroup.links.filter(link => this.canDisplay(link));
+      });
       this.linkGroups = linkGroups as LinkGroup[];
     });
   }
@@ -36,8 +39,8 @@ export class UsefulLinksComponent implements OnInit {
     return true;
   }
 
-  isSup() {
-    return this.authService.isSup(this.authService.getCurrentUser());
+  isSpecialist() {
+    return this.authService.isSpecialist(this.authService.getCurrentUser());
   }
 
   onEditButtonClicked(link: Link, linkGroup: LinkGroup) {

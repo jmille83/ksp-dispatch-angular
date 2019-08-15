@@ -31,3 +31,7 @@ ul {
 .hoverable:hover .hover-buttons {
     opacity: 1;
 }
+
+#link-group-header {
+    display: flex;
+}

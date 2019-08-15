@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DirectoryService } from '../../services/directory.service';
 import { take } from 'rxjs/operators';
-import { Contact } from 'src/app/objects/contact';
+import { Contact } from '../../objects/contact';
 import { MatTableDataSource } from '@angular/material';
 
 @Component({

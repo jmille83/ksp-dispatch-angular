@@ -119,6 +119,11 @@ export class AuthService {
     return this.checkAuthorization(user, allowed);
   }
 
+  isSpecialist(user: User): boolean {
+    const allowed = ['admin', 'sup', 'specialist'];
+    return this.checkAuthorization(user, allowed);
+  }
+
   canNorthPeak(user: User): boolean {
     const allowed = ['admin', 'sup', 'dispatch', 'north-peak'];
     return this.checkAuthorization(user, allowed);
