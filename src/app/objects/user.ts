@@ -16,4 +16,7 @@ export interface User {
     lastName: string;
     name: string;
     phone: string;
+    extension: string;
+    isContact: boolean;
+    isPatroller: boolean;
 }

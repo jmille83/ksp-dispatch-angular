@@ -79,6 +79,9 @@ export class AuthService {
       lastName: lastName,
       name: firstName + ' ' + lastName,
       phone: phone,
+      extension: "",
+      isContact: true,
+      isPatroller: true,
       roles: {
         default: true
       }

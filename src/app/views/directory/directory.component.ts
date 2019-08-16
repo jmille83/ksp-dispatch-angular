@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DirectoryService } from '../../services/directory.service';
 import { take } from 'rxjs/operators';
 import { Contact } from '../../objects/contact';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
+import { AuthService } from '../../services/auth.service';
+import { ContactEditComponent } from '../dialogs/contact-edit/contact-edit.component';
 
 @Component({
   selector: 'app-directory',
@@ -15,7 +17,7 @@ export class DirectoryComponent implements OnInit {
   tableDataSource: MatTableDataSource<Contact>;
   displayedColumns: string[] = ['name', 'extension', 'phone', 'email'];
 
-  constructor(private directoryService: DirectoryService) { }
+  constructor(private directoryService: DirectoryService, private authService: AuthService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getAllContacts();
@@ -29,7 +31,9 @@ export class DirectoryComponent implements OnInit {
     // Add all the users to the directory.
     this.directoryService.getAllUsers().pipe(take(1)).subscribe(users => {
       users.forEach(user => {
-        this.contacts.push(user as Contact);
+        let newContact = user as Contact;
+        newContact.userId = user.uid;
+        this.contacts.push(newContact);
       });
       // Sort the new ones in by name.
       this.contacts.sort((a, b) => a.name.localeCompare(b.name));
@@ -40,4 +44,18 @@ export class DirectoryComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.tableDataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  isSup() {
+    return this.authService.isSup(this.authService.getCurrentUser());
+  }
+
+  onEditButtonClicked(contact: Contact) {
+    this.dialog.open(ContactEditComponent, {
+      data: { contact: contact}
+    });
+  }
+}
+
+export interface DialogData {
+  contact: Contact;
 }

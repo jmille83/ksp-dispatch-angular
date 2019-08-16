@@ -3,4 +3,6 @@ export class Contact {
     phone: string;
     email: string;
     extension: string;
+    userId: string;
+    id: string;
 }

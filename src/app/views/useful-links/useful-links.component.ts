@@ -16,7 +16,7 @@ export class UsefulLinksComponent implements OnInit {
 
   linkGroups: LinkGroup[];
 
-  constructor(public authService: AuthService, private linksService: LinksService, public dialog: MatDialog) { }
+  constructor(private authService: AuthService, private linksService: LinksService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getLinks();
@@ -48,13 +48,9 @@ export class UsefulLinksComponent implements OnInit {
   }
 
   onEditButtonClicked(link: Link, linkGroup: LinkGroup) {
-    const dialogRef = this.dialog.open(LinkEditComponent, {
+    this.dialog.open(LinkEditComponent, {
       data: { link: link,
               linkGroup: linkGroup}
-    });
-    
-    dialogRef.afterClosed().subscribe(result => {
-      
     });
   }
 }

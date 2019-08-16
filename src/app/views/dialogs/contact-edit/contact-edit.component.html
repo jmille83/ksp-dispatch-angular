@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Edit Contact</h2>
+<mat-dialog-content>
+  <div id="content-container">
+    <mat-form-field>
+      <input matInput placeholder="Name" name="name" [(ngModel)]="contact.name">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Extension" name="extension" [(ngModel)]="contact.extension">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Phone number" name="phone" [(ngModel)]="contact.phone">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Email" name="email" [(ngModel)]="contact.email">
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-raised-button color="primary" (click)="onSubmitClicked()" [mat-dialog-close]="true">Submit</button>
+  <button *ngIf="!isEditingUser" mat-raised-button color="accent" (click)="onDeleteClicked()" [mat-dialog-close]="true">Delete</button>  
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

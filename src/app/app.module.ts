@@ -38,6 +38,7 @@ import { UsefulLinksComponent } from './views/useful-links/useful-links.componen
 import { LinksService } from './services/links.service';
 import { DirectoryComponent } from './views/directory/directory.component';
 import { LinkEditComponent } from './views/dialogs/link-edit/link-edit.component';
+import { ContactEditComponent } from './views/dialogs/contact-edit/contact-edit.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { LinkEditComponent } from './views/dialogs/link-edit/link-edit.component
     KmcComponent,
     UsefulLinksComponent,
     DirectoryComponent,
-    LinkEditComponent
+    LinkEditComponent,
+    ContactEditComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ import { LinkEditComponent } from './views/dialogs/link-edit/link-edit.component
     RecordDetailDialogComponent,
     RecordDeleteDialogComponent,
     RecordEditTimeDialogComponent,
-    LinkEditComponent
+    LinkEditComponent,
+    ContactEditComponent,
   ],
   providers: [
     RecordsService,
