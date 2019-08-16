@@ -37,6 +37,7 @@
   <table id="openings-table" [style.border-color]="hasUnsubmittedChanges ? 'red' : 'black'" align="center">
     <tr>
       <th>Opening</th>
+      <th *ngIf="editMode">Order</th>
       <th>Patroller</th>
       <th>Notes</th>
     </tr>
@@ -48,6 +49,8 @@
         </div>
         <div *ngIf="!opening.header" class="opening-text">{{ opening.text }}</div>
       </td>
+
+      <td *ngIf="editMode">{{opening.order}}</td>
 
       <td class="patroller-cells">
         <mat-select *ngIf="!opening.header" [disabled]="!canEdit()" placeholder="Patroller"
@@ -64,9 +67,18 @@
   </table>
 </div>
 
-<div class="button-container" *ngIf="canEdit()">
+<div class="centered-container" *ngIf="canEdit()">
   <button mat-raised-button class="submit-button" id="submitRecordButton"
   color="primary" (click)="onSubmitButtonClicked()">Submit</button>
   <button mat-raised-button color="gray" 
   (click)="onClearButtonClicked()">Clear</button>
+</div>
+
+<div class="centered-container" *ngIf="isSpecialist()">
+  <mat-slide-toggle id="edit-toggle" 
+  [(ngModel)]="editMode" 
+  (change)="onEditToggleChanged()"
+  color="primary">
+    Edit mode
+  </mat-slide-toggle>
 </div>

@@ -24,7 +24,7 @@ td {
     padding: 5px;
 }
 
-.button-container {
+.centered-container {
     width: 100%;
     text-align: center;
 }
@@ -51,4 +51,8 @@ td {
 
 .radio {
     margin-right: 10px;
+}
+
+mat-slide-toggle {
+    padding-top: 25px;
 }

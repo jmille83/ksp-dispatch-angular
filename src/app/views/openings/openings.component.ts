@@ -38,6 +38,8 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   canEditStored: boolean = false;
   canEditHasBeenChecked: boolean = false;
 
+  editMode: boolean = false;
+
   // For storing all subs so we can unsub on destroy.
   private subscription = new Subscription();
   
@@ -241,5 +243,13 @@ export class OpeningsComponent implements OnInit, OnDestroy {
       }
       this.isOpening = false;
     }
+  }
+
+  isSpecialist() {
+    return this.authService.isSpecialist(this.authService.getCurrentUser());
+  }
+
+  onEditToggleChanged() {
+    console.log(this.editMode);
   }
 }

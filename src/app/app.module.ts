@@ -6,7 +6,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-          MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule } from '@angular/material';
+          MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule, MatSlideToggleModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
@@ -39,6 +39,7 @@ import { LinksService } from './services/links.service';
 import { DirectoryComponent } from './views/directory/directory.component';
 import { LinkEditComponent } from './views/dialogs/link-edit/link-edit.component';
 import { ContactEditComponent } from './views/dialogs/contact-edit/contact-edit.component';
+import { OpeningEditComponent } from './views/dialogs/opening-edit/opening-edit.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { ContactEditComponent } from './views/dialogs/contact-edit/contact-edit.
     UsefulLinksComponent,
     DirectoryComponent,
     LinkEditComponent,
-    ContactEditComponent
+    ContactEditComponent,
+    OpeningEditComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,7 @@ import { ContactEditComponent } from './views/dialogs/contact-edit/contact-edit.
     AngularFireAuthModule,
     MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule, 
     MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-    MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule,
+    MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule, MatSlideToggleModule,
     MatMomentDateModule,
     BrowserAnimationsModule,
     ReactiveFormsModule
@@ -83,6 +85,7 @@ import { ContactEditComponent } from './views/dialogs/contact-edit/contact-edit.
     RecordEditTimeDialogComponent,
     LinkEditComponent,
     ContactEditComponent,
+    OpeningEditComponent
   ],
   providers: [
     RecordsService,
