@@ -13,7 +13,7 @@ export class SideMenuComponent implements OnInit {
   @Output() onLinkClicked = new EventEmitter<boolean>();
 
   authSubscriber: Subscription;
-  currentUserEmail = "No one";
+  currentUserName = "No one";
 
   peaks = [
     {name: "Frontside", value: "frontside"}, 
@@ -27,9 +27,9 @@ export class SideMenuComponent implements OnInit {
   ngOnInit() { 
     this.authSubscriber = this.authService.getAuthState$().subscribe((auth) => {
       if (auth !== null) {
-        this.currentUserEmail = auth.email;
+        this.currentUserName = auth.email;
       } else {
-        this.currentUserEmail = "No one";
+        this.currentUserName = "No one";
       }
     });
   }
@@ -50,6 +50,6 @@ export class SideMenuComponent implements OnInit {
     //   as a temp fix. Will it end up staying forever? Probably.
     this.router.navigate(['/login']);
 
-    this.currentUserEmail = "No one";
+    this.currentUserName = "No one";
   }
 }

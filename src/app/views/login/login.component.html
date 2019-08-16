@@ -21,6 +21,14 @@
     </div>
     <br>
     <mat-form-field class="text-input">
+      <input matInput type="tel" name="phone" placeholder="Phone number" 
+      formControlName="phone">
+    </mat-form-field>
+    <div class="form-errors" *ngIf="formErrors.phone">
+      {{ formErrors.phone }}
+    </div>
+    <br>
+    <mat-form-field class="text-input">
         <input matInput type="email" name="email" placeholder="Email" 
         formControlName="email" required>
     </mat-form-field>

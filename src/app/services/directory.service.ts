@@ -12,4 +12,8 @@ export class DirectoryService {
   getAllContacts(): Observable<any[]> {
     return this.db.collection('contacts', ref => ref.orderBy('name', 'asc')).valueChanges();
   }
+
+  getAllUsers(): Observable<any[]> {
+    return this.db.collection('users').valueChanges();
+  }
 }

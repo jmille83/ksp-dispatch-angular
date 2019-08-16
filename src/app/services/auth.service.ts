@@ -62,14 +62,14 @@ export class AuthService {
     return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
-  signUpWithEmail(email, password, firstName, lastName, initials) {
+  signUpWithEmail(email, password, firstName, lastName, initials, phone) {
     return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((credential) => {
-        this.createUserInFirebase(credential.user, firstName, lastName, initials);
+        this.createUserInFirebase(credential.user, firstName, lastName, initials, phone);
       });
   }
 
-  private createUserInFirebase(user: firebase.User, firstName: string, lastName: string, initials: string) {
+  private createUserInFirebase(user: firebase.User, firstName: string, lastName: string, initials: string, phone: string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const data: User = {
       uid: user.uid,
@@ -77,6 +77,8 @@ export class AuthService {
       initials: initials,
       firstName: firstName,
       lastName: lastName,
+      name: firstName + ' ' + lastName,
+      phone: phone,
       roles: {
         default: true
       }

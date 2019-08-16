@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     'initials': '',
     'email': '',
     'password': '',
+    'phone': ''
   };
 
   validationMessages = {
@@ -47,6 +48,9 @@ export class LoginComponent implements OnInit {
       'minlength':     'Password must be at least 6 characters long.',
       'maxlength':     'Password cannot be more than 25 characters long.',
     },
+    'phone': {
+      'pattern':        'Not a valid phone number.'
+    }
   };
 
   constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { }
@@ -72,6 +76,10 @@ export class LoginComponent implements OnInit {
       'initials': ['', [
           Validators.minLength(2),
           Validators.maxLength(3)
+        ]
+      ],
+      'phone': ['', [
+          Validators.pattern('^([0-9]( |-)?)?(\\(?[0-9]{3}\\)?|[0-9]{3})( |-)?([0-9]{3}( |-)?[0-9]{4}|[a-zA-Z0-9]{7})$')
         ]
       ],
       'email': ['', [
@@ -113,6 +121,7 @@ export class LoginComponent implements OnInit {
     let firstName = this.registerForm.get("firstName").value;
     let lastName = this.registerForm.get("lastName").value;
     let initials = this.registerForm.get("initials").value;
+    let phone = this.cleanPhoneNumber(this.registerForm.get("phone").value);
     let email = this.registerForm.get("email").value;
     let password = this.registerForm.get("password").value;
     if (password != this.registerForm.get("confirmedPassword").value) {
@@ -126,11 +135,18 @@ export class LoginComponent implements OnInit {
       return;
     }
     
-    this.authService.signUpWithEmail(email, password, firstName, lastName, initials)
+    this.authService.signUpWithEmail(email, password, firstName, lastName, initials, phone)
       .then((result) => {
         this.router.navigate(['nowhere']);
       })
       .catch((err) => console.log(err));
+  }
+
+  cleanPhoneNumber(input: string): string {
+    let cleaned = ('' + input).replace(/[^0-9]/g, '')
+    let match = cleaned.match('^(\\d{3})(\\d{3})(\\d{4})$');
+    let final = '(' + match[1] + ') ' + match[2] + '-' + match[3];
+    return final;
   }
 
   checkTeamPassword(): boolean {

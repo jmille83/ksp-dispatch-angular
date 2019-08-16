@@ -24,6 +24,15 @@ export class DirectoryComponent implements OnInit {
   getAllContacts() {
     this.directoryService.getAllContacts().pipe(take(1)).subscribe(contacts => {
       this.contacts = contacts as Contact[];
+    });
+
+    // Add all the users to the directory.
+    this.directoryService.getAllUsers().pipe(take(1)).subscribe(users => {
+      users.forEach(user => {
+        this.contacts.push(user as Contact);
+      });
+      // Sort the new ones in by name.
+      this.contacts.sort((a, b) => a.name.localeCompare(b.name));
       this.tableDataSource = new MatTableDataSource(this.contacts);
     });
   }

@@ -14,4 +14,6 @@ export interface User {
     initials: string;
     firstName: string;
     lastName: string;
+    name: string;
+    phone: string;
 }
