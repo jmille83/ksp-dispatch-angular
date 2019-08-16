@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 
 import { Record } from '../../objects/record'
@@ -6,23 +6,27 @@ import { RecordsService } from '../../services/records.service';
 import { Patroller } from '../../objects/patroller'
 import { PatrollerService } from '../../services/patroller.service';
 import { MatDialog } from '@angular/material';
-import { RecordDeleteDialogComponent } from '../record-delete-dialog/record-delete-dialog.component';
-import { RecordEditTimeDialogComponent } from '../record-edit-time-dialog/record-edit-time-dialog.component';
+import { RecordDeleteDialogComponent } from '../dialogs/record-delete-dialog/record-delete-dialog.component';
+import { RecordEditTimeDialogComponent } from '../dialogs/record-edit-time-dialog/record-edit-time-dialog.component';
+import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-records',
   templateUrl: './records.component.html',
   styleUrls: ['./records.component.css']
 })
-export class RecordsComponent implements OnInit {
+export class RecordsComponent implements OnInit, OnDestroy {
 
   @Output() onRecordClicked = new EventEmitter<Record>();
-  records: Record[];
+  records: Record[] = [];
   editTimeRecord: Record;
   patrollers: Patroller[];
   date: moment.Moment = moment();
   total1050s = 0;
   totalTaxis = 0;
+
+  subscription: Subscription = new Subscription();
   
   constructor(private recordsService: RecordsService, private patrollerService: PatrollerService,
               public dialog: MatDialog) { }
@@ -32,12 +36,16 @@ export class RecordsComponent implements OnInit {
     this.getPatrollers();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   getRecords(): void {
     let start = this.date.toDate();
-    this.recordsService.getRecordsForDay(start).subscribe(records => {
+    this.subscription.add(this.recordsService.getRecordsForDay(start).subscribe(records => {
       this.records = records
       this.countRecords();
-    });
+    }));
   }
 
   // Just a basic reporting tool.
@@ -54,7 +62,9 @@ export class RecordsComponent implements OnInit {
   }
 
   getPatrollers(): void {
-    this.patrollerService.getAllPatrollers().subscribe(patrollers => this.patrollers = patrollers);
+    this.patrollerService.getAllPatrollers()
+    .pipe(take(1))
+    .subscribe(patrollers => this.patrollers = patrollers);
   }
 
   onRecordClick(record: Record) {
@@ -85,5 +95,10 @@ export class RecordsComponent implements OnInit {
         this.recordsService.updateRecord(record);
       }
     });
+  }
+
+  onTraumaActivationButtonClicked(record: Record) {
+    record.traumaActivated = !record.traumaActivated;
+    this.recordsService.updateRecord(record);
   }
 }

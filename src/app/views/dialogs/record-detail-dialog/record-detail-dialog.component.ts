@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { DialogData } from '../record-detail/record-detail.component';
-import { Record } from '../../objects/record';
+import { DialogData } from '../../record-detail/record-detail.component';
+import { Record } from '../../../objects/record';
 
 @Component({
   selector: 'app-record-detail-dialog',
@@ -20,8 +20,8 @@ export class RecordDetailDialogComponent implements OnInit {
 
   transportTypes = [
     {value: 'Ambulance'},
-    {value: 'Flights / Helicopter'},
-    {value: 'Flights / Ambulance'}
+    {value: 'Flights (Helicopter)'},
+    {value: 'Flights (Ambulance)'}
   ];
 
   time: Date = new Date();

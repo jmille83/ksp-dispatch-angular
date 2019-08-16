@@ -4,8 +4,8 @@ import { Record } from '../../objects/record';
 import { RecordsService } from '../../services/records.service';
 import { Patroller } from '../../objects/patroller'
 import { PatrollerService } from '../../services/patroller.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { RecordDetailDialogComponent } from '../record-detail-dialog/record-detail-dialog.component';
+import { MatDialog } from '@angular/material';
+import { RecordDetailDialogComponent } from '../dialogs/record-detail-dialog/record-detail-dialog.component';
 
 export interface DialogData {
   record: Record;
@@ -40,7 +40,7 @@ export class RecordDetailComponent implements OnInit {
     this.patrollerService.getAllPatrollers().subscribe(patrollers => this.patrollers = patrollers);
   }
 
-  onRadioButtonChange() {
+  onPeakRadioButtonChange() {
     var container = document.getElementById("record-detail-container");
     
     switch(this.record.peak) {
@@ -58,6 +58,14 @@ export class RecordDetailComponent implements OnInit {
         break;
       }
     }
+  }
+
+  onTypeRadioButtonChange() {
+    if (this.record.type === "Taxi" || this.record.type === "Non-event") {
+      this.record.typeLabel = this.record.type;
+    } else {
+      this.record.typeLabel = null;
+    }  
   }
 
   onSubmitButtonClick() {
@@ -86,7 +94,7 @@ export class RecordDetailComponent implements OnInit {
     document.getElementById("submitRecordButton").blur();
 
     // Reset background color.
-    this.onRadioButtonChange();
+    this.onPeakRadioButtonChange();
   }
 
   onMoreInfoButtonClicked() {

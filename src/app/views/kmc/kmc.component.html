@@ -1,0 +1,59 @@
+<h2>Wrecks</h2>
+
+<div class="date-picker-container">
+  <mat-form-field>
+    <input matInput [matDatepicker]="recordsDatePicker" 
+    placeholder="Choose a date" [(ngModel)]="date"
+    (dateChange)="onDateChanged()">
+    <mat-datepicker-toggle matSuffix [for]="recordsDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #recordsDatePicker></mat-datepicker>
+  </mat-form-field>
+</div>
+
+<div style="width: 100%; align-content: center">
+  <div *ngIf="records.length > 0; else noRecords" class="records-container">
+    <ul class="records-list">
+      <li *ngFor="let record of records">
+      <div id="record-row">
+        <div id="record-column-0" [style.background-color]="record.traumaActivated ? '#c62828' : 'clear'">
+          <div id="trauma-activation-div" *ngIf="record.traumaActivated">Trauma Activation</div>
+        </div>
+        <div id="record-column-1"> 
+          <h4>Basic Patient Info</h4>
+          <div id="col-1-grid">
+            <span class="info-label">Name</span><span>{{record.name}}</span>
+            <span class="info-label">Sex</span><span>{{record.sex}}</span>
+            <span class="info-label">Complaint</span><span>{{record.chiefComplaint}}</span>
+            <span class="info-label">Patroller</span><span>{{ patrollers | patrollerFilter: record.respondingPatrollerId }}</span>
+          </div>
+        </div> 
+        <div id="record-column-2">
+            <h4>Details</h4>
+            <div *ngIf="record.patientInfo != null; else noInfo">
+              {{record.patientInfo}}
+            </div>
+            <ng-template #noInfo>
+              <p style="text-align: center">No more info.</p>
+            </ng-template>
+        </div> 
+        <div id="record-column-3">
+            <h4>Transport Info</h4>
+            <div *ngIf="record.transportType != null; else noTransport">
+              <p>{{record.transportType}} pick-up at {{record.transportLocation}}</p>
+              <p>Called - <span style="margin-left: 5px">{{record.transportTimeCalled}}</span></p>
+              <p>ETA - <span style="margin-left: 20px">{{record.transportEta}}</span></p>
+            </div>
+            <ng-template #noTransport>
+              <p style="text-align: center">KMC</p>
+            </ng-template>
+        </div> 
+      </div>  
+      <div class="time-label">{{record.timeReportedString}}</div>
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noRecords>
+    <p style="text-align: center">No wrecks.</p>
+  </ng-template>
+</div>

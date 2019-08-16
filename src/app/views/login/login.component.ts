@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router'
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -28,11 +27,17 @@ export class LoginComponent implements OnInit {
   };
 
   formErrors = {
+    'initials': '',
     'email': '',
     'password': '',
+    'phone': ''
   };
 
   validationMessages = {
+    'initials': {
+      'minlength':      'Initials must be at least 2 letters.',
+      'maxlength':      "Initials can't be more than 3 letters."
+    },
     'email': {
       'required':      'Email is required.',
       'email':         'Email must be a valid email.'
@@ -43,9 +48,12 @@ export class LoginComponent implements OnInit {
       'minlength':     'Password must be at least 6 characters long.',
       'maxlength':     'Password cannot be more than 25 characters long.',
     },
+    'phone': {
+      'pattern':        'Not a valid phone number.'
+    }
   };
 
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private afs: AngularFirestore) { }
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.buildForms();
@@ -63,6 +71,17 @@ export class LoginComponent implements OnInit {
 
   buildForms(): void {
     this.registerForm = this.fb.group({
+      'firstName': [],
+      'lastName': [],
+      'initials': ['', [
+          Validators.minLength(2),
+          Validators.maxLength(3)
+        ]
+      ],
+      'phone': ['', [
+          Validators.pattern('^([0-9]( |-)?)?(\\(?[0-9]{3}\\)?|[0-9]{3})( |-)?([0-9]{3}( |-)?[0-9]{4}|[a-zA-Z0-9]{7})$')
+        ]
+      ],
       'email': ['', [
           Validators.required,
           Validators.email
@@ -99,7 +118,11 @@ export class LoginComponent implements OnInit {
   }
 
   signUpWithEmail() {
-    let email = this.registerForm.get("email").value
+    let firstName = this.registerForm.get("firstName").value;
+    let lastName = this.registerForm.get("lastName").value;
+    let initials = this.registerForm.get("initials").value;
+    let phone = this.cleanPhoneNumber(this.registerForm.get("phone").value);
+    let email = this.registerForm.get("email").value;
     let password = this.registerForm.get("password").value;
     if (password != this.registerForm.get("confirmedPassword").value) {
       this.passwordsMatch = false;
@@ -112,11 +135,18 @@ export class LoginComponent implements OnInit {
       return;
     }
     
-    this.authService.signUpWithEmail(email, password)
+    this.authService.signUpWithEmail(email, password, firstName, lastName, initials, phone)
       .then((result) => {
         this.router.navigate(['nowhere']);
       })
       .catch((err) => console.log(err));
+  }
+
+  cleanPhoneNumber(input: string): string {
+    let cleaned = ('' + input).replace(/[^0-9]/g, '')
+    let match = cleaned.match('^(\\d{3})(\\d{3})(\\d{4})$');
+    let final = '(' + match[1] + ') ' + match[2] + '-' + match[3];
+    return final;
   }
 
   checkTeamPassword(): boolean {
@@ -138,7 +168,13 @@ export class LoginComponent implements OnInit {
       .then((res) => {
         console.log("Login success: " + res);
         this.hadLoginError = false;
-        this.router.navigate(['dispatch']);
+        
+        // Redirect most people to dispatch screen, KMC to kmc screen.
+        if (res.user.email === "keystonemedicalclinic@gmail.com") {
+          this.router.navigate(['kmc']);
+        } else {
+          this.router.navigate(['dispatch']);
+        }
       })
       .catch((err) => {
         console.log('LoginComponent: ' + err);

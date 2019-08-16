@@ -97,9 +97,9 @@ export class NotesComponent implements OnInit, OnDestroy {
   toggleNoteComplete(note: Note) {
     note.completed = !note.completed;
     
-    // If, after updating, it's complete, add user's inits.
+    // If, after updating, it's complete, add user's initials.
     if (note.completed) {
-      note.completersInitials = this.user.inits;
+      note.completersInitials = this.user.initials;
     }
     this.notesService.updateNote(note);
   }

@@ -6,7 +6,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-          MatCheckboxModule, MatDialogModule, MatMenuModule } from '@angular/material';
+          MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
@@ -28,11 +28,17 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { LoginComponent } from './views/login/login.component';
 import { NoPermissionComponent } from './views/no-permission/no-permission.component';
-import { RecordDetailDialogComponent } from './views/record-detail-dialog/record-detail-dialog.component';
-import { RecordDeleteDialogComponent } from './views/record-delete-dialog/record-delete-dialog.component';
-import { RecordEditTimeDialogComponent } from './views/record-edit-time-dialog/record-edit-time-dialog.component';
+import { RecordDetailDialogComponent } from './views/dialogs/record-detail-dialog/record-detail-dialog.component';
+import { RecordDeleteDialogComponent } from './views/dialogs/record-delete-dialog/record-delete-dialog.component';
+import { RecordEditTimeDialogComponent } from './views/dialogs/record-edit-time-dialog/record-edit-time-dialog.component';
 import { OpeningFilterPipe } from './utils/opening-filter.pipe';
 import { NotesFilterPipe } from './utils/notes-filter.pipe';
+import { KmcComponent } from './views/kmc/kmc.component';
+import { UsefulLinksComponent } from './views/useful-links/useful-links.component';
+import { LinksService } from './services/links.service';
+import { DirectoryComponent } from './views/directory/directory.component';
+import { LinkEditComponent } from './views/dialogs/link-edit/link-edit.component';
+import { ContactEditComponent } from './views/dialogs/contact-edit/contact-edit.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +56,12 @@ import { NotesFilterPipe } from './utils/notes-filter.pipe';
     RecordDeleteDialogComponent,
     RecordEditTimeDialogComponent,
     OpeningFilterPipe,
-    NotesFilterPipe
+    NotesFilterPipe,
+    KmcComponent,
+    UsefulLinksComponent,
+    DirectoryComponent,
+    LinkEditComponent,
+    ContactEditComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +72,7 @@ import { NotesFilterPipe } from './utils/notes-filter.pipe';
     AngularFireAuthModule,
     MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule, 
     MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-    MatCheckboxModule, MatDialogModule, MatMenuModule,
+    MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule,
     MatMomentDateModule,
     BrowserAnimationsModule,
     ReactiveFormsModule
@@ -69,14 +80,17 @@ import { NotesFilterPipe } from './utils/notes-filter.pipe';
   entryComponents: [
     RecordDetailDialogComponent,
     RecordDeleteDialogComponent,
-    RecordEditTimeDialogComponent
+    RecordEditTimeDialogComponent,
+    LinkEditComponent,
+    ContactEditComponent,
   ],
   providers: [
     RecordsService,
     PatrollerService,
     OpeningsService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    LinksService
   ],
   bootstrap: [AppComponent]
 })

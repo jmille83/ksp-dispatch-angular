@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../objects/user';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 @Injectable()
 export class AuthService {
@@ -21,8 +21,8 @@ export class AuthService {
           this.user$ = this.afs.doc<User>(`users/${user.uid}`).valueChanges();
           this.afs.doc<User>(`users/${user.uid}`).ref.get().then(userSnapshot => {
             this.currentUser = userSnapshot.data() as User;           
+            console.log("Auth service: " + user.email + "\n" + this.currentUser.firstName);
           });
-          console.log("Auth service: " + user.email + "\n" + this.currentUser.inits);
         } else {
           this.user$ = null;
         }
@@ -50,6 +50,7 @@ export class AuthService {
 
   logout() {
     console.log("Auth service: Logging out.")
+    this.currentUser = null;
     this.firebaseAuth.auth.signOut()
     .then((res) => {
       console.log("Auth service: Redirecting to root.");
@@ -61,23 +62,31 @@ export class AuthService {
     return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
-  signUpWithEmail(email, password) {
+  signUpWithEmail(email, password, firstName, lastName, initials, phone) {
     return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((credential) => {
-        this.createUserInFirebase(credential.user);
+        this.createUserInFirebase(credential.user, firstName, lastName, initials, phone);
       });
   }
 
-  private createUserInFirebase(user) {
+  private createUserInFirebase(user: firebase.User, firstName: string, lastName: string, initials: string, phone: string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const data: User = {
       uid: user.uid,
       email: user.email,
-      inits: "test",
+      initials: initials,
+      firstName: firstName,
+      lastName: lastName,
+      name: firstName + ' ' + lastName,
+      phone: phone,
+      extension: "",
+      isContact: true,
+      isPatroller: true,
       roles: {
         default: true
       }
     }
+    // The 'default' role allows the user to write themself to the Firestore (with set()).
     userRef.set(data).catch((err) => console.log(err));
   }
 
@@ -107,6 +116,16 @@ export class AuthService {
 
   isDispatch(user: User): boolean {
     const allowed = ['admin', 'sup', 'dispatch'];
+    return this.checkAuthorization(user, allowed);
+  }
+
+  isSup(user: User): boolean {
+    const allowed = ['admin', 'sup'];
+    return this.checkAuthorization(user, allowed);
+  }
+
+  isSpecialist(user: User): boolean {
+    const allowed = ['admin', 'sup', 'specialist'];
     return this.checkAuthorization(user, allowed);
   }
 

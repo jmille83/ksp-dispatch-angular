@@ -13,6 +13,7 @@ export class Record {
     peak: string = "Frontside";
     type: string = "10-50";
     typeLabel: string;
+    traumaActivated: boolean = false;
 
     // Secondary information.
     hasSecondaryInfo: boolean;

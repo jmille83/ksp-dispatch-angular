@@ -3,7 +3,7 @@
 <div id="record-detail-container">
   <form class="record-form">
     <div class="radio-group-container">
-      <mat-radio-group [(ngModel)]="record.peak" name="peak" (change)="onRadioButtonChange()">
+      <mat-radio-group [(ngModel)]="record.peak" name="peak" (change)="onPeakRadioButtonChange()">
         <mat-radio-button value="Frontside" class="radio">Frontside</mat-radio-button>
         <mat-radio-button value="North" class="radio">North Peak</mat-radio-button>
         <mat-radio-button value="Outback" class="radio">Outback</mat-radio-button>
@@ -64,7 +64,7 @@
     </mat-form-field>
 
     <div class="radio-group-container">
-      <mat-radio-group [(ngModel)]="record.type" name="type" class="radio-group" layout="row">
+      <mat-radio-group [(ngModel)]="record.type" name="type" class="radio-group" layout="row" (change)="onTypeRadioButtonChange()">
         <mat-radio-button value="10-50" class="radio">10-50</mat-radio-button>
         <mat-radio-button value="Taxi" class="radio">Taxi</mat-radio-button>
         <mat-radio-button value="Non-event" class="radio">Non-event</mat-radio-button>

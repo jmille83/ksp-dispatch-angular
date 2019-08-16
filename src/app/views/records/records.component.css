@@ -31,10 +31,6 @@ h2 {
     padding-left: 0px;
 }
 
-/* .Taxi {
-    color: #919396;
-} */
-
 .North {
     background-color: #e8eefc;
 }
@@ -96,11 +92,11 @@ ul li:not(:last-child):after {
 }
 
 #record-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 32px auto 40px;
 }
 
 #record-column-0 {
-    flex: 5%;
     writing-mode: vertical-lr;
     transform: rotate(180deg);
     text-align: center;
@@ -109,14 +105,9 @@ ul li:not(:last-child):after {
 }
 
 #record-column-1 {
-    flex: 90%;
-    padding-top: 10px
+   padding-top: 10px
 }
 
-#record-column-1 div:hover {
+#record-column-1 .grid-container:hover {
     color: dodgerblue;
-}
-
-#record-column-2 {
-    flex: 5%;
 }

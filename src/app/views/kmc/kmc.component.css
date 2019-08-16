@@ -1,0 +1,71 @@
+h2 {
+    text-align: center;
+}
+
+h4 {
+    text-align: center;
+}
+
+.records-container {
+    width: 700px;
+    margin: 0 auto;
+}
+
+.records-list {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+.info-label {
+    font-size: 65%;
+    text-align: right;
+    line-height: 2em;
+    vertical-align: middle;
+}
+
+.time-label {
+    font-size: 85%;
+    text-align: center;
+    padding-bottom: 20px;
+    color: darkgrey;
+}
+
+#record-row {
+    display: grid;
+    grid-template-columns: 0.1fr 1fr 1fr 1fr;
+    grid-gap: 25px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+ul li:not(:last-child):after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: lightslategray;
+}
+
+.date-picker-container {
+    width: 100%;
+    text-align: center;
+}
+
+#col-1-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+}
+
+#trauma-activation-div {
+    width: 100%;
+    height: 100%;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    text-align: center;
+}

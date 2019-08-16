@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Edit Link</h2>
+<mat-dialog-content>
+  <div id="content-container">
+    <mat-form-field class="">
+      <input matInput placeholder="Text" name="text" [(ngModel)]="link.text">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="">
+      <input matInput placeholder="Link" name="link" [(ngModel)]="link.link">
+    </mat-form-field>
+    <div>Group: <span>{{linkGroup.name}}</span></div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-raised-button color="primary" (click)="onSubmitClicked()" [mat-dialog-close]="true">Submit</button>
+  <button mat-raised-button color="accent" (click)="onDeleteClicked()" [mat-dialog-close]="true">Delete</button>  
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
