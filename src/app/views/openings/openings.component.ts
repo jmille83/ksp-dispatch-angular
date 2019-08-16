@@ -11,7 +11,8 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../objects/user';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { MatRadioChange } from '@angular/material';
+import { MatRadioChange, MatDialog } from '@angular/material';
+import { OpeningEditComponent } from '../dialogs/opening-edit/opening-edit.component';
 
 @Component({
   selector: 'app-openings',
@@ -23,6 +24,7 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   isOpening: boolean = true;
   openingOrClosing: string = "";
   openingOrClosingName: string = "";
+  openingOrClosingHeaderName: string = "";
   peak: string = "";
   peakName: string = "";
   patrollers: Patroller[];
@@ -44,7 +46,8 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
   
   constructor(private route: ActivatedRoute, private patrollerService: PatrollerService,
-              private openingsService: OpeningsService, private authService: AuthService) { }
+              private openingsService: OpeningsService, private authService: AuthService,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.route.params.forEach(() => {
@@ -71,8 +74,10 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   setOpeningOrClosingName() {
     if (this.openingOrClosing === "openings") {
       this.openingOrClosingName = "Openings";
+      this.openingOrClosingHeaderName = "Opening";
     } else {
       this.openingOrClosingName = "Sweeps";
+      this.openingOrClosingHeaderName = "Sweep";
     }
   }
 
@@ -245,11 +250,19 @@ export class OpeningsComponent implements OnInit, OnDestroy {
     }
   }
 
-  isSpecialist() {
-    return this.authService.isSpecialist(this.authService.getCurrentUser());
+  isDispatch() {
+    return this.authService.isDispatch(this.authService.getCurrentUser());
   }
+  
+  onEditButtonClicked(opening: Opening) {
+    this.dialog.open(OpeningEditComponent, {
+      data: { opening: opening,
+              type: this.openingOrClosing }
+    });
+  }
+}
 
-  onEditToggleChanged() {
-    console.log(this.editMode);
-  }
+export interface DialogData {
+  opening: Opening;
+  type: string; 
 }

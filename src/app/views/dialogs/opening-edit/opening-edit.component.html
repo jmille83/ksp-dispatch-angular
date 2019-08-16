@@ -1,3 +1,16 @@
-<p>
-  opening-edit works!
-</p>
+<h2 mat-dialog-title>Edit {{openingOrClosing}}</h2>
+<mat-dialog-content>
+  <div id="content-container">
+    <mat-form-field>
+      <input matInput placeholder="Text" name="text" [(ngModel)]="opening.text">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Order" name="order" [(ngModel)]="opening.order">
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-raised-button color="primary" (click)="onSubmitClicked()" [mat-dialog-close]="true">Submit</button>
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

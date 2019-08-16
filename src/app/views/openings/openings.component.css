@@ -56,3 +56,9 @@ td {
 mat-slide-toggle {
     padding-top: 25px;
 }
+
+#edit-button {
+    line-height: 20px;
+    width: 25px;
+    height: 23px;
+}

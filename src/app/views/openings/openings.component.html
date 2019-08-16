@@ -36,7 +36,8 @@
 <div class="table-container">
   <table id="openings-table" [style.border-color]="hasUnsubmittedChanges ? 'red' : 'black'" align="center">
     <tr>
-      <th>Opening</th>
+      <th>{{openingOrClosingHeaderName}}</th>
+      <th *ngIf="editMode"></th>
       <th *ngIf="editMode">Order</th>
       <th>Patroller</th>
       <th>Notes</th>
@@ -49,7 +50,11 @@
         </div>
         <div *ngIf="!opening.header" class="opening-text">{{ opening.text }}</div>
       </td>
-
+      <td *ngIf="editMode">
+        <button id="edit-button" mat-icon-button (click)="onEditButtonClicked(opening)">
+          <mat-icon class="material-icons">edit</mat-icon>
+        </button>￼
+      </td>
       <td *ngIf="editMode">{{opening.order}}</td>
 
       <td class="patroller-cells">
@@ -74,10 +79,9 @@
   (click)="onClearButtonClicked()">Clear</button>
 </div>
 
-<div class="centered-container" *ngIf="isSpecialist()">
+<div class="centered-container" *ngIf="isDispatch()">
   <mat-slide-toggle id="edit-toggle" 
   [(ngModel)]="editMode" 
-  (change)="onEditToggleChanged()"
   color="primary">
     Edit mode
   </mat-slide-toggle>
