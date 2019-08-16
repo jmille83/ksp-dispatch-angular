@@ -40,6 +40,7 @@ import { DirectoryComponent } from './views/directory/directory.component';
 import { LinkEditComponent } from './views/dialogs/link-edit/link-edit.component';
 import { ContactEditComponent } from './views/dialogs/contact-edit/contact-edit.component';
 import { OpeningEditComponent } from './views/dialogs/opening-edit/opening-edit.component';
+import { PickFrontsideSweepComponent } from './views/dialogs/pick-frontside-sweep/pick-frontside-sweep.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { OpeningEditComponent } from './views/dialogs/opening-edit/opening-edit.
     DirectoryComponent,
     LinkEditComponent,
     ContactEditComponent,
-    OpeningEditComponent
+    OpeningEditComponent,
+    PickFrontsideSweepComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +87,8 @@ import { OpeningEditComponent } from './views/dialogs/opening-edit/opening-edit.
     RecordEditTimeDialogComponent,
     LinkEditComponent,
     ContactEditComponent,
-    OpeningEditComponent
+    OpeningEditComponent,
+    PickFrontsideSweepComponent
   ],
   providers: [
     RecordsService,

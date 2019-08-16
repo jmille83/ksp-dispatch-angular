@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
@@ -13,6 +13,7 @@ import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { MatRadioChange, MatDialog } from '@angular/material';
 import { OpeningEditComponent } from '../dialogs/opening-edit/opening-edit.component';
+import { PickFrontsideSweepComponent } from '../dialogs/pick-frontside-sweep/pick-frontside-sweep.component';
 
 @Component({
   selector: 'app-openings',
@@ -36,7 +37,6 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   hasUnsubmittedChanges: boolean = false;
   date: moment.Moment = moment(); // Today.
   typeOfFrontsideSweeps = "Day";
-  user: User;
   canEditStored: boolean = false;
   canEditHasBeenChecked: boolean = false;
 
@@ -52,23 +52,30 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.forEach(() => {
       this.openingOrClosing = this.route.snapshot.paramMap.get('type');
-      this.peak = this.route.snapshot.paramMap.get('peak');
-      this.typeOfFrontsideSweeps = this.getTypeOfFrontsideSweeps();
-      this.setPeakNameForPeak();
-      this.setOpeningOrClosingName();
-      this.onNewOpeningSelected();
+      this.peak = this.route.snapshot.paramMap.get('peak');     
+      
+      // This has to be done within the foreach so it is called when a new opening is selected.
+      if (this.openingOrClosing === "closings" && this.peak === "frontside") {
+        // Set a default.
+        this.typeOfFrontsideSweeps = this.getTypeOfFrontsideSweeps();
+        
+        // Make them actively choose.
+        setTimeout(() => {this.showPickFrontsideSweepsDialog()}, 5000);
+      }
+  
+      this.doSetup();
     });
-
     this.getPatrollers();
-
-    this.subscription.add(
-      this.authService.user$.subscribe((user) => {
-        this.user = user;
-      }));
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  doSetup() {
+    this.setPeakNameForPeak();
+    this.setOpeningOrClosingName();
+    this.onNewOpeningSelected();   
   }
 
   setOpeningOrClosingName() {
@@ -180,11 +187,11 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   canEdit(): boolean {
     if (!this.canEditHasBeenChecked) {
       let val = false;
-      if (this.peak === "north-peak" && this.authService.canNorthPeak(this.user)) {
+      if (this.peak === "north-peak" && this.authService.canNorthPeak(this.authService.getCurrentUser())) {
         val = true;
-      } else if (this.peak === "outback" && this.authService.canOutback(this.user)) {
+      } else if (this.peak === "outback" && this.authService.canOutback(this.authService.getCurrentUser())) {
         val = true;
-      } else if (this.peak === "frontside" || "frontside-day" || "frontside-night" && this.authService.isDispatch(this.user)) {
+      } else if (this.peak === "frontside" || "frontside-day" || "frontside-night" && this.authService.isDispatch(this.authService.getCurrentUser())) {
         val = true;
       } else {
         val = false;
@@ -201,6 +208,20 @@ export class OpeningsComponent implements OnInit, OnDestroy {
     } else {
       return "Night";
     }
+  }
+
+  showPickFrontsideSweepsDialog() {
+    let dialogRef = this.dialog.open(PickFrontsideSweepComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result !== this.typeOfFrontsideSweeps) {
+        // Reset peak to just frontside so it can go through its checks again.
+        this.peak = "frontside";
+
+        this.typeOfFrontsideSweeps = result;
+        this.doSetup();
+      }
+    });
   }
 
   onRadioChange(event: MatRadioChange) {
@@ -253,7 +274,7 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   isDispatch() {
     return this.authService.isDispatch(this.authService.getCurrentUser());
   }
-  
+
   onEditButtonClicked(opening: Opening) {
     this.dialog.open(OpeningEditComponent, {
       data: { opening: opening,
