@@ -6,15 +6,15 @@
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Extension" name="extension" [(ngModel)]="contact.extension">
+      <input matInput placeholder="Extension" name="extension" type="tel" [(ngModel)]="contact.extension">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Phone number" name="phone" [(ngModel)]="contact.phone">
+      <input matInput placeholder="Phone number" name="phone" type="tel" [(ngModel)]="contact.phone">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Email" name="email" [(ngModel)]="contact.email">
+      <input matInput placeholder="Email" name="email" type="email" [(ngModel)]="contact.email">
     </mat-form-field>
   </div>
 </mat-dialog-content>

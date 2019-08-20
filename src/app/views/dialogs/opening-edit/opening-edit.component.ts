@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Opening } from 'src/app/objects/opening';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Opening } from '../../../objects/opening';
+import { MAT_DIALOG_DATA } from '@angular/material';
 import { DialogData } from '../../openings/openings.component';
 import { OpeningsService } from '../../../services/openings.service';
 
