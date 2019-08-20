@@ -6,7 +6,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-          MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule, MatSlideToggleModule } from '@angular/material';
+          MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule, MatSlideToggleModule, MatChipsModule, MatAutocompleteModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
@@ -41,6 +41,8 @@ import { LinkEditComponent } from './views/dialogs/link-edit/link-edit.component
 import { ContactEditComponent } from './views/dialogs/contact-edit/contact-edit.component';
 import { OpeningEditComponent } from './views/dialogs/opening-edit/opening-edit.component';
 import { PickFrontsideSweepComponent } from './views/dialogs/pick-frontside-sweep/pick-frontside-sweep.component';
+import { RosterComponent } from './views/roster/roster.component';
+import { RosterEditComponent } from './views/dialogs/roster-edit/roster-edit.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { PickFrontsideSweepComponent } from './views/dialogs/pick-frontside-swee
     LinkEditComponent,
     ContactEditComponent,
     OpeningEditComponent,
-    PickFrontsideSweepComponent
+    PickFrontsideSweepComponent,
+    RosterComponent,
+    RosterEditComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +81,7 @@ import { PickFrontsideSweepComponent } from './views/dialogs/pick-frontside-swee
     MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule, 
     MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
     MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule, MatSlideToggleModule,
-    MatMomentDateModule,
+    MatMomentDateModule, MatChipsModule, MatAutocompleteModule,
     BrowserAnimationsModule,
     ReactiveFormsModule
   ],
@@ -88,7 +92,8 @@ import { PickFrontsideSweepComponent } from './views/dialogs/pick-frontside-swee
     LinkEditComponent,
     ContactEditComponent,
     OpeningEditComponent,
-    PickFrontsideSweepComponent
+    PickFrontsideSweepComponent,
+    RosterEditComponent
   ],
   providers: [
     RecordsService,

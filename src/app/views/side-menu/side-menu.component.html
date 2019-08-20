@@ -30,6 +30,9 @@
   <li class="clickable">
     <a routerLink="/directory" (click)="linkClicked()" id="dashboardSideMenuLink">Directory</a>
   </li>
+  <li *ngIf="isSup()" class="clickable">
+    <a routerLink="/roster" (click)="linkClicked()" id="dashboardSideMenuLink">Roster</a>
+  </li>
   <div id="border-line"></div>
   <div class="user-info">
     <h6>Logged in as:</h6>  

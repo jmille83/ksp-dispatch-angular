@@ -1,0 +1,34 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<h2 mat-dialog-title>Edit {{user.name}}'s Roles</h2>
+<mat-dialog-content>
+  <div id="content-container">
+    <mat-form-field>
+      <mat-chip-list #chipList>
+        <div *ngFor="let role of user.roles | keyvalue">
+            <mat-chip *ngIf="role.value" [selectable]="selectable"
+            [removable]="removable" (removed)="remove(role.key)">
+              {{role.key}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+        </div>
+        <input #rolesInput placeholder="Roles"
+                [formControl]="rolesFormControl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let role of filteredRoles | async" [value]="role">
+          {{role}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <br>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-raised-button color="primary" (click)="onSubmitClicked()" [mat-dialog-close]="true">Submit</button>
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

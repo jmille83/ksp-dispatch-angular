@@ -1,0 +1,38 @@
+<h2>Roster</h2>
+
+<div *ngIf="isSup()" id="container">
+  <div id="header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search...">
+    </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="tableDataSource" class="mat-elevation-z8">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td class="hoverable" mat-cell *matCellDef="let user"> 
+        {{user.name}} 
+        <button class="hover-buttons" mat-icon-button (click)="onEditButtonClicked(user)">
+          <mat-icon class="material-icons">edit</mat-icon>
+        </button>￼
+      </td>
+    </ng-container>
+
+    <!-- Roles Column -->
+    <ng-container matColumnDef="roles">
+      <th mat-header-cell *matHeaderCellDef> Roles </th>
+      <td mat-cell *matCellDef="let user">
+        <mat-chip-list>
+          <div *ngFor="let role of user.roles | keyvalue">
+            <mat-chip *ngIf="role.value">{{role.key}}</mat-chip>
+          </div>
+        </mat-chip-list>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
