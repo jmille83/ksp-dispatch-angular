@@ -58,8 +58,8 @@
       <mat-form-field id="patroller-dropdown">
         <mat-select placeholder="Responding patroller"
         [(ngModel)]="record.respondingPatrollerId" name="respondingPatroller">
-          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
-            {{ patroller.name }}
+          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+            {{ patroller.lastName }}
           </mat-option>
         </mat-select>
       </mat-form-field>

@@ -19,7 +19,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { DispatchComponent } from './views/dispatch/dispatch.component';
 import { RecordDetailComponent } from './views/record-detail/record-detail.component';
 import { NotesComponent } from './views/notes/notes.component';
-import { PatrollerService } from './services/patroller.service';
 import { PatrollerFilterPipe } from './utils/patroller-filter.pipe';
 import { SideMenuComponent } from './views/side-menu/side-menu.component';
 import { OpeningsComponent } from './views/openings/openings.component';
@@ -97,7 +96,6 @@ import { RosterEditComponent } from './views/dialogs/roster-edit/roster-edit.com
   ],
   providers: [
     RecordsService,
-    PatrollerService,
     OpeningsService,
     AuthService,
     AuthGuard,

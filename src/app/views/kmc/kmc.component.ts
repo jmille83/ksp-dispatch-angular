@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecordsService } from '../../services/records.service';
-import { PatrollerService } from '../../services/patroller.service';
 import { Record } from '../../objects/record';
-import { Patroller } from '../../objects/patroller';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import * as moment from 'moment';
+import { UserService } from '../../services/user.service';
+import { User } from '../../objects/user';
 
 @Component({
   selector: 'app-kmc',
@@ -15,11 +15,11 @@ import * as moment from 'moment';
 export class KmcComponent implements OnInit, OnDestroy {
 
   records: Record[] = [];
-  patrollers: Patroller[];
+  patrollers: User[];
   subscription = new Subscription();
   date: moment.Moment = moment();
 
-  constructor(private recordsService: RecordsService, private patrollersService: PatrollerService) { }
+  constructor(private recordsService: RecordsService, private userService: UserService) { }
 
   ngOnInit() {
     this.getRecords();
@@ -40,7 +40,7 @@ export class KmcComponent implements OnInit, OnDestroy {
   }
 
   getPatrollers() {
-    this.patrollersService.getAllPatrollers().pipe(take(1)).subscribe(patrollers => {
+    this.userService.getPatrollers().pipe(take(1)).subscribe(patrollers => {
       this.patrollers = patrollers;
     });
   }

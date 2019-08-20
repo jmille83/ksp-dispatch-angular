@@ -12,6 +12,23 @@ export class UserService {
 
   constructor(private db: AngularFirestore) { }
 
+  getAllUsers(): Observable<any[]> {
+    return this.db.collection('users', ref => ref.orderBy('lastName', 'asc')).valueChanges();
+  }
+
+  getUsersWhoAreContacts(): Observable<any[]> {
+    return this.db.collection('users', ref => ref.where('isContact', '==', true)).valueChanges();
+  }
+
+  getPatrollers(): Observable<any[]> {
+    return this.db.collection('users', ref => ref.where('isPatroller', '==', true).orderBy('lastName')).valueChanges();
+  }
+
+  updateUser(user: User) {
+    let newData = JSON.parse(JSON.stringify(user));
+    this.db.collection('users').doc(user.uid).set(newData);
+  }
+
   updateUserFromContact(contact: Contact) {
     this.db.collection('users').doc(contact.userId).valueChanges().pipe(take(1)).subscribe(user => {
       let updatedUser = user as User;
@@ -23,14 +40,5 @@ export class UserService {
       let newData = JSON.parse(JSON.stringify(updatedUser));
       this.db.collection('users').doc(updatedUser.uid).set(newData);
     });
-  }
-
-  getAllUsers(): Observable<any[]> {
-    return this.db.collection('users', ref => ref.orderBy('lastName', 'asc')).valueChanges();
-  }
-
-  updateUser(user: User) {
-    let newData = JSON.parse(JSON.stringify(user));
-    this.db.collection('users').doc(user.uid).set(newData);
   }
 }

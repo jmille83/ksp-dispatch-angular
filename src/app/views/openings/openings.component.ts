@@ -1,19 +1,17 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-
-import { Patroller } from '../../objects/patroller'
-import { PatrollerService } from '../../services/patroller.service';
 import { Opening } from '../../objects/opening'
 import { OpeningsService } from '../../services/openings.service'
 import { OpeningRecord } from '../../objects/opening-record';
 import { AuthService } from '../../services/auth.service';
-import { User } from '../../objects/user';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { MatRadioChange, MatDialog } from '@angular/material';
 import { OpeningEditComponent } from '../dialogs/opening-edit/opening-edit.component';
 import { PickFrontsideSweepComponent } from '../dialogs/pick-frontside-sweep/pick-frontside-sweep.component';
+import { UserService } from '../../services/user.service';
+import { User } from '../../objects/user';
 
 @Component({
   selector: 'app-openings',
@@ -28,7 +26,7 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   openingOrClosingHeaderName: string = "";
   peak: string = "";
   peakName: string = "";
-  patrollers: Patroller[];
+  patrollers: User[];
   
   openings: Opening[];
   openingRecords: OpeningRecord[];
@@ -45,7 +43,7 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   // For storing all subs so we can unsub on destroy.
   private subscription = new Subscription();
   
-  constructor(private route: ActivatedRoute, private patrollerService: PatrollerService,
+  constructor(private route: ActivatedRoute, private userService: UserService,
               private openingsService: OpeningsService, private authService: AuthService,
               private dialog: MatDialog) { }
 
@@ -176,7 +174,7 @@ export class OpeningsComponent implements OnInit, OnDestroy {
 
   getPatrollers(): void {
     this.subscription.add(
-      this.patrollerService.getAllPatrollers().subscribe(patrollers => this.patrollers = patrollers)
+      this.userService.getPatrollers().subscribe(patrollers => this.patrollers = patrollers)
     );
   }
 

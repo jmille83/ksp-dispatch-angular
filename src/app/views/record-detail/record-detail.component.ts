@@ -2,10 +2,10 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 
 import { Record } from '../../objects/record';
 import { RecordsService } from '../../services/records.service';
-import { Patroller } from '../../objects/patroller'
-import { PatrollerService } from '../../services/patroller.service';
+import { UserService } from '../../services/user.service';
 import { MatDialog } from '@angular/material';
 import { RecordDetailDialogComponent } from '../dialogs/record-detail-dialog/record-detail-dialog.component';
+import { User } from '../../objects/user';
 
 export interface DialogData {
   record: Record;
@@ -27,9 +27,9 @@ export class RecordDetailComponent implements OnInit {
     {value: 'Other'}
   ];
 
-  patrollers: Patroller[];
+  patrollers: User[];
 
-  constructor(private recordsService: RecordsService, private patrollerService: PatrollerService,
+  constructor(private recordsService: RecordsService, private userService: UserService,
               public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -37,7 +37,7 @@ export class RecordDetailComponent implements OnInit {
   }
 
   getPatrollers(): void {
-    this.patrollerService.getAllPatrollers().subscribe(patrollers => this.patrollers = patrollers);
+    this.userService.getPatrollers().subscribe(patrollers => this.patrollers = patrollers);
   }
 
   onPeakRadioButtonChange() {

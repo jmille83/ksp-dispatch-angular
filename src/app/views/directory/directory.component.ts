@@ -5,6 +5,7 @@ import { Contact } from '../../objects/contact';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { AuthService } from '../../services/auth.service';
 import { ContactEditComponent } from '../dialogs/contact-edit/contact-edit.component';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-directory',
@@ -17,7 +18,10 @@ export class DirectoryComponent implements OnInit {
   tableDataSource: MatTableDataSource<Contact>;
   displayedColumns: string[] = ['name', 'extension', 'phone', 'email'];
 
-  constructor(private directoryService: DirectoryService, private authService: AuthService, private dialog: MatDialog) { }
+  constructor(private directoryService: DirectoryService, 
+    private authService: AuthService, 
+    private userService: UserService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getAllContacts();
@@ -29,7 +33,7 @@ export class DirectoryComponent implements OnInit {
     });
 
     // Add all the users to the directory.
-    this.directoryService.getAllUsers().pipe(take(1)).subscribe(users => {
+    this.userService.getUsersWhoAreContacts().pipe(take(1)).subscribe(users => {
       users.forEach(user => {
         let newContact = user as Contact;
         newContact.userId = user.uid;
