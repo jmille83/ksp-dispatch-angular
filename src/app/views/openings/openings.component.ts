@@ -174,7 +174,7 @@ export class OpeningsComponent implements OnInit, OnDestroy {
 
   getPatrollers(): void {
     this.subscription.add(
-      this.userService.getPatrollers().subscribe(patrollers => this.patrollers = patrollers)
+      this.userService.getPatrollersOrdered().subscribe(patrollers => this.patrollers = patrollers)
     );
   }
 

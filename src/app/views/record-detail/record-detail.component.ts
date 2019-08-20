@@ -37,7 +37,7 @@ export class RecordDetailComponent implements OnInit {
   }
 
   getPatrollers(): void {
-    this.userService.getPatrollers().subscribe(patrollers => this.patrollers = patrollers);
+    this.userService.getPatrollersOrdered().subscribe(patrollers => this.patrollers = patrollers);
   }
 
   onPeakRadioButtonChange() {

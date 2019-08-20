@@ -21,7 +21,11 @@ export class UserService {
   }
 
   getPatrollers(): Observable<any[]> {
-    return this.db.collection('users', ref => ref.where('isPatroller', '==', true).orderBy('lastName')).valueChanges();
+    return this.db.collection('users', ref => ref.where('isPatroller', '==', true)).valueChanges();
+  }
+
+  getPatrollersOrdered(): Observable<any[]> {
+    return this.db.collection('users', ref => ref.where('isPatroller', '==', true).orderBy('order', 'desc').orderBy('lastName')).valueChanges();
   }
 
   updateUser(user: User) {

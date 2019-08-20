@@ -3,7 +3,6 @@ import * as moment from 'moment';
 
 import { Record } from '../../objects/record'
 import { RecordsService } from '../../services/records.service';
-import { Patroller } from '../../objects/patroller'
 import { UserService } from '../../services/user.service';
 import { MatDialog } from '@angular/material';
 import { RecordDeleteDialogComponent } from '../dialogs/record-delete-dialog/record-delete-dialog.component';
