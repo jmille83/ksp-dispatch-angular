@@ -12,5 +12,4 @@ export class PatrollerFilterPipe implements PipeTransform {
 
     return patrollers.find(patroller => patroller.uid == targetId).lastName;
    }
-
 }

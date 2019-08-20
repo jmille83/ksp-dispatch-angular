@@ -24,8 +24,8 @@
       <td class="patroller-cells">
         <mat-select [disabled]="!canEdit()" placeholder="Patroller"
         [(ngModel)]="opening.patrollerId" name="patroller">
-          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
-            {{ patroller.name }}
+          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+            {{ patroller.lastName }}
           </mat-option>
         </mat-select>
       </td>
@@ -60,8 +60,8 @@
       <td class="patroller-cells">
         <mat-select *ngIf="!opening.header" [disabled]="!canEdit()" placeholder="Patroller"
         [(ngModel)]="opening.patrollerId" name="patroller" (selectionChange)="onOpeningValueChanged()">
-          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
-            {{ patroller.name }}
+          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+            {{ patroller.lastName }}
           </mat-option>
         </mat-select>
       </td>
