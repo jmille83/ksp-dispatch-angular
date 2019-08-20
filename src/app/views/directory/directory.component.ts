@@ -30,19 +30,21 @@ export class DirectoryComponent implements OnInit {
   getAllContacts() {
     this.directoryService.getAllContacts().pipe(take(1)).subscribe(contacts => {
       this.contacts = contacts as Contact[];
+
+      // Add all the users to the directory.
+      this.userService.getUsersWhoAreContacts().pipe(take(1)).subscribe(users => {
+        users.forEach(user => {
+          let newContact = user as Contact;
+          newContact.userId = user.uid;
+          this.contacts.push(newContact);
+        });
+        // Sort the new ones in by name.
+        this.contacts.sort((a, b) => a.name.localeCompare(b.name));
+        this.tableDataSource = new MatTableDataSource(this.contacts);
+      });
     });
 
-    // Add all the users to the directory.
-    this.userService.getUsersWhoAreContacts().pipe(take(1)).subscribe(users => {
-      users.forEach(user => {
-        let newContact = user as Contact;
-        newContact.userId = user.uid;
-        this.contacts.push(newContact);
-      });
-      // Sort the new ones in by name.
-      this.contacts.sort((a, b) => a.name.localeCompare(b.name));
-      this.tableDataSource = new MatTableDataSource(this.contacts);
-    });
+    
   }
 
   applyFilter(filterValue: string) {
