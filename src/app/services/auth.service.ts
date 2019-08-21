@@ -82,6 +82,7 @@ export class AuthService {
       extension: "",
       isContact: true,
       isPatroller: true,
+      order: 0,
       roles: {
         default: true
       }

@@ -6,7 +6,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-          MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule } from '@angular/material';
+          MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule, MatSlideToggleModule, MatChipsModule, MatAutocompleteModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
@@ -19,7 +19,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { DispatchComponent } from './views/dispatch/dispatch.component';
 import { RecordDetailComponent } from './views/record-detail/record-detail.component';
 import { NotesComponent } from './views/notes/notes.component';
-import { PatrollerService } from './services/patroller.service';
 import { PatrollerFilterPipe } from './utils/patroller-filter.pipe';
 import { SideMenuComponent } from './views/side-menu/side-menu.component';
 import { OpeningsComponent } from './views/openings/openings.component';
@@ -39,6 +38,10 @@ import { LinksService } from './services/links.service';
 import { DirectoryComponent } from './views/directory/directory.component';
 import { LinkEditComponent } from './views/dialogs/link-edit/link-edit.component';
 import { ContactEditComponent } from './views/dialogs/contact-edit/contact-edit.component';
+import { OpeningEditComponent } from './views/dialogs/opening-edit/opening-edit.component';
+import { PickFrontsideSweepComponent } from './views/dialogs/pick-frontside-sweep/pick-frontside-sweep.component';
+import { RosterComponent } from './views/roster/roster.component';
+import { RosterEditComponent } from './views/dialogs/roster-edit/roster-edit.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,11 @@ import { ContactEditComponent } from './views/dialogs/contact-edit/contact-edit.
     UsefulLinksComponent,
     DirectoryComponent,
     LinkEditComponent,
-    ContactEditComponent
+    ContactEditComponent,
+    OpeningEditComponent,
+    PickFrontsideSweepComponent,
+    RosterComponent,
+    RosterEditComponent
   ],
   imports: [
     BrowserModule,
@@ -72,8 +79,8 @@ import { ContactEditComponent } from './views/dialogs/contact-edit/contact-edit.
     AngularFireAuthModule,
     MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule, 
     MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-    MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule,
-    MatMomentDateModule,
+    MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule, MatSlideToggleModule,
+    MatMomentDateModule, MatChipsModule, MatAutocompleteModule,
     BrowserAnimationsModule,
     ReactiveFormsModule
   ],
@@ -83,10 +90,12 @@ import { ContactEditComponent } from './views/dialogs/contact-edit/contact-edit.
     RecordEditTimeDialogComponent,
     LinkEditComponent,
     ContactEditComponent,
+    OpeningEditComponent,
+    PickFrontsideSweepComponent,
+    RosterEditComponent
   ],
   providers: [
     RecordsService,
-    PatrollerService,
     OpeningsService,
     AuthService,
     AuthGuard,

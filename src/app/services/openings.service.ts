@@ -40,4 +40,9 @@ export class OpeningsService {
       collection.doc(record.id).set(newData);
     });
   }
+
+  updateOpeningWithType(opening: Opening, type: string) {
+    var newData = JSON.parse(JSON.stringify(opening));
+    this.db.collection(type).doc(opening.id).set(newData);
+  }
 }

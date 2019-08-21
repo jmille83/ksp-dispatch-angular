@@ -15,7 +15,7 @@ h2 {
   padding: 15px 10px 2px 0px
 }
 
-.equipment {
+.full-width {
   width: 100%;
 }
 
@@ -32,15 +32,25 @@ h2 {
 }
 
 .complaint {
-  width: 100%;
+  display: flex;
 }
 
 .location {
   width: 100%;
 }
 
-.patroller {
+#patroller-ai-group {
   width: 100%;
+  display: table;
+}
+
+#patroller-dropdown {
+  width: 100%;
+  display: table-cell;
+}
+
+#ai-checkbox {
+  padding-left: 15px;
 }
 
 .radio-group-container {

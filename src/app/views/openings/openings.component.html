@@ -24,8 +24,8 @@
       <td class="patroller-cells">
         <mat-select [disabled]="!canEdit()" placeholder="Patroller"
         [(ngModel)]="opening.patrollerId" name="patroller">
-          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
-            {{ patroller.name }}
+          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+            {{ patroller.lastName }}
           </mat-option>
         </mat-select>
       </td>
@@ -36,7 +36,9 @@
 <div class="table-container">
   <table id="openings-table" [style.border-color]="hasUnsubmittedChanges ? 'red' : 'black'" align="center">
     <tr>
-      <th>Opening</th>
+      <th>{{openingOrClosingHeaderName}}</th>
+      <th *ngIf="editMode"></th>
+      <th *ngIf="editMode">Order</th>
       <th>Patroller</th>
       <th>Notes</th>
     </tr>
@@ -48,12 +50,18 @@
         </div>
         <div *ngIf="!opening.header" class="opening-text">{{ opening.text }}</div>
       </td>
+      <td *ngIf="editMode">
+        <button id="edit-button" mat-icon-button (click)="onEditButtonClicked(opening)">
+          <mat-icon class="material-icons">edit</mat-icon>
+        </button>￼
+      </td>
+      <td *ngIf="editMode">{{opening.order}}</td>
 
       <td class="patroller-cells">
         <mat-select *ngIf="!opening.header" [disabled]="!canEdit()" placeholder="Patroller"
         [(ngModel)]="opening.patrollerId" name="patroller" (selectionChange)="onOpeningValueChanged()">
-          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
-            {{ patroller.name }}
+          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+            {{ patroller.lastName }}
           </mat-option>
         </mat-select>
       </td>
@@ -64,9 +72,17 @@
   </table>
 </div>
 
-<div class="button-container" *ngIf="canEdit()">
+<div class="centered-container" *ngIf="canEdit()">
   <button mat-raised-button class="submit-button" id="submitRecordButton"
   color="primary" (click)="onSubmitButtonClicked()">Submit</button>
   <button mat-raised-button color="gray" 
   (click)="onClearButtonClicked()">Clear</button>
+</div>
+
+<div class="centered-container" *ngIf="isDispatch()">
+  <mat-slide-toggle id="edit-toggle" 
+  [(ngModel)]="editMode" 
+  color="primary">
+    Edit mode
+  </mat-slide-toggle>
 </div>

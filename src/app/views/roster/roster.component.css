@@ -1,0 +1,28 @@
+h2 {
+    text-align: center;
+}
+
+#container {
+    padding: 25px;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+#header {
+    display: flex;
+}
+
+.hover-buttons {
+    opacity: 0;
+}
+
+.hoverable:hover .hover-buttons {
+    opacity: 1;
+}

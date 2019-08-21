@@ -19,4 +19,5 @@ export interface User {
     extension: string;
     isContact: boolean;
     isPatroller: boolean;
+    order: number;
 }

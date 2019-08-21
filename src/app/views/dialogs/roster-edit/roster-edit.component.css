@@ -1,0 +1,13 @@
+* {
+    font-family: Roboto, sans-serif;
+    font-weight: 400, 700;
+    color: darkslategray;
+}
+
+#content-container {
+    width: 400px;
+}
+
+mat-form-field {
+    width: 100%;
+}

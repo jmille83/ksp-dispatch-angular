@@ -16,9 +16,8 @@ export class LinkEditComponent implements OnInit {
   linkGroup: LinkGroup;
   newMode: boolean = false;
   
-  constructor(public dialogRef: MatDialogRef<LinkEditComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public linksService: LinksService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private data: DialogData,
+    private linksService: LinksService) {
       this.link = data.link;
       this.linkGroup = data.linkGroup
 

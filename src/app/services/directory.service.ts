@@ -14,14 +14,6 @@ export class DirectoryService {
     return this.db.collection('contacts', ref => ref.orderBy('name', 'asc')).valueChanges();
   }
 
-  getAllUsers(): Observable<any[]> {
-    return this.db.collection('users', ref => ref.where('isContact', '==', true)).valueChanges();
-  }
-
-  getAllContactsWithIds() {
-    return this.db.collection('contacts').snapshotChanges();
-  }
-
   addContact(contact: Contact) {
     contact.id = this.db.createId();
     let newData = JSON.parse(JSON.stringify(contact));

@@ -19,7 +19,7 @@
       <mat-radio-button value="Female" class="radio">Female</mat-radio-button>
     </mat-radio-group>
 
-    <mat-form-field class="equipment">
+    <mat-form-field class="full-width">
       <mat-select placeholder="Gear"
       [(ngModel)]="record.gear" name="gear">
         <mat-option *ngFor="let equip of equipments" [value]="equip.value">
@@ -42,27 +42,31 @@
       [(ngModel)]="record.bottomColor" name="bottomColor">
     </mat-form-field>
 
-    <mat-form-field class="complaint">
+    <mat-form-field class="full-width">
       <input matInput placeholder="Chief Complaint" 
       [(ngModel)]="record.chiefComplaint" name="chiefComplaint">
     </mat-form-field>
 
-    <mat-form-field class="location">
+    <mat-form-field class="full-width">
       <input matInput placeholder="Location" 
       [(ngModel)]="record.location" name="location">
     </mat-form-field>
 
     <br>
 
-    <mat-form-field class="patroller">
-      <mat-select placeholder="Responding patroller"
-      [(ngModel)]="record.respondingPatrollerId" name="respondingPatroller">
-        <mat-option *ngFor="let patroller of patrollers" [value]="patroller.id">
-          {{ patroller.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
+    <div id="patroller-ai-group">
+      <mat-form-field id="patroller-dropdown">
+        <mat-select placeholder="Responding patroller"
+        [(ngModel)]="record.respondingPatrollerId" name="respondingPatroller">
+          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+            {{ patroller.lastName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-checkbox id="ai-checkbox" name="ai" [(ngModel)]="record.ai">AI</mat-checkbox>
+    </div>
+    
     <div class="radio-group-container">
       <mat-radio-group [(ngModel)]="record.type" name="type" class="radio-group" layout="row" (change)="onTypeRadioButtonChange()">
         <mat-radio-button value="10-50" class="radio">10-50</mat-radio-button>

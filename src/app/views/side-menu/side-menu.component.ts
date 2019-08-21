@@ -52,4 +52,8 @@ export class SideMenuComponent implements OnInit {
 
     this.currentUserName = "No one";
   }
+
+  isSup() {
+    return this.authService.isSup(this.authService.getCurrentUser());
+  }
 }

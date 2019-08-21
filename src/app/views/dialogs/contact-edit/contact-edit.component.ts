@@ -15,8 +15,7 @@ export class ContactEditComponent implements OnInit {
   contact: Contact;
   isEditingUser: boolean = false;
 
-  constructor(private dialogRef: MatDialogRef<ContactEditComponent>, 
-    @Inject(MAT_DIALOG_DATA) private data: DialogData,
+  constructor(@Inject(MAT_DIALOG_DATA) private data: DialogData,
     private directoryService: DirectoryService,
     private userService: UserService) {
       this.contact = data.contact;
@@ -29,8 +28,7 @@ export class ContactEditComponent implements OnInit {
       // Don't let the editor delete a user.
       if (this.contact.userId) {
         this.isEditingUser = true;
-      }
-      
+      }    
   }
 
   ngOnInit() {

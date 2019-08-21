@@ -3,13 +3,13 @@ import * as moment from 'moment';
 
 import { Record } from '../../objects/record'
 import { RecordsService } from '../../services/records.service';
-import { Patroller } from '../../objects/patroller'
-import { PatrollerService } from '../../services/patroller.service';
+import { UserService } from '../../services/user.service';
 import { MatDialog } from '@angular/material';
 import { RecordDeleteDialogComponent } from '../dialogs/record-delete-dialog/record-delete-dialog.component';
 import { RecordEditTimeDialogComponent } from '../dialogs/record-edit-time-dialog/record-edit-time-dialog.component';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { User } from '../../objects/user';
 
 @Component({
   selector: 'app-records',
@@ -21,14 +21,14 @@ export class RecordsComponent implements OnInit, OnDestroy {
   @Output() onRecordClicked = new EventEmitter<Record>();
   records: Record[] = [];
   editTimeRecord: Record;
-  patrollers: Patroller[];
+  patrollers: User[];
   date: moment.Moment = moment();
   total1050s = 0;
   totalTaxis = 0;
 
   subscription: Subscription = new Subscription();
   
-  constructor(private recordsService: RecordsService, private patrollerService: PatrollerService,
+  constructor(private recordsService: RecordsService, private userService: UserService,
               public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -62,9 +62,11 @@ export class RecordsComponent implements OnInit, OnDestroy {
   }
 
   getPatrollers(): void {
-    this.patrollerService.getAllPatrollers()
+    this.userService.getPatrollers()
     .pipe(take(1))
-    .subscribe(patrollers => this.patrollers = patrollers);
+    .subscribe(patrollers => {
+      this.patrollers = patrollers
+    });
   }
 
   onRecordClick(record: Record) {
