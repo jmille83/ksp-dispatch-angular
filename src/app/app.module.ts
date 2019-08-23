@@ -42,6 +42,7 @@ import { OpeningEditComponent } from './views/dialogs/opening-edit/opening-edit.
 import { PickFrontsideSweepComponent } from './views/dialogs/pick-frontside-sweep/pick-frontside-sweep.component';
 import { RosterComponent } from './views/roster/roster.component';
 import { RosterEditComponent } from './views/dialogs/roster-edit/roster-edit.component';
+import { TransactionService } from './services/transaction.service';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { RosterEditComponent } from './views/dialogs/roster-edit/roster-edit.com
     OpeningsService,
     AuthService,
     AuthGuard,
-    LinksService
+    LinksService,
+    TransactionService
   ],
   bootstrap: [AppComponent]
 })
