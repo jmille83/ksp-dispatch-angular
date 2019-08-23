@@ -144,6 +144,7 @@ export class OpeningsComponent implements OnInit, OnDestroy {
       rec.header = opening.header ? true : false;
       rec.day = opening.day ? true : false;
       rec.night = opening.night ? true : false;
+      rec.peak = opening.peak;
       this.openingRecords.push(rec);
     });
     if (this.isOpening) {

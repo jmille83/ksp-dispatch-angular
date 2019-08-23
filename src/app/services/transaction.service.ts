@@ -10,7 +10,7 @@ export class TransactionService {
 
   constructor(private db: AngularFirestore, private authService: AuthService) { }
 
-  writeDataToDocForCollection(data: JSON, docId: string, collection: string) {
+  writeDataToDocForCollection(data: any, docId: string, collection: string) {
     this.db.collection(collection).doc(docId).set(data);
     
     let transaction = new Transaction();

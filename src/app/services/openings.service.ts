@@ -4,11 +4,14 @@ import { Observable } from 'rxjs/Observable'
 
 import { Opening } from '../objects/opening';
 import { OpeningRecord } from '../objects/opening-record';
+import { TransactionService } from './transaction.service';
+import { Transaction, TransactionType } from '../objects/transaction';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class OpeningsService {
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore, private transactionService: TransactionService, private authService: AuthService) { }
 
   getListForTypeAndPeak(type: string, peak: string): Observable<Opening[]> {
     if (peak === "frontside-day") {
@@ -34,7 +37,13 @@ export class OpeningsService {
   
   submitRecordsForTypeAndPeakAndDate(openingRecords: OpeningRecord[], type: string, peak: string, date:string) {
     let collection = this.db.collection(type + '-records').doc(date).collection<OpeningRecord>(peak);
-    
+    let data = {
+      'type': type,
+      'peak': peak,
+      'date': date
+    }
+    this.createAuxiliaryTransactionWithData(data);
+
     openingRecords.forEach(record => {
       var newData = JSON.parse(JSON.stringify(record));
       collection.doc(record.id).set(newData);
@@ -43,6 +52,18 @@ export class OpeningsService {
 
   updateOpeningWithType(opening: Opening, type: string) {
     var newData = JSON.parse(JSON.stringify(opening));
-    this.db.collection(type).doc(opening.id).set(newData);
+    this.transactionService.writeDataToDocForCollection(newData, opening.id, type);
+  }
+
+  createAuxiliaryTransactionWithData(data: any) {
+    let transaction = new Transaction();
+    transaction.data = data;
+    transaction.timestamp = new Date().getTime();
+    transaction.userId = this.authService.getCurrentUser().uid;
+    transaction.type = TransactionType.WRITE;
+    
+    let dataJson = JSON.parse(JSON.stringify(transaction));
+
+    this.db.collection('transaction-log').add(dataJson);    
   }
 }

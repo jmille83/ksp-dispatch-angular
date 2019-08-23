@@ -4,13 +4,14 @@ import { User } from '../objects/user';
 import { Contact } from '../objects/contact';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { TransactionService } from './transaction.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore, private transactionService: TransactionService) { }
 
   getAllUsers(): Observable<any[]> {
     return this.db.collection('users', ref => ref.orderBy('lastName', 'asc')).valueChanges();
@@ -30,7 +31,7 @@ export class UserService {
 
   updateUser(user: User) {
     let newData = JSON.parse(JSON.stringify(user));
-    this.db.collection('users').doc(user.uid).set(newData);
+    this.transactionService.writeDataToDocForCollection(newData, user.uid, 'users');
   }
 
   updateUserFromContact(contact: Contact) {
@@ -42,7 +43,7 @@ export class UserService {
       updatedUser.extension = contact.extension;
 
       let newData = JSON.parse(JSON.stringify(updatedUser));
-      this.db.collection('users').doc(updatedUser.uid).set(newData);
+      this.transactionService.writeDataToDocForCollection(newData, updatedUser.uid, 'users');
     });
   }
 }

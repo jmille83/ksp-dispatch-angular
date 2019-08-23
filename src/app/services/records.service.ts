@@ -3,11 +3,12 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs/Observable'
 
 import { Record } from '../objects/record'
+import { TransactionService } from './transaction.service';
 
 @Injectable()
 export class RecordsService {
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore, private transactionService: TransactionService) { }
 
   getRecordsForDay(day: Date): Observable<any[]> {
     let start = day;
@@ -44,17 +45,17 @@ export class RecordsService {
     // Firebase needs data as plain JSON.
     var data = JSON.parse(JSON.stringify(record));
 
-    this.db.collection('records').doc(record.id).set(data);
+    this.transactionService.writeDataToDocForCollection(data, record.id, 'records');
   }
 
   updateRecord(record: Record) {
     // Firebase needs data as plain JSON.
     var newData = JSON.parse(JSON.stringify(record));
-    
-    this.db.collection('records').doc(record.id).set(newData);
+
+    this.transactionService.writeDataToDocForCollection(newData, record.id, 'records');
   }
 
   deleteRecord(record: Record) {
-    this.db.collection('records').doc(record.id).delete();
+    this.transactionService.deleteDocInCollection(record.id, 'records', record);
   }
 }
