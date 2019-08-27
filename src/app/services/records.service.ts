@@ -35,12 +35,18 @@ export class RecordsService {
                                                     .orderBy('timeReported', 'desc')).valueChanges();
   }
 
+  get1033sForSeason(): Observable<any[]> {
+    // TODO: filter for this season. Currently returns all 1033s.
+    return this.db.collection('records', ref => ref.where('is1033', '==', true)).valueChanges();
+  }
+
   addRecord(record: Record) {
     // Create a unique id in Firebase.
     record.id = this.db.createId();
     
     record.timeReported = new Date().getTime();
     record.timeReportedString = new Date().toLocaleTimeString();
+    record.dateReported = new Date().toDateString();
 
     // Firebase needs data as plain JSON.
     var data = JSON.parse(JSON.stringify(record));

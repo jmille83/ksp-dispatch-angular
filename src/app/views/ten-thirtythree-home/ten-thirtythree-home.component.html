@@ -1,3 +1,6 @@
-<p>
-  ten-thirtythree-home works!
-</p>
+<h2>This Season's 10-33s</h2>
+<mat-list id="list-container">
+  <mat-list-item *ngFor="let ten33 of list1033s">
+    <a mat-button color="primary" routerLink="/1033/{{ten33.id}}"> {{ten33.location}}, {{ten33.chiefComplaint}}, {{ten33.dateReported}}</a>
+  </mat-list-item>
+</mat-list>

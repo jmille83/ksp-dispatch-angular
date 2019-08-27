@@ -37,7 +37,7 @@ export class LinksService {
 
   deleteLink(link: Link, group: LinkGroup) {
     group.links = this.manualDelete(group.links, link);
-    let newData = JSON.parse(JSON.stringify(link));
+    let newData = JSON.parse(JSON.stringify(group));
     this.transactionService.writeDataToDocForCollection(newData, group.id, 'useful-links-groups');
   }
 
