@@ -9,6 +9,8 @@ import { KmcComponent } from './views/kmc/kmc.component';
 import { UsefulLinksComponent } from './views/useful-links/useful-links.component';
 import { DirectoryComponent } from './views/directory/directory.component';
 import { RosterComponent } from './views/roster/roster.component';
+import { TenThirtythreeHomeComponent } from './views/ten-thirtythree-home/ten-thirtythree-home.component';
+import { TenThirtythreeDetailComponent } from './views/ten-thirtythree-detail/ten-thirtythree-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dispatch', pathMatch: 'full' },
@@ -19,7 +21,9 @@ const routes: Routes = [
   { path: 'kmc', canActivate: [AuthGuard], component: KmcComponent },
   { path: 'useful-links', canActivate: [AuthGuard], component: UsefulLinksComponent },
   { path: 'directory', canActivate: [AuthGuard], component: DirectoryComponent },
-  { path: 'roster', canActivate: [AuthGuard], component: RosterComponent }
+  { path: 'roster', canActivate: [AuthGuard], component: RosterComponent },
+  { path: '1033', canActivate: [AuthGuard], component: TenThirtythreeHomeComponent },
+  { path: '1033/:id', canActivate: [AuthGuard], component: TenThirtythreeDetailComponent }
 ];
 
 @NgModule({

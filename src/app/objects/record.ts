@@ -15,6 +15,7 @@ export class Record {
     typeLabel: string;
     traumaActivated: boolean = false;
     ai: boolean = false;
+    is1033: boolean = false;
 
     // Secondary information.
     hasSecondaryInfo: boolean;

@@ -10,6 +10,7 @@ import { RecordEditTimeDialogComponent } from '../dialogs/record-edit-time-dialo
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { User } from '../../objects/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-records',
@@ -29,7 +30,7 @@ export class RecordsComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   
   constructor(private recordsService: RecordsService, private userService: UserService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
     this.getRecords();
@@ -102,5 +103,14 @@ export class RecordsComponent implements OnInit, OnDestroy {
   onTraumaActivationButtonClicked(record: Record) {
     record.traumaActivated = !record.traumaActivated;
     this.recordsService.updateRecord(record);
+  }
+
+  on1033ButtonClicked(record: Record) {
+    record.is1033 = !record.is1033;
+    this.recordsService.updateRecord(record);
+  }
+
+  goTo1033(record: Record) {
+    this.router.navigateByUrl("/1033/" + record.id);
   }
 }

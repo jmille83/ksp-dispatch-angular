@@ -43,6 +43,8 @@ import { PickFrontsideSweepComponent } from './views/dialogs/pick-frontside-swee
 import { RosterComponent } from './views/roster/roster.component';
 import { RosterEditComponent } from './views/dialogs/roster-edit/roster-edit.component';
 import { TransactionService } from './services/transaction.service';
+import { TenThirtythreeHomeComponent } from './views/ten-thirtythree-home/ten-thirtythree-home.component';
+import { TenThirtythreeDetailComponent } from './views/ten-thirtythree-detail/ten-thirtythree-detail.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { TransactionService } from './services/transaction.service';
     OpeningEditComponent,
     PickFrontsideSweepComponent,
     RosterComponent,
-    RosterEditComponent
+    RosterEditComponent,
+    TenThirtythreeHomeComponent,
+    TenThirtythreeDetailComponent
   ],
   imports: [
     BrowserModule,
