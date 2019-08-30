@@ -1,0 +1,29 @@
+h2 {
+    text-align: center;
+}
+
+mat-checkbox {
+    margin-right: 10px;
+}
+
+mat-select {
+    margin-left: 10px;
+    width: 120px;
+}
+
+.time {
+    font-size: 80%;
+    color: lightgray;
+    margin-left: 10px;
+}
+
+.icon-button {
+    width: 26px;
+    height: 35px;
+}
+
+::ng-deep .mat-icon {
+    height:25px !important;
+    width:18px !important;
+    font-size:18px !important;
+}

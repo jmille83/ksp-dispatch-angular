@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentSnapshot } from '@angular/fire/firestore';
 import { Observable } from 'rxjs/Observable'
 
 import { Record } from '../objects/record'
@@ -9,6 +9,10 @@ import { TransactionService } from './transaction.service';
 export class RecordsService {
 
   constructor(private db: AngularFirestore, private transactionService: TransactionService) { }
+
+  getRecordForId(id: string): Observable<any[]> {
+    return this.db.collection('records', ref => ref.where("id", "==", id)).valueChanges();
+  }
 
   getRecordsForDay(day: Date): Observable<any[]> {
     let start = day;
@@ -38,6 +42,10 @@ export class RecordsService {
   get1033sForSeason(): Observable<any[]> {
     // TODO: filter for this season. Currently returns all 1033s.
     return this.db.collection('records', ref => ref.where('is1033', '==', true)).valueChanges();
+  }
+
+  get1033ForId(id: string): Observable<any[]> {
+    return this.db.collection('ten33s', ref => ref.where('id', '==', id)).valueChanges();
   }
 
   addRecord(record: Record) {

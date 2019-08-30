@@ -1,3 +1,93 @@
-<p>
-  ten-thirtythree-detail works!
-</p>
+<h2>10-33 Form</h2>
+
+<div id="grid-container">
+  <mat-grid-list cols="3" rowHeight="300px">
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+      <mat-card>
+        <mat-card-title>Primary checklist</mat-card-title>
+        <mat-card-content>
+          <mat-list>
+            <!-- Dispatcher -->
+            <mat-list-item>
+              <mat-checkbox [(ngModel)]="ten33.dispatcherAssigned" (change)="onDispatcherAssigned()"></mat-checkbox>
+              <div>Dispatcher: </div>
+              <mat-select placeholder="Dispatcher" [(ngModel)]="ten33.dispatcherId" name="dispatcher" [disabled]="ten33.dispatcherAssigned">
+                <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+                  {{ patroller.lastName }}
+                </mat-option>
+              </mat-select>
+              <p class="time" *ngIf="ten33.dispatcherAssignedTimeString != null">{{ten33.dispatcherAssignedTimeString}}</p>
+            </mat-list-item>
+
+            <!-- 3101 -->
+            <mat-list-item>
+              <mat-checkbox [(ngModel)]="ten33.three101Assigned" (change)="on3101Assigned()"></mat-checkbox>
+              <div>Assign 3101: </div>
+              <mat-select placeholder="3101" [(ngModel)]="ten33.three101Id" name="three101" [disabled]="ten33.three101Assigned">
+                <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+                  {{ patroller.lastName }}
+                </mat-option>
+              </mat-select>
+              <p class="time" *ngIf="ten33.three101AssignedTimeString != null">{{ten33.three101AssignedTimeString}}</p>
+            </mat-list-item>
+
+            <!-- Close Channel 1 -->
+            <mat-list-item>
+              <mat-checkbox [(ngModel)]="ten33.closedChannel1" (change)="onClosedChannel1()"></mat-checkbox>
+              <div>Close Channel 1</div>
+              <p class="time" *ngIf="ten33.closedChannel1TimeString != null">{{ten33.closedChannel1TimeString}}</p>
+            </mat-list-item>
+
+            <!-- Reopen Channel 1 -->
+            <mat-list-item *ngIf="ten33.closedChannel1">
+              <mat-checkbox [(ngModel)]="ten33.reopenedChannel1" (change)="onReopenedChannel1()"></mat-checkbox>
+              <div>Re-open Channel 1</div>
+              <p class="time" *ngIf="ten33.reopenedChannel1TimeString != null">{{ten33.reopenedChannel1TimeString}}</p>
+            </mat-list-item>
+
+            <!-- Notify director or AD -->
+            <mat-list-item>
+              <mat-checkbox [(ngModel)]="ten33.directorNotified" (change)="onDirectorNotified()"></mat-checkbox>
+              <div>
+                Notify Mike
+                <button mat-icon-button class="icon-button" (click)="showSnackbar('3835 / (970) 389-7169')">
+                  <mat-icon>phone</mat-icon>
+                </button>
+                or Banjo
+                <button mat-icon-button class="icon-button" (click)="showSnackbar('3878 / (720) 258-5744')">
+                  <mat-icon>phone</mat-icon>
+                </button>
+              </div>
+              <p class="time" *ngIf="ten33.directorNotifiedTimeString != null">{{ten33.directorNotifiedTimeString}}</p>
+            </mat-list-item>
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Have them initiate Executive Comm Network:</mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list>
+                  <mat-list-item>Geoff Buccheister - 4190 / (801) 560-2736</mat-list-item>
+                  <mat-list-item>Tracy Bartels - 4188 / (970) 485-0257</mat-list-item>
+                  <mat-list-item>Dave Paradysz - 4352 / (530) 318-2568</mat-list-item>
+                  <mat-list-item>Kurtis Knapke - 4388 / (765) 993-6239</mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <mat-card>
+        <mat-card-title>Patient Info</mat-card-title>
+        <mat-card-content></mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <mat-card>
+        <mat-card-title>On Scene</mat-card-title>
+        <mat-card-content></mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

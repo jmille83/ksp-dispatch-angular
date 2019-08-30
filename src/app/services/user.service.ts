@@ -29,6 +29,10 @@ export class UserService {
     return this.db.collection('users', ref => ref.where('isPatroller', '==', true).orderBy('order', 'desc').orderBy('lastName')).valueChanges();
   }
 
+  getCurrentDispatcher(): Observable<any> {
+    return this.db.collection('openings-records').doc(this.getFormattedDate()).collection('frontside').doc('dispatcher-day').valueChanges();
+  }
+
   updateUser(user: User) {
     let newData = JSON.parse(JSON.stringify(user));
     this.transactionService.writeDataToDocForCollection(newData, user.uid, 'users');
@@ -45,5 +49,17 @@ export class UserService {
       let newData = JSON.parse(JSON.stringify(updatedUser));
       this.transactionService.writeDataToDocForCollection(newData, updatedUser.uid, 'users');
     });
+  }
+
+  getFormattedDate() {
+    var d = new Date(),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+  
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+  
+    return [year, month, day].join('-');
   }
 }
