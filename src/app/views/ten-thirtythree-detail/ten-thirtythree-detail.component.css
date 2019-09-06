@@ -1,4 +1,4 @@
-h2 {
+h2, h5 {
     text-align: center;
 }
 
@@ -31,4 +31,22 @@ mat-select {
 .centered-container {
     width: 100%;
     text-align: center;
+}
+
+.inputs {
+    padding-left: 6px;
+}
+
+#patrollers-dispatched-table {
+    padding: 10px;
+    width: 100%;
+}
+
+#patrollers-dispatched-button-container {
+    width: 100%;
+    text-align: center;
+}
+
+.header-row {
+    padding-bottom: 10px;
 }

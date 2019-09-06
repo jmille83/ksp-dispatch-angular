@@ -17,6 +17,7 @@ export class Record {
     traumaActivated: boolean = false;
     ai: boolean = false;
     is1033: boolean = false;
+    time1033Called: number;
 
     // Secondary information.
     hasSecondaryInfo: boolean;

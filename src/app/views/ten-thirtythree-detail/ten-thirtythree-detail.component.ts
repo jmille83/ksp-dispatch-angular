@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RecordsService } from '../../services/records.service';
-import { Subscription, Observable, timer } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { Record } from '../../objects/record';
 import { TenThirtythree } from '../../objects/ten-thirtythree';
 import { User } from '../../objects/user';
@@ -19,6 +19,8 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
   recordId: string;
   subscription = new Subscription();
   record = new Record();
+  timeString = "";
+  dateString = "";
   ten33 = new TenThirtythree();
   patrollers: User[];
 
@@ -35,6 +37,8 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
       this.recordId = this.route.snapshot.paramMap.get('id');
       this.subscription.add(this.recordsService.getRecordForId(this.recordId).subscribe(records => {
         this.record = records[0];
+        this.dateString = new Date(this.record.time1033Called).toLocaleDateString();
+        this.timeString = new Date(this.record.time1033Called).toLocaleTimeString();
 
         // Check for exisitng 10-33 object.
         this.recordsService.get1033ForId(this.record.id).subscribe(matches => {
@@ -74,6 +78,9 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
         this.ten33.dispatcherId = dispatcher.patrollerId;
         this.ten33.dispatcherAssigned = true;
         this.ten33.dispatcherAssignedTimeString = new Date().toLocaleTimeString();
+        
+        // Store it.
+        this.recordsService.addOrUpdate1033(this.ten33);
       }
     });
   }
@@ -122,6 +129,91 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  onMountainSafetyNotified() {
+    if (this.ten33.mountainSafetyNotified) {
+      this.ten33.mountainSafetyNotifiedTimeString = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.mountainSafetyNotifiedTimeString = null;
+    }
+  }
+
+  onKmcNotified() {
+    if (this.ten33.kmcNotified) {
+      this.ten33.kmcNotifiedTimeString = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.kmcNotifiedTimeString = null;
+    }
+  }
+
+  onFamilyPatrollerAssigned() {
+    if (this.ten33.familyPatrollerAssigned) {
+      this.ten33.familyPatrollerAssignedTimeString = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.familyPatrollerAssignedTimeString = null;
+    }
+  }
+
+  onInvestigatorAssigned() {
+    if (this.ten33.investigatorAssigned) {
+      this.ten33.investigatorAssignedTimeString = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.investigatorAssignedTimeString = null;
+    }
+  }
+
+  onWitnessPatrollerAssigned() {
+    if (this.ten33.witnessPatrollerAssigned) {
+      this.ten33.witnessPatrollerAssignedTimeString = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.witnessPatrollerAssignedTimeString = null;
+    }
+  }
+
+  onCleanupPatrollerAssigned() {
+    if (this.ten33.cleanupPatrollerAssigned) {
+      this.ten33.cleanupPatrollerAssignedTimeString = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.cleanupPatrollerAssignedTimeString = null;
+    }
+  }
+
+  onSheriffNotified() {
+    if (this.ten33.sheriffNotified) {
+      this.ten33.sheriffNotifiedTimeString = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.sheriffNotifiedTimeString = null;
+    }
+  }
+
+  onForestServiceNotified() {
+    if (this.ten33.forestServiceNotified) {
+      this.ten33.forestServiceNotifiedTimeString = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.forestServiceNotifiedTimeString = null;
+    }
+  }
+
+  onIcAssigned() {
+    if (this.ten33.icAssigned) {
+      this.ten33.icAssignedTimeString = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.icAssignedTimeString = null;
+    }
+  }
+
+  onMcAssigned() {
+    if (this.ten33.mcAssigned) {
+      this.ten33.mcAssignedTimeString = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.mcAssignedTimeString = null;
+    }
+  }
+
+  onPatrollerDispatched() {
+    this.ten33.patrollersDispatched.push({id: null, timeString: new Date().toLocaleTimeString(), equipment: null});
+  }
+
+  ///////////////////
   showSnackbar(message: string) {
     this.snackBar.open(message, 'Dismiss', {duration: 10000});
   }

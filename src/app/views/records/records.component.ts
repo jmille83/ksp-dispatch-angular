@@ -107,6 +107,9 @@ export class RecordsComponent implements OnInit, OnDestroy {
 
   on1033ButtonClicked(record: Record) {
     record.is1033 = !record.is1033;
+    if (record.is1033) {
+      record.time1033Called = new Date().getTime();
+    }
     this.recordsService.updateRecord(record);
   }
 
