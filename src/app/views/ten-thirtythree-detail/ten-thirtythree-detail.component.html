@@ -50,11 +50,11 @@
               <mat-checkbox [(ngModel)]="ten33.directorNotified" (change)="onDirectorNotified()"></mat-checkbox>
               <div>
                 Notify Mike
-                <button mat-icon-button class="icon-button" (click)="showSnackbar('3835 / (970) 389-7169')">
+                <button mat-icon-button class="icon-button" (click)="showSnackbar('3835 | (970) 389-7169')">
                   <mat-icon>phone</mat-icon>
                 </button>
                 or Banjo
-                <button mat-icon-button class="icon-button" (click)="showSnackbar('3878 / (720) 258-5744')">
+                <button mat-icon-button class="icon-button" (click)="showSnackbar('3878 | (720) 258-5744')">
                   <mat-icon>phone</mat-icon>
                 </button>
               </div>
@@ -90,4 +90,12 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
+</div>
+
+<div class="centered-container">
+  <mat-slide-toggle id="edit-toggle" 
+  [(ngModel)]="ten33.isActive" 
+  color="primary" (change)="onStateChanged()">
+    Active
+  </mat-slide-toggle>
 </div>

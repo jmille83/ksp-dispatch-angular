@@ -1,5 +1,7 @@
 export class TenThirtythree {
     id: string;
+    isActive: boolean = true;
+
     dispatcherId: string;
     dispatcherAssigned: boolean;
     dispatcherAssignedTimeString: string;

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable'
 
 import { Record } from '../objects/record'
 import { TransactionService } from './transaction.service';
+import { TenThirtythree } from '../objects/ten-thirtythree';
 
 @Injectable()
 export class RecordsService {
@@ -60,6 +61,11 @@ export class RecordsService {
     var data = JSON.parse(JSON.stringify(record));
 
     this.transactionService.writeDataToDocForCollection(data, record.id, 'records');
+  }
+
+  addOrUpdate1033(ten33: TenThirtythree) {
+    let data = JSON.parse(JSON.stringify(ten33));
+    this.transactionService.writeDataToDocForCollection(data, ten33.id, 'ten33s');
   }
 
   updateRecord(record: Record) {

@@ -27,3 +27,8 @@ mat-select {
     width:18px !important;
     font-size:18px !important;
 }
+
+.centered-container {
+    width: 100%;
+    text-align: center;
+}
