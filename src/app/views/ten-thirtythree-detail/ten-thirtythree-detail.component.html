@@ -1,6 +1,6 @@
 <h2>10-33 Form</h2>
 
-<div id="grid-container">
+<div id="grid-container" >
   <mat-grid-list cols="3" rowHeight="300px">
     <mat-grid-tile [colspan]="1" [rowspan]="2">
       <mat-card>
@@ -9,9 +9,9 @@
           <mat-list>
             <!-- Dispatcher -->
             <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.dispatcherAssigned" (change)="onDispatcherAssigned()"></mat-checkbox>
+              <mat-checkbox [(ngModel)]="ten33.dispatcherAssigned" (change)="onDispatcherAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
               <div>Dispatcher: </div>
-              <mat-select placeholder="Dispatcher" [(ngModel)]="ten33.dispatcherId" name="dispatcher" [disabled]="ten33.dispatcherAssigned">
+              <mat-select placeholder="Dispatcher" [(ngModel)]="ten33.dispatcherId" name="dispatcher" [disabled]="ten33.dispatcherAssigned || !ten33.isActive">
                 <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
                   {{ patroller.lastName }}
                 </mat-option>
@@ -21,9 +21,9 @@
 
             <!-- 3101 -->
             <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.three101Assigned" (change)="on3101Assigned()"></mat-checkbox>
+              <mat-checkbox [(ngModel)]="ten33.three101Assigned" (change)="on3101Assigned()" [disabled]="!ten33.isActive"></mat-checkbox>
               <div>Assign 3101: </div>
-              <mat-select placeholder="3101" [(ngModel)]="ten33.three101Id" name="three101" [disabled]="ten33.three101Assigned">
+              <mat-select placeholder="3101" [(ngModel)]="ten33.three101Id" name="three101" [disabled]="ten33.three101Assigned || !ten33.isActive">
                 <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
                   {{ patroller.lastName }}
                 </mat-option>
@@ -33,21 +33,21 @@
 
             <!-- Close Channel 1 -->
             <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.closedChannel1" (change)="onClosedChannel1()"></mat-checkbox>
+              <mat-checkbox [(ngModel)]="ten33.closedChannel1" (change)="onClosedChannel1()" [disabled]="!ten33.isActive"></mat-checkbox>
               <div>Close Channel 1</div>
               <p class="time" *ngIf="ten33.closedChannel1TimeString != null">{{ten33.closedChannel1TimeString}}</p>
             </mat-list-item>
 
             <!-- Reopen Channel 1 -->
             <mat-list-item *ngIf="ten33.closedChannel1">
-              <mat-checkbox [(ngModel)]="ten33.reopenedChannel1" (change)="onReopenedChannel1()"></mat-checkbox>
+              <mat-checkbox [(ngModel)]="ten33.reopenedChannel1" (change)="onReopenedChannel1()" [disabled]="!ten33.isActive"></mat-checkbox>
               <div>Re-open Channel 1</div>
               <p class="time" *ngIf="ten33.reopenedChannel1TimeString != null">{{ten33.reopenedChannel1TimeString}}</p>
             </mat-list-item>
 
             <!-- Notify director or AD -->
             <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.directorNotified" (change)="onDirectorNotified()"></mat-checkbox>
+              <mat-checkbox [(ngModel)]="ten33.directorNotified" (change)="onDirectorNotified()" [disabled]="!ten33.isActive"></mat-checkbox>
               <div>
                 Notify Mike
                 <button mat-icon-button class="icon-button" (click)="showSnackbar('3835 | (970) 389-7169')">
