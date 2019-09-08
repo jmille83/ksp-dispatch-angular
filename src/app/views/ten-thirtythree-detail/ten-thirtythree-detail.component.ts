@@ -47,6 +47,10 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
           } else {
             // Give the new 10-33 object the same id as the 10-50 it came from.
             this.ten33.id = this.record.id;
+            this.ten33.name = this.record.name;
+            this.ten33.location = this.record.location;
+            this.ten33.sex = this.record.sex;
+            this.ten33.chiefComplaint = this.record.chiefComplaint;
             this.onNew1033();
           }
         });     
@@ -211,6 +215,18 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
 
   onPatrollerDispatched() {
     this.ten33.patrollersDispatched.push({id: null, timeString: new Date().toLocaleTimeString(), equipment: null});
+  }
+
+  onNewPatientInfo() {
+    this.ten33.patientInfoTable.push({time: new Date().toLocaleTimeString(), loc: null, ssx: null, vitals: null, tx: null});
+  }
+
+  onPatientCareTurnedOver() {
+    if (this.ten33.patientCareTurnedOver) {
+      this.ten33.patientCareTurnedOverTime = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.patientCareTurnedOverTime = null;
+    }
   }
 
   ///////////////////

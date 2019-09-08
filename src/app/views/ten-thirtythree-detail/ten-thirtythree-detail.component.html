@@ -1,8 +1,107 @@
-<h2>{{record.chiefComplaint}}, {{record.location}}, {{dateString}}</h2>
+<h2>{{ten33.chiefComplaint}}, {{ten33.location}}, {{dateString}}</h2>
 <h5>Time called: {{timeString}}</h5>
 
 <div id="grid-container" >
   <mat-grid-list cols="4" rowHeight="300px">
+    
+    <mat-grid-tile [colspan]="4" [rowspan]="2">
+      <mat-card>
+        <mat-card-title>Patient Info</mat-card-title>
+        <mat-card-content>
+          <mat-form-field class="inputs">
+            <input matInput placeholder="Name" [(ngModel)]="ten33.name" [disabled]="!ten33.isActive">
+          </mat-form-field>
+          <mat-radio-group [(ngModel)]="ten33.sex" name="sex">
+            <mat-radio-button value="Male" class="radio">Male</mat-radio-button>
+            <mat-radio-button value="Female" class="radio">Female</mat-radio-button>
+          </mat-radio-group>
+          <mat-form-field class="inputs short-inputs">
+            <input matInput type="number" placeholder="Age" [(ngModel)]="ten33.age" [disabled]="!ten33.isActive">
+          </mat-form-field>
+          <mat-form-field class="inputs short-inputs">
+            <input matInput placeholder="Height" [(ngModel)]="ten33.height" [disabled]="!ten33.isActive">
+          </mat-form-field>
+          <mat-form-field class="inputs short-inputs">
+            <input matInput type="number" placeholder="Weight (lbs.)" [(ngModel)]="ten33.weight" [disabled]="!ten33.isActive">
+          </mat-form-field>
+          
+          <br>
+
+          <mat-form-field class="inputs">
+            <input matInput placeholder="Location" [(ngModel)]="ten33.location" [disabled]="!ten33.isActive">
+          </mat-form-field>
+          <mat-form-field class="inputs">
+            <input matInput placeholder="Mechanism" [(ngModel)]="ten33.mechanism" [disabled]="!ten33.isActive">
+          </mat-form-field>
+          <mat-form-field class="inputs">
+            <input matInput placeholder="Reporting party" [(ngModel)]="ten33.reportingParty" [disabled]="!ten33.isActive">
+          </mat-form-field>
+          <mat-form-field class="inputs">
+            <input matInput placeholder="Location of RP" [(ngModel)]="ten33.locationOfRp" [disabled]="!ten33.isActive">
+          </mat-form-field>
+          <mat-form-field class="inputs">
+            <input matInput placeholder="Chief complaint" [(ngModel)]="ten33.chiefComplaint" [disabled]="!ten33.isActive">
+          </mat-form-field>
+          <mat-form-field class="inputs">
+            <input matInput placeholder="Secondary complaint" [(ngModel)]="ten33.secondaryComplaint" [disabled]="!ten33.isActive">
+          </mat-form-field>
+
+          <br>
+
+          <!-- Vitals/Ssx -->
+          <table id="vitals-table">
+            <tr>
+              <th class="header-row">Time</th>
+              <th class="header-row">LOC</th>
+              <th class="header-row">SSx</th>
+              <th class="header-row">Vitals</th>
+              <th class="header-row">Treatment</th>
+            </tr>
+
+            <tr *ngFor="let info of ten33.patientInfoTable">
+              <td>
+                <p class="time">{{info.time}}</p>
+              </td>
+              <td>
+                <mat-form-field class="inputs">
+                  <input matInput placeholder="Level of consciousness" [(ngModel)]="info.loc" [disabled]="!ten33.isActive || ten33.patientCareTurnedOver">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="inputs long-inputs">
+                  <input matInput placeholder="Signs and symptoms" [(ngModel)]="info.ssx" [disabled]="!ten33.isActive || ten33.patientCareTurnedOver">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="inputs long-inputs">
+                  <input matInput placeholder="PR, RR, BP, SpO2, etc." [(ngModel)]="info.vitals" [disabled]="!ten33.isActive || ten33.patientCareTurnedOver">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="inputs long-inputs">
+                  <input matInput placeholder="Treatment" [(ngModel)]="info.tx" [disabled]="!ten33.isActive || ten33.patientCareTurnedOver">
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+          <div id="patrollers-dispatched-button-container">
+            <button mat-stroked-button [disabled]="!ten33.isActive || ten33.patientCareTurnedOver" (click)="onNewPatientInfo()">Add Line</button>
+          </div>
+
+          <mat-list>
+            <mat-list-item>
+              <mat-checkbox [(ngModel)]="ten33.patientCareTurnedOver" (change)="onPatientCareTurnedOver()" [disabled]="!ten33.isActive"></mat-checkbox>
+              <div>Patient care turned over to another agency: </div>
+              <mat-form-field class="inputs">
+                <input matInput placeholder="Agency" [(ngModel)]="ten33.patientCareTurnedOverTo" [disabled]="!ten33.isActive || ten33.patientCareTurnedOver">
+              </mat-form-field>
+              <p class="time" *ngIf="ten33.patientCareTurnedOverTime != null">{{ten33.patientCareTurnedOverTime}}</p>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    
     <mat-grid-tile [colspan]="2" [rowspan]="3">
       <mat-card>
         <mat-card-title>Primary checklist</mat-card-title>
@@ -159,7 +258,7 @@
     </mat-grid-tile>
     
     
-    <mat-grid-tile [colspan]="2" [rowspan]="2">
+    <mat-grid-tile [colspan]="2" [rowspan]="3">
       <mat-card>
         <mat-card-title>Scene</mat-card-title>
         <mat-card-content>
@@ -189,6 +288,7 @@
             </mat-list-item>
           </mat-list>
 
+          <!-- Patrollers/Equipment Dispatched -->
           <table id="patrollers-dispatched-table">
             <tr>
               <th class="header-row">Patrollers Dispatched</th>
@@ -219,15 +319,10 @@
     </mat-grid-tile>
     
     
-    <mat-grid-tile [colspan]="2" [rowspan]="1">
-      <mat-card>
-        <mat-card-title>Patient Info</mat-card-title>
-        <mat-card-content></mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
     
     
-    <mat-grid-tile [colspan]="2" [rowspan]="1">
+    
+    <mat-grid-tile [colspan]="4" [rowspan]="1">
       <mat-card>
         <mat-card-title>Transport</mat-card-title>
         <mat-card-content>

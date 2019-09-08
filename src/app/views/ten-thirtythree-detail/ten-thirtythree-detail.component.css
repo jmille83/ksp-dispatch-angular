@@ -50,3 +50,15 @@ mat-select {
 .header-row {
     padding-bottom: 10px;
 }
+
+.radio {
+    margin-right: 10px;
+}
+
+.short-inputs {
+    width: 80px;
+}
+
+.long-inputs {
+    width: 250px;
+}

@@ -60,5 +60,24 @@ export class TenThirtythree {
 
     patrollersDispatched: any[] = [];
 
+    // Patient info.
+    age: number;
+    chiefComplaint: string;
+    location: string;
+    name: string;
+    sex: string;
+    height: string;
+    weight: number;
+    mechanism: string;
+    reportingParty: string;
+    locationOfRp: string;
+    secondaryComplaint: string;
+
+    patientCareTurnedOver: boolean = false;
+    patientCareTurnedOverTo: string;
+    patientCareTurnedOverTime: string;
+
+    patientInfoTable: any[] = [];
+
 
 }
