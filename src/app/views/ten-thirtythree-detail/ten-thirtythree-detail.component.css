@@ -17,7 +17,11 @@ h2, h5 {
 
 #scene-info {
     flex: 50%;
-    padding: 10px;
+    padding: 15px;
+}
+
+#transport {
+    padding: 15px;
 }
 
 mat-checkbox {
@@ -79,4 +83,8 @@ mat-select {
 
 .long-inputs {
     width: 250px;
+}
+
+.radio-label {
+    margin-right: 5px;
 }

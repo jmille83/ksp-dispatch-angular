@@ -79,5 +79,29 @@ export class TenThirtythree {
 
     patientInfoTable: any[] = [];
 
+    // Transport.
+    flightsLz: string;
+    flightsEta: string;
+    flightsStandby: string;
+    flightsGo: string;
+    flightsPatrolContactId: string;
+    liftMaintenanceNotified: boolean;
+    liftMaintenanceNotifiedTime: string;
+    
+    kmcDoctorNotifiedOfFlightsLanding: boolean;
+    kmcDoctorNotifiedOfFlightsLandingTime: string;
+    kmcDoctorNotifiedOfFlightsLandingContact: string;
+
+    ambulanceStatus: string = "none";
+    ambulanceTime: string;
+
+    kesDispatched: boolean;
+    kesDispatchedTime: string;
+
+    snowmobileAssist: string;
+    
+    mountainOpsNotifiedOfGulchRdTravel: boolean;
+    mountainOpsNotifiedOfGulchRdTravelTime: string;
+
 
 }

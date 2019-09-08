@@ -317,20 +317,89 @@
       </div>
     </div>   
   
-    <div>
+    <div id="transport">
       <mat-card>
         <mat-card-title>Transport</mat-card-title>
         <mat-card-content>
           <mat-list>
             
-            <!-- Notify KMC -->
+            <!-- Flights -->
             <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.reopenedChannel1" (change)="onReopenedChannel1()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Notify KMC doc of on-mtn FFL landing</div>
+              <b>Flight for Life</b>
+            </mat-list-item>
+            <mat-list-item>
               <mat-form-field class="inputs">
-                <input matInput placeholder="Doctor">
+                <input matInput placeholder="LZ" [(ngModel)]="ten33.flightsLz" [disabled]="!ten33.isActive">
               </mat-form-field>
-              <p class="time" *ngIf="ten33.reopenedChannel1TimeString != null">{{ten33.reopenedChannel1TimeString}}</p>
+              @
+              <mat-form-field class="inputs short-inputs">
+                <input matInput placeholder="ETA" [(ngModel)]="ten33.flightsEta" [disabled]="!ten33.isActive">
+              </mat-form-field>
+              Patrol Contact:
+              <mat-select placeholder="Patroller" [(ngModel)]="ten33.flightsPatrolContactId" name="flightsPatrollerId" [disabled]="!ten33.isActive">
+                <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+                  {{ patroller.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-list-item>
+            <mat-list-item>
+              <p class="radio-label">Standby?</p>
+              <mat-radio-group [(ngModel)]="ten33.flightsStandby" name="standby">
+                <mat-radio-button value="Ground" class="radio">Ground</mat-radio-button>
+                <mat-radio-button value="Airborne" class="radio">Airborne</mat-radio-button>
+              </mat-radio-group>
+              <p class="radio-label">  </p>
+              <p class="radio-label">  </p>
+              <p class="radio-label">Go?</p>
+              <mat-radio-group [(ngModel)]="ten33.flightsGo" name="go">
+                <mat-radio-button value="Go" class="radio">Yes</mat-radio-button>
+                <mat-radio-button value="Nogo" class="radio">No</mat-radio-button>
+              </mat-radio-group>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.liftMaintenanceNotified" (change)="onLiftMaintenanceNotified()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Notify Lift Maintenance of landing</div>
+                <p class="time" *ngIf="ten33.liftMaintenanceNotifiedTime != null">{{ten33.liftMaintenanceNotifiedTime}}</p>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-checkbox [(ngModel)]="ten33.kmcDoctorNotifiedOfFlightsLanding" (change)="onNotifiedKmcDoctorOfFlights()" [disabled]="!ten33.isActive"></mat-checkbox>
+              <div>Notify KMC doc of on-mountain Flights landing</div>
+              <mat-form-field class="inputs">
+                  <input matInput placeholder="Doctor" [(ngModel)]="ten33.kmcDoctorNotifiedOfFlightsLandingContact" [disabled]="!ten33.isActive || ten33.kmcDoctorNotifiedOfFlightsLanding">
+              </mat-form-field>
+              <p class="time" *ngIf="ten33.kmcDoctorNotifiedOfFlightsLandingTime != null">{{ten33.kmcDoctorNotifiedOfFlightsLandingTime}}</p>
+            </mat-list-item>
+
+            <!-- Ambulance -->
+            <mat-list-item>
+              <b>Ambulance</b>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-button-toggle-group [(ngModel)]="ten33.ambulanceStatus" [disabled]="!ten33.isActive" name="ambo" (change)="onAmboStatusChanged()">
+                <mat-button-toggle value="none">None</mat-button-toggle>
+                <mat-button-toggle value="standby">Standby</mat-button-toggle>
+                <mat-button-toggle value="dispatched">Dispatched</mat-button-toggle>
+              </mat-button-toggle-group>
+              <p class="time" *ngIf="ten33.ambulanceTime != null">{{ten33.ambulanceTime}}</p>
+            </mat-list-item>
+
+            <!-- Other -->
+            <mat-list-item>
+              <b>Other</b>
+            </mat-list-item>
+            <mat-list-item>
+              Snowmobile assist (KAT / Maintenance): 
+              <mat-form-field class="inputs">
+                <input matInput placeholder="Department" [(ngModel)]="ten33.snowmobileAssist" [disabled]="!ten33.isActive">
+              </mat-form-field>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-checkbox [(ngModel)]="ten33.kesDispatched" (change)="onKesDispatched()" [disabled]="!ten33.isActive">KES Dispatched</mat-checkbox>
+              <p class="time" *ngIf="ten33.kesDispatchedTime != null">{{ten33.kesDispatchedTime}}</p>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-checkbox [(ngModel)]="ten33.mountainOpsNotifiedOfGulchRdTravel" (change)="onMountainOpsNotifiedOfGulchRdTtravel()" [disabled]="!ten33.isActive">Mountain Ops notified of Gulch Road travel on Chs. 3 & 5</mat-checkbox>
+              <p class="time" *ngIf="ten33.mountainOpsNotifiedOfGulchRdTravelTime != null">{{ten33.mountainOpsNotifiedOfGulchRdTravelTime}}</p>
             </mat-list-item>
           </mat-list>
         </mat-card-content>

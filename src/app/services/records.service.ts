@@ -42,7 +42,7 @@ export class RecordsService {
 
   get1033sForSeason(): Observable<any[]> {
     // TODO: filter for this season. Currently returns all 1033s.
-    return this.db.collection('records', ref => ref.where('is1033', '==', true)).valueChanges();
+    return this.db.collection('records', ref => ref.where('is1033', '==', true).orderBy('timeReported', 'desc')).valueChanges();
   }
 
   get1033ForId(id: string): Observable<any[]> {

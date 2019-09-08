@@ -6,7 +6,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-          MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule, MatSlideToggleModule, MatChipsModule, MatAutocompleteModule, MatGridListModule, MatCardModule, MatTooltipModule, MatSnackBarModule, MatExpansionModule } from '@angular/material';
+          MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule, MatSlideToggleModule, MatChipsModule, MatAutocompleteModule, MatGridListModule, MatCardModule, MatTooltipModule, MatSnackBarModule, MatExpansionModule, MatButtonToggleModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
@@ -86,7 +86,7 @@ import { TenThirtythreeDetailComponent } from './views/ten-thirtythree-detail/te
     MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
     MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule, MatSlideToggleModule,
     MatMomentDateModule, MatChipsModule, MatAutocompleteModule, MatGridListModule, MatCardModule,
-    MatTooltipModule, MatSnackBarModule, MatExpansionModule,
+    MatTooltipModule, MatSnackBarModule, MatExpansionModule, MatButtonToggleModule,
     BrowserAnimationsModule,
     ReactiveFormsModule
   ],

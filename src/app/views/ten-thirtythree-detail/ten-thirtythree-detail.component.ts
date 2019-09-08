@@ -229,6 +229,42 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  onLiftMaintenanceNotified() {
+    if (this.ten33.liftMaintenanceNotified) {
+      this.ten33.liftMaintenanceNotifiedTime = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.liftMaintenanceNotifiedTime = null;
+    }
+  }
+
+  onNotifiedKmcDoctorOfFlights() {
+    if (this.ten33.kmcDoctorNotifiedOfFlightsLanding) {
+      this.ten33.kmcDoctorNotifiedOfFlightsLandingTime = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.kmcDoctorNotifiedOfFlightsLandingTime = null;
+    }
+  }
+
+  onAmboStatusChanged() {
+    this.ten33.ambulanceTime = new Date().toLocaleTimeString();
+  }
+
+  onKesDispatched() {
+    if (this.ten33.kesDispatched) {
+      this.ten33.kesDispatchedTime = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.kesDispatchedTime = null;
+    }
+  }
+
+  onMountainOpsNotifiedOfGulchRdTtravel() {
+    if (this.ten33.mountainOpsNotifiedOfGulchRdTravel) {
+      this.ten33.mountainOpsNotifiedOfGulchRdTravelTime = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.mountainOpsNotifiedOfGulchRdTravelTime = null;
+    }
+  }
+
   ///////////////////
   showSnackbar(message: string) {
     this.snackBar.open(message, 'Dismiss', {duration: 10000});
