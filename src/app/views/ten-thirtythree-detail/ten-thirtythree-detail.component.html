@@ -2,9 +2,7 @@
 <h5>Time called: {{timeString}}</h5>
 
 <div id="grid-container" >
-  <mat-grid-list cols="4" rowHeight="300px">
-    
-    <mat-grid-tile [colspan]="4" [rowspan]="2">
+    <div id="patient-info-card">
       <mat-card>
         <mat-card-title>Patient Info</mat-card-title>
         <mat-card-content>
@@ -100,229 +98,226 @@
           </mat-list>
         </mat-card-content>
       </mat-card>
-    </mat-grid-tile>
+    </div>
     
-    <mat-grid-tile [colspan]="2" [rowspan]="3">
-      <mat-card>
-        <mat-card-title>Primary checklist</mat-card-title>
-        <mat-card-content>
-          <mat-list>
-            <!-- Dispatcher -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.dispatcherAssigned" (change)="onDispatcherAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Dispatcher: </div>
-              <mat-select placeholder="Dispatcher" [(ngModel)]="ten33.dispatcherId" name="dispatcher" [disabled]="ten33.dispatcherAssigned || !ten33.isActive">
-                <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                  {{ patroller.lastName }}
-                </mat-option>
-              </mat-select>
-              <p class="time" *ngIf="ten33.dispatcherAssignedTimeString != null">{{ten33.dispatcherAssignedTimeString}}</p>
-            </mat-list-item>
-
-            <!-- 3101 -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.three101Assigned" (change)="on3101Assigned()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Assign 3101: </div>
-              <mat-select placeholder="3101" [(ngModel)]="ten33.three101Id" name="three101" [disabled]="ten33.three101Assigned || !ten33.isActive">
-                <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                  {{ patroller.lastName }}
-                </mat-option>
-              </mat-select>
-              <p class="time" *ngIf="ten33.three101AssignedTimeString != null">{{ten33.three101AssignedTimeString}}</p>
-            </mat-list-item>
-
-            <!-- Close Channel 1 -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.closedChannel1" (change)="onClosedChannel1()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Close Channel 1</div>
-              <p class="time" *ngIf="ten33.closedChannel1TimeString != null">{{ten33.closedChannel1TimeString}}</p>
-            </mat-list-item>
-
-            <!-- Notify director or AD -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.directorNotified" (change)="onDirectorNotified()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>
-                Notify Mike
-                <button mat-icon-button class="icon-button" (click)="showSnackbar('3835 | (970) 389-7169')">
-                  <mat-icon>phone</mat-icon>
-                </button>
-                or Banjo
-                <button mat-icon-button class="icon-button" (click)="showSnackbar('3878 | (720) 258-5744')">
-                  <mat-icon>phone</mat-icon>
-                </button>
-              </div>
-              <p class="time" *ngIf="ten33.directorNotifiedTimeString != null">{{ten33.directorNotifiedTimeString}}</p>
-            </mat-list-item>
-            <mat-accordion>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>Have them initiate Executive Comm Network:</mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-list>
-                  <mat-list-item>Geoff Buccheister - 4190 / (801) 560-2736</mat-list-item>
-                  <mat-list-item>Tracy Bartels - 4188 / (970) 485-0257</mat-list-item>
-                  <mat-list-item>Dave Paradysz - 4352 / (530) 318-2568</mat-list-item>
-                  <mat-list-item>Kurtis Knapke - 4388 / (765) 993-6239</mat-list-item>
-                </mat-list>
-              </mat-expansion-panel>
-            </mat-accordion>
-            
-            <!-- Notify Mt. Safety -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.mountainSafetyNotified" (change)="onMountainSafetyNotified()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Notify Mountain Safety lead</div>
-              <p class="time" *ngIf="ten33.mountainSafetyNotifiedTimeString != null">{{ten33.mountainSafetyNotifiedTimeString}}</p>
-            </mat-list-item>
-
-            <!-- Notify KMC -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.kmcNotified" (change)="onKmcNotified()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Notify KMC of Trauma Activation: </div>
-              <mat-form-field class="inputs">
-                <input matInput placeholder="Contact" [(ngModel)]="ten33.kmcContact" [disabled]="!ten33.isActive || ten33.kmcNotified">
-              </mat-form-field>
-              <p class="time" *ngIf="ten33.kmcNotifiedTimeString != null">{{ten33.kmcNotifiedTimeString}}</p>
-            </mat-list-item>
-
-            <!-- Assign family/friends -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.familyPatrollerAssigned" (change)="onFamilyPatrollerAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Patroller for family and friends: </div>
-              <mat-select placeholder="Patroller" [(ngModel)]="ten33.familyPatrollerId" name="familyPatrollerId" [disabled]="ten33.familyPatrollerAssigned || !ten33.isActive">
-                <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                  {{ patroller.lastName }}
-                </mat-option>
-              </mat-select>
-              <p class="time" *ngIf="ten33.familyPatrollerAssignedTimeString != null">{{ten33.familyPatrollerAssignedTimeString}}</p>
-            </mat-list-item>
-
-            <!-- Assign Investigator -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.investigatorAssigned" (change)="onInvestigatorAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Assign accident investigator: </div>
-              <mat-select placeholder="Patroller" [(ngModel)]="ten33.investigatorId" name="investigatorId" [disabled]="ten33.investigatorAssigned || !ten33.isActive">
-                <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                  {{ patroller.lastName }}
-                </mat-option>
-              </mat-select>
-              <p class="time" *ngIf="ten33.investigatorAssignedTimeString != null">{{ten33.investigatorAssignedTimeString}}</p>
-            </mat-list-item>
-
-            <!-- Dispatch for witness statements -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.witnessPatrollerAssigned" (change)="onWitnessPatrollerAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Patroller for witness statements: </div>
-              <mat-select placeholder="Patroller" [(ngModel)]="ten33.witnessPatrollerId" name="witnessPatrollerId" [disabled]="ten33.witnessPatrollerAssigned || !ten33.isActive">
-                <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                  {{ patroller.lastName }}
-                </mat-option>
-              </mat-select>
-              <p class="time" *ngIf="ten33.witnessPatrollerAssignedTimeString != null">{{ten33.witnessPatrollerAssignedTimeString}}</p>
-            </mat-list-item>
-
-            <!-- Dispatch for scene clean-up -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.cleanupPatrollerAssigned" (change)="onCleanupPatrollerAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Patroller for scene clean-up: </div>
-              <mat-select placeholder="Patroller" [(ngModel)]="ten33.cleanupPatrollerId" name="cleanupPatrollerId" [disabled]="ten33.cleanupPatrollerAssigned || !ten33.isActive">
-                <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                  {{ patroller.lastName }}
-                </mat-option>
-              </mat-select>
-              <p class="time" *ngIf="ten33.cleanupPatrollerAssignedTimeString != null">{{ten33.cleanupPatrollerAssignedTimeString}}</p>
-            </mat-list-item>
-
-            <!-- Reopen Channel 1 -->
-            <mat-list-item *ngIf="ten33.closedChannel1">
-              <mat-checkbox [(ngModel)]="ten33.reopenedChannel1" (change)="onReopenedChannel1()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Re-open Channel 1</div>
-              <p class="time" *ngIf="ten33.reopenedChannel1TimeString != null">{{ten33.reopenedChannel1TimeString}}</p>
-            </mat-list-item>
-
-            <!-- Notify Sheriff -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.sheriffNotified" (change)="onSheriffNotified()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Notify Sheriff Special Ops: (970) 668-8600 (Watson, Hammit, Metzger)</div>
-              <p class="time" *ngIf="ten33.sheriffNotifiedTimeString != null">{{ten33.sheriffNotifiedTimeString}}</p>
-            </mat-list-item>
-
-            <!-- Notify Forest Service -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.forestServiceNotified" (change)="onForestServiceNotified()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Notify Forest Service: Sam Massman (970) 309-3268</div>
-              <p class="time" *ngIf="ten33.forestServiceNotifiedTimeString != null">{{ten33.forestServiceNotifiedTimeString}}</p>
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    
-    
-    <mat-grid-tile [colspan]="2" [rowspan]="3">
-      <mat-card>
-        <mat-card-title>Scene</mat-card-title>
-        <mat-card-content>
-          <mat-list>
-            <!-- IC -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.icAssigned" (change)="onIcAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Incident Commander: </div>
-              <mat-select placeholder="Patroller" [(ngModel)]="ten33.icId" name="icId" [disabled]="ten33.icAssigned || !ten33.isActive">
-                <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                  {{ patroller.lastName }}
-                </mat-option>
-              </mat-select>
-              <p class="time" *ngIf="ten33.icAssignedTimeString != null">{{ten33.icAssignedTimeString}}</p>
-            </mat-list-item>
-
-            <!-- MC -->
-            <mat-list-item>
-              <mat-checkbox [(ngModel)]="ten33.mcAssigned" (change)="onMcAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
-              <div>Medical Commander: </div>
-              <mat-select placeholder="Patroller" [(ngModel)]="ten33.mcId" name="mcId" [disabled]="ten33.mcAssigned || !ten33.isActive">
-                <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                  {{ patroller.lastName }}
-                </mat-option>
-              </mat-select>
-              <p class="time" *ngIf="ten33.mcAssignedTimeString != null">{{ten33.mcAssignedTimeString}}</p>
-            </mat-list-item>
-          </mat-list>
-
-          <!-- Patrollers/Equipment Dispatched -->
-          <table id="patrollers-dispatched-table">
-            <tr>
-              <th class="header-row">Patrollers Dispatched</th>
-              <th class="header-row">Equipment</th>
-            </tr>
-
-            <tr *ngFor="let dispatchedPatroller of ten33.patrollersDispatched">
-              <td>
-                <mat-select placeholder="Patroller" [(ngModel)]="dispatchedPatroller.id" name="patrollerId" [disabled]="!ten33.isActive">
+    <div id="row-two-container">
+      <div id="primary-checklist">
+        <mat-card>
+          <mat-card-title>Primary checklist</mat-card-title>
+          <mat-card-content>
+            <mat-list>
+              <!-- Dispatcher -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.dispatcherAssigned" (change)="onDispatcherAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Dispatcher: </div>
+                <mat-select placeholder="Dispatcher" [(ngModel)]="ten33.dispatcherId" name="dispatcher" [disabled]="ten33.dispatcherAssigned || !ten33.isActive">
                   <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
                     {{ patroller.lastName }}
                   </mat-option>
                 </mat-select>
-                <p class="time">{{dispatchedPatroller.timeString}}</p>
-              </td>
-              <td>
+                <p class="time" *ngIf="ten33.dispatcherAssignedTimeString != null">{{ten33.dispatcherAssignedTimeString}}</p>
+              </mat-list-item>
+
+              <!-- 3101 -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.three101Assigned" (change)="on3101Assigned()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Assign 3101: </div>
+                <mat-select placeholder="3101" [(ngModel)]="ten33.three101Id" name="three101" [disabled]="ten33.three101Assigned || !ten33.isActive">
+                  <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+                    {{ patroller.lastName }}
+                  </mat-option>
+                </mat-select>
+                <p class="time" *ngIf="ten33.three101AssignedTimeString != null">{{ten33.three101AssignedTimeString}}</p>
+              </mat-list-item>
+
+              <!-- Close Channel 1 -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.closedChannel1" (change)="onClosedChannel1()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Close Channel 1</div>
+                <p class="time" *ngIf="ten33.closedChannel1TimeString != null">{{ten33.closedChannel1TimeString}}</p>
+              </mat-list-item>
+
+              <!-- Notify director or AD -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.directorNotified" (change)="onDirectorNotified()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>
+                  Notify Mike
+                  <button mat-icon-button class="icon-button" (click)="showSnackbar('3835 | (970) 389-7169')">
+                    <mat-icon>phone</mat-icon>
+                  </button>
+                  or Banjo
+                  <button mat-icon-button class="icon-button" (click)="showSnackbar('3878 | (720) 258-5744')">
+                    <mat-icon>phone</mat-icon>
+                  </button>
+                </div>
+                <p class="time" *ngIf="ten33.directorNotifiedTimeString != null">{{ten33.directorNotifiedTimeString}}</p>
+              </mat-list-item>
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>Have them initiate Executive Comm Network:</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <mat-list>
+                    <mat-list-item>Geoff Buccheister - 4190 / (801) 560-2736</mat-list-item>
+                    <mat-list-item>Tracy Bartels - 4188 / (970) 485-0257</mat-list-item>
+                    <mat-list-item>Dave Paradysz - 4352 / (530) 318-2568</mat-list-item>
+                    <mat-list-item>Kurtis Knapke - 4388 / (765) 993-6239</mat-list-item>
+                  </mat-list>
+                </mat-expansion-panel>
+              </mat-accordion>
+              
+              <!-- Notify Mt. Safety -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.mountainSafetyNotified" (change)="onMountainSafetyNotified()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Notify Mountain Safety lead</div>
+                <p class="time" *ngIf="ten33.mountainSafetyNotifiedTimeString != null">{{ten33.mountainSafetyNotifiedTimeString}}</p>
+              </mat-list-item>
+
+              <!-- Notify KMC -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.kmcNotified" (change)="onKmcNotified()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Notify KMC of Trauma Activation: </div>
                 <mat-form-field class="inputs">
-                  <input matInput placeholder="Equipment" [(ngModel)]="dispatchedPatroller.equipment" [disabled]="!ten33.isActive">
+                  <input matInput placeholder="Contact" [(ngModel)]="ten33.kmcContact" [disabled]="!ten33.isActive || ten33.kmcNotified">
                 </mat-form-field>
-              </td>
-            </tr>
-          </table>
-          <div id="patrollers-dispatched-button-container">
-            <button mat-stroked-button [disabled]="!ten33.isActive" (click)="onPatrollerDispatched()">Dispatch patroller</button>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    
-    
-    
-    
-    
-    <mat-grid-tile [colspan]="4" [rowspan]="1">
+                <p class="time" *ngIf="ten33.kmcNotifiedTimeString != null">{{ten33.kmcNotifiedTimeString}}</p>
+              </mat-list-item>
+
+              <!-- Assign family/friends -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.familyPatrollerAssigned" (change)="onFamilyPatrollerAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Patroller for family and friends: </div>
+                <mat-select placeholder="Patroller" [(ngModel)]="ten33.familyPatrollerId" name="familyPatrollerId" [disabled]="ten33.familyPatrollerAssigned || !ten33.isActive">
+                  <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+                    {{ patroller.lastName }}
+                  </mat-option>
+                </mat-select>
+                <p class="time" *ngIf="ten33.familyPatrollerAssignedTimeString != null">{{ten33.familyPatrollerAssignedTimeString}}</p>
+              </mat-list-item>
+
+              <!-- Assign Investigator -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.investigatorAssigned" (change)="onInvestigatorAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Assign accident investigator: </div>
+                <mat-select placeholder="Patroller" [(ngModel)]="ten33.investigatorId" name="investigatorId" [disabled]="ten33.investigatorAssigned || !ten33.isActive">
+                  <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+                    {{ patroller.lastName }}
+                  </mat-option>
+                </mat-select>
+                <p class="time" *ngIf="ten33.investigatorAssignedTimeString != null">{{ten33.investigatorAssignedTimeString}}</p>
+              </mat-list-item>
+
+              <!-- Dispatch for witness statements -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.witnessPatrollerAssigned" (change)="onWitnessPatrollerAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Patroller for witness statements: </div>
+                <mat-select placeholder="Patroller" [(ngModel)]="ten33.witnessPatrollerId" name="witnessPatrollerId" [disabled]="ten33.witnessPatrollerAssigned || !ten33.isActive">
+                  <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+                    {{ patroller.lastName }}
+                  </mat-option>
+                </mat-select>
+                <p class="time" *ngIf="ten33.witnessPatrollerAssignedTimeString != null">{{ten33.witnessPatrollerAssignedTimeString}}</p>
+              </mat-list-item>
+
+              <!-- Dispatch for scene clean-up -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.cleanupPatrollerAssigned" (change)="onCleanupPatrollerAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Patroller for scene clean-up: </div>
+                <mat-select placeholder="Patroller" [(ngModel)]="ten33.cleanupPatrollerId" name="cleanupPatrollerId" [disabled]="ten33.cleanupPatrollerAssigned || !ten33.isActive">
+                  <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+                    {{ patroller.lastName }}
+                  </mat-option>
+                </mat-select>
+                <p class="time" *ngIf="ten33.cleanupPatrollerAssignedTimeString != null">{{ten33.cleanupPatrollerAssignedTimeString}}</p>
+              </mat-list-item>
+
+              <!-- Reopen Channel 1 -->
+              <mat-list-item *ngIf="ten33.closedChannel1">
+                <mat-checkbox [(ngModel)]="ten33.reopenedChannel1" (change)="onReopenedChannel1()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Re-open Channel 1</div>
+                <p class="time" *ngIf="ten33.reopenedChannel1TimeString != null">{{ten33.reopenedChannel1TimeString}}</p>
+              </mat-list-item>
+
+              <!-- Notify Sheriff -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.sheriffNotified" (change)="onSheriffNotified()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Notify Sheriff Special Ops: (970) 668-8600 (Watson, Hammit, Metzger)</div>
+                <p class="time" *ngIf="ten33.sheriffNotifiedTimeString != null">{{ten33.sheriffNotifiedTimeString}}</p>
+              </mat-list-item>
+
+              <!-- Notify Forest Service -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.forestServiceNotified" (change)="onForestServiceNotified()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Notify Forest Service: Sam Massman (970) 309-3268</div>
+                <p class="time" *ngIf="ten33.forestServiceNotifiedTimeString != null">{{ten33.forestServiceNotifiedTimeString}}</p>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+   
+      <div id="scene-info">
+        <mat-card>
+          <mat-card-title>Scene</mat-card-title>
+          <mat-card-content>
+            <mat-list>
+              <!-- IC -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.icAssigned" (change)="onIcAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Incident Commander: </div>
+                <mat-select placeholder="Patroller" [(ngModel)]="ten33.icId" name="icId" [disabled]="ten33.icAssigned || !ten33.isActive">
+                  <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+                    {{ patroller.lastName }}
+                  </mat-option>
+                </mat-select>
+                <p class="time" *ngIf="ten33.icAssignedTimeString != null">{{ten33.icAssignedTimeString}}</p>
+              </mat-list-item>
+
+              <!-- MC -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.mcAssigned" (change)="onMcAssigned()" [disabled]="!ten33.isActive"></mat-checkbox>
+                <div>Medical Commander: </div>
+                <mat-select placeholder="Patroller" [(ngModel)]="ten33.mcId" name="mcId" [disabled]="ten33.mcAssigned || !ten33.isActive">
+                  <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+                    {{ patroller.lastName }}
+                  </mat-option>
+                </mat-select>
+                <p class="time" *ngIf="ten33.mcAssignedTimeString != null">{{ten33.mcAssignedTimeString}}</p>
+              </mat-list-item>
+            </mat-list>
+
+            <!-- Patrollers/Equipment Dispatched -->
+            <table id="patrollers-dispatched-table">
+              <tr>
+                <th class="header-row">Patrollers Dispatched</th>
+                <th class="header-row">Equipment</th>
+              </tr>
+
+              <tr *ngFor="let dispatchedPatroller of ten33.patrollersDispatched">
+                <td>
+                  <mat-select placeholder="Patroller" [(ngModel)]="dispatchedPatroller.id" name="patrollerId" [disabled]="!ten33.isActive">
+                    <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+                      {{ patroller.lastName }}
+                    </mat-option>
+                  </mat-select>
+                  <p class="time">{{dispatchedPatroller.timeString}}</p>
+                </td>
+                <td>
+                  <mat-form-field class="inputs">
+                    <input matInput placeholder="Equipment" [(ngModel)]="dispatchedPatroller.equipment" [disabled]="!ten33.isActive">
+                  </mat-form-field>
+                </td>
+              </tr>
+            </table>
+            <div id="patrollers-dispatched-button-container">
+              <button mat-stroked-button [disabled]="!ten33.isActive" (click)="onPatrollerDispatched()">Dispatch patroller</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>   
+  
+    <div>
       <mat-card>
         <mat-card-title>Transport</mat-card-title>
         <mat-card-content>
@@ -340,8 +335,7 @@
           </mat-list>
         </mat-card-content>
       </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+    </div>
 </div>
 
 <div class="centered-container">

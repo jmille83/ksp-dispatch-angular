@@ -2,6 +2,24 @@ h2, h5 {
     text-align: center;
 }
 
+#patient-info-card {
+    padding: 15px;
+}
+
+#row-two-container {
+    display: flex;
+}
+
+#primary-checklist {
+    flex: 50%;
+    padding: 15px;
+}
+
+#scene-info {
+    flex: 50%;
+    padding: 10px;
+}
+
 mat-checkbox {
     margin-right: 10px;
 }
