@@ -6,6 +6,7 @@ import { take } from 'rxjs/operators';
 import * as moment from 'moment';
 import { UserService } from '../../services/user.service';
 import { User } from '../../objects/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-kmc',
@@ -19,7 +20,8 @@ export class KmcComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
   date: moment.Moment = moment();
 
-  constructor(private recordsService: RecordsService, private userService: UserService) { }
+  constructor(private recordsService: RecordsService, private userService: UserService,
+    private router: Router) { }
 
   ngOnInit() {
     this.getRecords();
@@ -47,5 +49,9 @@ export class KmcComponent implements OnInit, OnDestroy {
 
   onDateChanged() {
     this.getRecords();
+  }
+
+  goTo1033(record: Record) {
+    this.router.navigateByUrl("/1033/" + record.id);
   }
 }
