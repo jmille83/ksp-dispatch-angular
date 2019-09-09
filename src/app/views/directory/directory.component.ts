@@ -17,6 +17,7 @@ export class DirectoryComponent implements OnInit {
   contacts: Contact[];
   tableDataSource: MatTableDataSource<Contact>;
   displayedColumns: string[] = ['name', 'extension', 'phone', 'email'];
+  displayedColumnsWithEdit: string[] = ['name', 'edit', 'extension', 'phone', 'email'];
 
   constructor(private directoryService: DirectoryService, 
     private authService: AuthService, 
@@ -43,8 +44,6 @@ export class DirectoryComponent implements OnInit {
         this.tableDataSource = new MatTableDataSource(this.contacts);
       });
     });
-
-    
   }
 
   applyFilter(filterValue: string) {
@@ -59,6 +58,14 @@ export class DirectoryComponent implements OnInit {
     this.dialog.open(ContactEditComponent, {
       data: { contact: contact}
     });
+  }
+
+  getDisplayedColumns() {
+    if (this.isSup()) {
+      return this.displayedColumnsWithEdit;
+    } else {
+      return this.displayedColumns;
+    }
   }
 }
 

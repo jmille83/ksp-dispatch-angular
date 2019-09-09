@@ -121,7 +121,10 @@ export class LoginComponent implements OnInit {
     let firstName = this.registerForm.get("firstName").value;
     let lastName = this.registerForm.get("lastName").value;
     let initials = this.registerForm.get("initials").value;
-    let phone = this.cleanPhoneNumber(this.registerForm.get("phone").value);
+    let phone = "";
+    if ((this.registerForm.get("phone").value as string).length > 0) {
+      phone = this.cleanPhoneNumber(this.registerForm.get("phone").value);
+    }
     let email = this.registerForm.get("email").value;
     let password = this.registerForm.get("password").value;
     if (password != this.registerForm.get("confirmedPassword").value) {
