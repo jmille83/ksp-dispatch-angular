@@ -8,6 +8,8 @@ import { User } from '../../objects/user';
 import { UserService } from '../../services/user.service';
 import { take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
+import { DirectoryService } from '../../services/directory.service';
+import { Constant } from '../../objects/constant';
 
 @Component({
   selector: 'app-ten-thirtythree-detail',
@@ -23,13 +25,15 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
   dateString = "";
   ten33 = new TenThirtythree();
   patrollers: User[];
+  constants: Constant[];
+  constantsMap = {'director': {}, 'ad': {}, 'coo': {}, 'mtn-mgr': {}, 'dir-h-and-s': {}, 'ad-h-and-s': {}};
 
   // Start after 10 seconds, save every 30 seconds.
   SECONDS = 1000;
   timer = timer(10*this.SECONDS, 30*this.SECONDS);
   
   constructor(private route: ActivatedRoute, private recordsService: RecordsService, 
-    private userService: UserService, private snackBar: MatSnackBar) { }
+    private userService: UserService, private snackBar: MatSnackBar, private directoryService: DirectoryService) { }
 
   ngOnInit() {
     // Get any info we already have from record.
@@ -59,6 +63,16 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
     
     this.userService.getPatrollers().pipe(take(1)).subscribe(patrollers => {
       this.patrollers = patrollers;
+    });
+
+    this.directoryService.getConstants().pipe(take(1)).subscribe(constants => {
+      this.constants = constants;
+      this.constantsMap["director"] = this.constants.find(el => el.id === "director");
+      this.constantsMap["ad"] = this.constants.find(el => el.id === "ad");
+      this.constantsMap["coo"] = this.constants.find(el => el.id === "coo");
+      this.constantsMap["mtn-mgr"] = this.constants.find(el => el.id === "mtn-mgr");
+      this.constantsMap["dir-h-and-s"] = this.constants.find(el => el.id === "dir-h-and-s");
+      this.constantsMap["ad-h-and-s"] = this.constants.find(el => el.id === "ad-h-and-s");
     });
 
 

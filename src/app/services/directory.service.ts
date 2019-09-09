@@ -15,6 +15,10 @@ export class DirectoryService {
     return this.db.collection('contacts', ref => ref.orderBy('name', 'asc')).valueChanges();
   }
 
+  getConstants(): Observable<any[]> {
+    return this.db.collection('constants').valueChanges();
+  }
+
   addContact(contact: Contact) {
     contact.id = this.db.createId();
     let newData = JSON.parse(JSON.stringify(contact));

@@ -141,12 +141,12 @@
               <mat-list-item>
                 <mat-checkbox [(ngModel)]="ten33.directorNotified" (change)="onDirectorNotified()" [disabled]="!ten33.isActive"></mat-checkbox>
                 <div>
-                  Notify Mike
-                  <button mat-icon-button class="icon-button" (click)="showSnackbar('3835 | (970) 389-7169')">
+                  Notify {{constantsMap['director'].name}}
+                  <button mat-icon-button class="icon-button" (click)="showSnackbar(constantsMap['director'].phoneString)">
                     <mat-icon>phone</mat-icon>
                   </button>
-                  or Banjo
-                  <button mat-icon-button class="icon-button" (click)="showSnackbar('3878 | (720) 258-5744')">
+                  or {{constantsMap['ad'].name}}
+                  <button mat-icon-button class="icon-button" (click)="showSnackbar(constantsMap['ad'].phoneString)">
                     <mat-icon>phone</mat-icon>
                   </button>
                 </div>
@@ -158,10 +158,10 @@
                     <mat-panel-title>Have them initiate Executive Comm Network:</mat-panel-title>
                   </mat-expansion-panel-header>
                   <mat-list>
-                    <mat-list-item>Geoff Buccheister - 4190 / (801) 560-2736</mat-list-item>
-                    <mat-list-item>Tracy Bartels - 4188 / (970) 485-0257</mat-list-item>
-                    <mat-list-item>Dave Paradysz - 4352 / (530) 318-2568</mat-list-item>
-                    <mat-list-item>Kurtis Knapke - 4388 / (765) 993-6239</mat-list-item>
+                    <mat-list-item>{{constantsMap['coo'].name}} - {{constantsMap['coo'].phoneString}}</mat-list-item>
+                    <mat-list-item>{{constantsMap['mtn-mgr'].name}} - {{constantsMap['mtn-mgr'].phoneString}}</mat-list-item>
+                    <mat-list-item>{{constantsMap['dir-h-and-s'].name}} - {{constantsMap['dir-h-and-s'].phoneString}}</mat-list-item>
+                    <mat-list-item>{{constantsMap['ad-h-and-s'].name}} - {{constantsMap['ad-h-and-s'].phoneString}}</mat-list-item>
                   </mat-list>
                 </mat-expansion-panel>
               </mat-accordion>
