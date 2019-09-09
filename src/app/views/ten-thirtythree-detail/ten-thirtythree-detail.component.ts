@@ -26,7 +26,8 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
   ten33 = new TenThirtythree();
   patrollers: User[];
   constants: Constant[];
-  constantsMap = {'director': {}, 'ad': {}, 'coo': {}, 'mtn-mgr': {}, 'dir-h-and-s': {}, 'ad-h-and-s': {}};
+  constantsMap = {'director': new Constant(), 'ad': new Constant(), 'coo': new Constant(), 
+                  'mtn-mgr': new Constant(), 'dir-h-and-s': new Constant(), 'ad-h-and-s': new Constant()};
 
   // Start after 10 seconds, save every 30 seconds.
   SECONDS = 1000;
