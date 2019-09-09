@@ -21,7 +21,6 @@ export class LinksService {
   }
 
   addLinkToGroup(link: Link, group: LinkGroup) {
-    link.roles = {};
     link.id = this.db.createId();
     group.links.push(link);
     let newData = JSON.parse(JSON.stringify(group));

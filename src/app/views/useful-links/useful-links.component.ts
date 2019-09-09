@@ -33,14 +33,27 @@ export class UsefulLinksComponent implements OnInit {
   }
 
   canDisplay(link: Link) {
-    if (link.roles["dispatch"] && !this.authService.isDispatch(this.authService.getCurrentUser())) {
-      return false;
-    } else if (link.roles["specialist"] && !this.authService.isSpecialist(this.authService.getCurrentUser())) {
-      return false;
-    } else  if (link.roles["sup"] && !this.authService.isSup(this.authService.getCurrentUser())) {
-      return false;
+    let user = this.authService.getCurrentUser();
+    const line = link.roles['line'] && user.roles['line'];
+    const spec = link.roles['specialist'] && user.roles['specialist'];
+    const disp = link.roles['dispatch'] && user.roles['dispatch'];
+    const sup = link.roles['sup'] && user.roles['sup'];
+    const admin = user.roles['admin'];
+    
+    if (line || spec || disp || sup || admin) {
+      return true;
     }
-    return true;
+    return false;
+
+
+    // if (link.roles["dispatch"] && !this.authService.isDispatch(this.authService.getCurrentUser())) {
+    //   return false;
+    // } else if (link.roles["specialist"] && !this.authService.isSpecialist(this.authService.getCurrentUser())) {
+    //   return false;
+    // } else  if (link.roles["sup"] && !this.authService.isSup(this.authService.getCurrentUser())) {
+    //   return false;
+    // }
+    // return true;
   }
 
   isSpecialist() {
