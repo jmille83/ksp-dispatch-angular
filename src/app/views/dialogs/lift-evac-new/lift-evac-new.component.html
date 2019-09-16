@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Start new lift evac form</h2>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-select placeholder="Lift"
+    [(ngModel)]="lift" name="lift">
+      <mat-option *ngFor="let liftOption of lifts" [value]="liftOption.name">
+        {{ liftOption.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" [mat-dialog-close]="lift">Start</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+</div>

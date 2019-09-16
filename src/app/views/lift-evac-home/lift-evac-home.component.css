@@ -6,3 +6,9 @@ h2 {
     margin: 0 auto;
     width: fit-content;
 }
+
+#button-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 40px;
+}

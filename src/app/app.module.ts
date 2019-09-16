@@ -47,6 +47,7 @@ import { TenThirtythreeHomeComponent } from './views/ten-thirtythree-home/ten-th
 import { TenThirtythreeDetailComponent } from './views/ten-thirtythree-detail/ten-thirtythree-detail.component';
 import { LiftEvacHomeComponent } from './views/lift-evac-home/lift-evac-home.component';
 import { LiftEvacDetailComponent } from './views/lift-evac-detail/lift-evac-detail.component';
+import { LiftEvacNewComponent } from './views/dialogs/lift-evac-new/lift-evac-new.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { LiftEvacDetailComponent } from './views/lift-evac-detail/lift-evac-deta
     TenThirtythreeHomeComponent,
     TenThirtythreeDetailComponent,
     LiftEvacHomeComponent,
-    LiftEvacDetailComponent
+    LiftEvacDetailComponent,
+    LiftEvacNewComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +104,8 @@ import { LiftEvacDetailComponent } from './views/lift-evac-detail/lift-evac-deta
     ContactEditComponent,
     OpeningEditComponent,
     PickFrontsideSweepComponent,
-    RosterEditComponent
+    RosterEditComponent,
+    LiftEvacNewComponent
   ],
   providers: [
     RecordsService,
