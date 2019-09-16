@@ -32,7 +32,6 @@ export class LiftEvacDetailComponent implements OnInit, OnDestroy {
       let evacId = this.route.snapshot.paramMap.get('id');
       this.subscription.add(this.liftEvacService.getLiftEvacWithId(evacId).subscribe(evacs => {
         this.evac = evacs[0];
-        this.timeString = new Date(this.evac.startTime).toLocaleTimeString();
       }));
     });
     
@@ -58,4 +57,41 @@ export class LiftEvacDetailComponent implements OnInit, OnDestroy {
     this.snackBar.open("Information saved", 'Dismiss', {duration: 2000});
   }
 
+  onStateChanged() {
+    // When made inactive, do a final save.
+    if (!this.evac.isActive) {
+      this.liftEvacService.updateLiftEvac(this.evac);
+    }
+  }
+
+  onLiftRestart() {
+    this.evac.restartTime = new Date().getTime();
+    this.evac.restartTimeString = new Date().toLocaleTimeString();
+
+    this.evac.downTime = this.evac.restartTime - this.evac.stopTime;
+    let mins = Math.round(this.evac.downTime/1000/60);
+    let hours = 0;
+    let hasHours = false;
+    while (mins > 60) {
+      mins -= 60;
+      hours += 1;
+      hasHours = true;
+    }
+    if (hasHours) {
+      this.evac.downTimeString = hours + " hours, " + mins + " minutes";
+    } else {
+      this.evac.downTimeString = mins + " minutes";
+    }
+  }
+
+  //////////////// Callbacks //////////////////////////
+  onIcAssigned() {
+    if (this.evac.icAssigned) {
+      this.evac.icAssignedTimeString = new Date().toLocaleTimeString();
+    } else {
+      this.evac.icAssignedTimeString = null;
+    }
+  }
+
+  
 }

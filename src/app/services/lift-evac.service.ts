@@ -25,9 +25,10 @@ export class LiftEvacService {
   addLiftEvac(lift: string): string {
     let evac = new LiftEvac();
     evac.id = this.db.createId();
-    evac.startTime = new Date().getTime();
+    evac.stopTime = new Date().getTime();
     evac.date = new Date().toLocaleDateString();
     evac.lift = lift;
+    evac.stopTimeString = new Date(evac.stopTime).toLocaleTimeString();
     
     let data = JSON.parse(JSON.stringify(evac));
     this.db.collection('lift-evacs').doc(evac.id).set(data);

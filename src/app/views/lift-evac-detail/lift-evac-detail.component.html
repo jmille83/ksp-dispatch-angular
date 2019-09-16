@@ -1,3 +1,116 @@
-<p>
-  lift-evac-detail works!
-</p>
+<h2>Lift Down - {{evac.lift}}, {{evac.date}}</h2>
+
+<div class="card-container">
+  <mat-card>
+    <mat-card-content>
+      <div id="top-info">
+        Dispatcher:
+        <mat-select class="first-row-item" placeholder="Dispatcher" [(ngModel)]="evac.dispatcherId" name="dispatcher" [disabled]="!evac.isActive">
+          <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+          {{ patroller.lastName }}
+          </mat-option>
+        </mat-select>
+        <mat-form-field class="first-row-item">
+          <input matInput placeholder="Problem" [(ngModel)]="evac.problem" [disabled]="!evac.isActive">
+        </mat-form-field>
+        <div class="first-row-item">Lift stop time:</div>
+        <div class="first-row-item bigger-text">{{evac.stopTimeString}}</div>
+        <div class="first-row-item">Lift restart time: </div>
+        <button class="first-row-item" *ngIf="evac.restartTime == null" mat-raised-button color="primary" (click)="onLiftRestart()" [disabled]="!evac.isActive">Lift restarted</button>
+        <div class="first-row-item bigger-text" *ngIf="evac.restartTime != null">{{evac.restartTimeString}}</div>
+        <div class="first-row-item">Down time: </div>
+        <div class="first-row-item bigger-text">{{evac.downTimeString}}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="card-container">
+  <mat-card>
+    <mat-card-title>At 10-minute Lift Stoppage</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.icAssigned" (change)="onIcAssigned()" [disabled]="!evac.isActive"></mat-checkbox>
+          Assign Incident Commander: 
+          <mat-select placeholder="IC" [(ngModel)]="evac.icId" name="ic" [disabled]="evac.icAssigned || !evac.isActive">
+            <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+              {{ patroller.lastName }}
+            </mat-option>
+          </mat-select>
+          <p class="time" *ngIf="evac.icAssignedTimeString != null">{{evac.icAssignedTimeString}}</p>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="card-container">
+  <mat-card>
+    <mat-card-title>At 15-minute Lift Stoppage</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="card-container">
+  <mat-card>
+    <mat-card-title>At 20-minute Lift Stoppage</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="card-container">
+  <mat-card>
+    <mat-card-title>At 60-minute Lift Stoppage</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="card-container">
+  <mat-card>
+    <mat-card-title>At Completion of Evac</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="card-container">
+  <mat-card>
+    <mat-card-title>If Lift Resumes Operation</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="centered-container">
+    <mat-slide-toggle id="edit-toggle" [(ngModel)]="evac.isActive" 
+        color="primary" (change)="onStateChanged()">Active</mat-slide-toggle>
+</div>
