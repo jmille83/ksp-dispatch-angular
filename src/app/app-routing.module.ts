@@ -11,6 +11,8 @@ import { DirectoryComponent } from './views/directory/directory.component';
 import { RosterComponent } from './views/roster/roster.component';
 import { TenThirtythreeHomeComponent } from './views/ten-thirtythree-home/ten-thirtythree-home.component';
 import { TenThirtythreeDetailComponent } from './views/ten-thirtythree-detail/ten-thirtythree-detail.component';
+import { LiftEvacHomeComponent } from './views/lift-evac-home/lift-evac-home.component';
+import { LiftEvacDetailComponent } from './views/lift-evac-detail/lift-evac-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dispatch', pathMatch: 'full' },
@@ -23,7 +25,9 @@ const routes: Routes = [
   { path: 'directory', canActivate: [AuthGuard], component: DirectoryComponent },
   { path: 'roster', canActivate: [AuthGuard], component: RosterComponent },
   { path: '1033', canActivate: [AuthGuard], component: TenThirtythreeHomeComponent },
-  { path: '1033/:id', canActivate: [AuthGuard], component: TenThirtythreeDetailComponent }
+  { path: '1033/:id', canActivate: [AuthGuard], component: TenThirtythreeDetailComponent },
+  { path: 'lift-evac', canActivate: [AuthGuard], component: LiftEvacHomeComponent },
+  { path: 'lift-evac/:id', canActivate: [AuthGuard], component: LiftEvacDetailComponent }
 ];
 
 @NgModule({
