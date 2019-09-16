@@ -15,7 +15,7 @@ export class LiftEvacService {
   }
 
   getAllLiftEvacs(): Observable<any[]> {
-    return this.db.collection('lift-evacs', ref => ref.orderBy('startTime', 'desc')).valueChanges();
+    return this.db.collection('lift-evacs', ref => ref.orderBy('stopTime', 'desc')).valueChanges();
   }
 
   getLiftEvacWithId(id: string): Observable<any[]> {

@@ -7,6 +7,7 @@ import { LiftEvacService } from '../../services/lift-evac.service';
 import { MatSnackBar } from '@angular/material';
 import { UserService } from '../../services/user.service';
 import { User } from '../../objects/user';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-lift-evac-detail',
@@ -19,13 +20,14 @@ export class LiftEvacDetailComponent implements OnInit, OnDestroy {
   evac = new LiftEvac();
   patrollers: User[];
   timeString = "";
+  currentUser: User;
 
   // Start after 10 seconds, save every 30 seconds.
   SECONDS = 1000;
   timer = timer(10*this.SECONDS, 30*this.SECONDS);
   
   constructor(private route: ActivatedRoute, private liftEvacService: LiftEvacService, 
-    private userService: UserService, private snackBar: MatSnackBar) { }
+    private userService: UserService, private snackBar: MatSnackBar, private authService: AuthService) { }
 
   ngOnInit() {
     this.route.params.forEach(() => {
@@ -39,6 +41,9 @@ export class LiftEvacDetailComponent implements OnInit, OnDestroy {
       this.patrollers = patrollers;
     });
 
+    this.authService.user$.subscribe(() => {
+      this.currentUser = this.authService.getCurrentUser()
+    });
 
     // Auto-save.
     this.subscription.add(this.timer.subscribe(() => {
@@ -87,11 +92,18 @@ export class LiftEvacDetailComponent implements OnInit, OnDestroy {
   //////////////// Callbacks //////////////////////////
   onIcAssigned() {
     if (this.evac.icAssigned) {
-      this.evac.icAssignedTimeString = new Date().toLocaleTimeString();
+      this.evac.icAssignedSig = new Date().toLocaleTimeString() + ", " + this.currentUser.lastName;
     } else {
-      this.evac.icAssignedTimeString = null;
+      this.evac.icAssignedSig = null;
     }
   }
 
+  onChannel1Announcement() {
+    if (this.evac.channel1Announced) {
+      this.evac.channel1AnnouncedSig = new Date().toLocaleTimeString() + ", " + this.currentUser.lastName;
+    } else {
+      this.evac.channel1AnnouncedSig = null;
+    }
+  }
   
 }

@@ -16,5 +16,8 @@ export class LiftEvac {
 
     icAssigned: boolean;
     icId: string;
-    icAssignedTimeString: string;
+    icAssignedSig: string;
+
+    channel1Announced: boolean;
+    channel1AnnouncedSig: string;
 }

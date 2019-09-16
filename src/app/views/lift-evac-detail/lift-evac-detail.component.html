@@ -38,7 +38,12 @@
               {{ patroller.lastName }}
             </mat-option>
           </mat-select>
-          <p class="time" *ngIf="evac.icAssignedTimeString != null">{{evac.icAssignedTimeString}}</p>
+          <p class="time" *ngIf="evac.icAssignedSig != null">{{evac.icAssignedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-checkbox [(ngModel)]="evac.channel1Announced" (change)="onChannel1Announcement()" [disabled]="!evac.isActive"></mat-checkbox>
+            Channel 1 Announcement
+            <p class="time" *ngIf="evac.channel1AnnouncedSig != null">{{evac.channel1AnnouncedSig}}</p>
         </mat-list-item>
       </mat-list>
     </mat-card-content>
