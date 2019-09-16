@@ -45,6 +45,8 @@ import { RosterEditComponent } from './views/dialogs/roster-edit/roster-edit.com
 import { TransactionService } from './services/transaction.service';
 import { TenThirtythreeHomeComponent } from './views/ten-thirtythree-home/ten-thirtythree-home.component';
 import { TenThirtythreeDetailComponent } from './views/ten-thirtythree-detail/ten-thirtythree-detail.component';
+import { LiftEvacHomeComponent } from './views/lift-evac-home/lift-evac-home.component';
+import { LiftEvacDetailComponent } from './views/lift-evac-detail/lift-evac-detail.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import { TenThirtythreeDetailComponent } from './views/ten-thirtythree-detail/te
     RosterComponent,
     RosterEditComponent,
     TenThirtythreeHomeComponent,
-    TenThirtythreeDetailComponent
+    TenThirtythreeDetailComponent,
+    LiftEvacHomeComponent,
+    LiftEvacDetailComponent
   ],
   imports: [
     BrowserModule,
