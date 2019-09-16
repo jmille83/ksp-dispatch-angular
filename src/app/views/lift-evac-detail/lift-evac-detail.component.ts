@@ -44,7 +44,7 @@ export class LiftEvacDetailComponent implements OnInit, OnDestroy {
     this.subscription.add(this.timer.subscribe(() => {
       if (this.evac.isActive) {
         this.liftEvacService.updateLiftEvac(this.evac);
-        this.showDataSavedSnackbar();
+        //this.showDataSavedSnackbar();
       }
     }));
   }

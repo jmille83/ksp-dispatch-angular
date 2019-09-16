@@ -1,15 +1,22 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <h2 mat-dialog-title>Start new lift evac form</h2>
 <div mat-dialog-content>
   <mat-form-field>
     <mat-select placeholder="Lift"
-    [(ngModel)]="lift" name="lift">
+    [(ngModel)]="lift" name="lift" (selectionChange)="onNewSelection()">
       <mat-option *ngFor="let liftOption of lifts" [value]="liftOption.name">
         {{ liftOption.name }}
       </mat-option>
     </mat-select>
   </mat-form-field>
+
+  <div id="time-container">
+    Lift down time: <div class="bigger-text">{{liftDownTimeString}}</div>
+    <button mat-icon-button (click)="onIncrement()"><mat-icon>add</mat-icon></button>
+    <button mat-icon-button (click)="onDecrement()"><mat-icon>remove</mat-icon></button>
+  </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" [mat-dialog-close]="lift">Start</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="returnObject">Start</button>
   <button mat-button mat-dialog-close>Cancel</button>
 </div>

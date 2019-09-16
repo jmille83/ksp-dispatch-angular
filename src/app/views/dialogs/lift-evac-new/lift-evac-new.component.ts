@@ -11,7 +11,10 @@ import { take } from 'rxjs/operators';
 export class LiftEvacNewComponent implements OnInit {
 
   lift: string;
-  lifts: Lift[]; 
+  lifts: Lift[];
+  liftDownTime: number; 
+  liftDownTimeString: string;
+  returnObject: any;
 
   constructor(private liftEvacService: LiftEvacService) { }
 
@@ -19,6 +22,26 @@ export class LiftEvacNewComponent implements OnInit {
     this.liftEvacService.getAllLifts().pipe(take(1)).subscribe(lifts => {
       this.lifts = lifts;
     });
+
+    this.liftDownTime = new Date().getTime();
+    this.liftDownTimeString = new Date().toLocaleTimeString();
   }
 
+  onIncrement() {
+    // Add a minute.
+    this.liftDownTime += 60*1000;
+    this.liftDownTimeString = new Date(this.liftDownTime).toLocaleTimeString();
+    this.returnObject = {'lift': this.lift, 'stopTime': this.liftDownTime, 'stopTimeString': this.liftDownTimeString};
+  }
+
+  onDecrement() {
+    // Subtract a minute.
+    this.liftDownTime -= 60*1000;
+    this.liftDownTimeString = new Date(this.liftDownTime).toLocaleTimeString();
+    this.returnObject = {'lift': this.lift, 'stopTime': this.liftDownTime, 'stopTimeString': this.liftDownTimeString};
+  }
+
+  onNewSelection() {
+    this.returnObject = {'lift': this.lift, 'stopTime': this.liftDownTime, 'stopTimeString': this.liftDownTimeString};
+  }
 }

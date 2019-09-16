@@ -38,8 +38,8 @@ export class LiftEvacHomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  goToEvacDetail(lift: string) {
-    let id = this.liftEvacService.addLiftEvac(lift);
+  goToEvacDetail(obj: any) {
+    let id = this.liftEvacService.addLiftEvac(obj.lift, obj.stopTime, obj.stopTimeString);
     this.router.navigateByUrl("/lift-evac/" + id);
   }
 }
