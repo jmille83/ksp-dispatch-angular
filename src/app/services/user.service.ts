@@ -14,7 +14,7 @@ export class UserService {
   constructor(private db: AngularFirestore, private transactionService: TransactionService) { }
 
   getAllUsers(): Observable<any[]> {
-    return this.db.collection('users', ref => ref.orderBy('lastName', 'asc')).valueChanges();
+    return this.db.collection('users', ref => ref.orderBy('displayName', 'asc')).valueChanges();
   }
 
   getUsersWhoAreContacts(): Observable<any[]> {
@@ -26,7 +26,7 @@ export class UserService {
   }
 
   getPatrollersOrdered(): Observable<any[]> {
-    return this.db.collection('users', ref => ref.where('isPatroller', '==', true).orderBy('order', 'desc').orderBy('lastName')).valueChanges();
+    return this.db.collection('users', ref => ref.where('isPatroller', '==', true).orderBy('order', 'desc').orderBy('displayName')).valueChanges();
   }
 
   getCurrentDispatcher(): Observable<any> {
