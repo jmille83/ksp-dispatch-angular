@@ -3,5 +3,5 @@ export class Note {
     timeCreated: number;
     text: string;
     completed: boolean;
-    completersInitials: string;
+    completersName: string;
 }

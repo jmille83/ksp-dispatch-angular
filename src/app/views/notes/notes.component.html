@@ -46,7 +46,7 @@
                     <div id="completed-note" class="note-grid">
                         <mat-checkbox (click)="toggleNoteComplete(note)" [checked]="note.completed"></mat-checkbox>
                         <label id="completed-note-text">{{note.text}}</label>
-                        <label id="completed-note-inits">{{note.completersInitials}}</label>
+                        <label id="completed-note-inits">{{note.completersName}}</label>
                         <button mat-icon-button class="delete-note-button" (click)="deleteNote(note)">
                             <mat-icon class="material-icons">close</mat-icon>
                         </button>

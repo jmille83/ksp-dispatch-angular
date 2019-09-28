@@ -99,7 +99,8 @@ export class NotesComponent implements OnInit, OnDestroy {
     
     // If, after updating, it's complete, add user's initials.
     if (note.completed) {
-      note.completersInitials = this.user.initials;
+      console.log(this.user.displayName);
+      note.completersName = this.user.displayName;
     }
     this.notesService.updateNote(note);
   }
