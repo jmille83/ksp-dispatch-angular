@@ -120,6 +120,17 @@ export class AuthService {
     return this.checkAuthorization(user, allowed);
   }
 
+  isFullDispatch(user: User) {
+    if (!user) return false;
+    if (user.roles['dispatch']) {
+      if (user.roles['aux-dispatch']) {
+        return false;
+      }
+      return true;
+    }
+    return false;
+  }
+
   isSup(user: User): boolean {
     const allowed = ['admin', 'sup'];
     return this.checkAuthorization(user, allowed);
