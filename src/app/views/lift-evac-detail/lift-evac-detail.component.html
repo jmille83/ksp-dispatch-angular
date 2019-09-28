@@ -7,7 +7,7 @@
         Dispatcher:
         <mat-select class="first-row-item" placeholder="Dispatcher" [(ngModel)]="evac.dispatcherId" name="dispatcher" [disabled]="!evac.isActive">
           <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-          {{ patroller.lastName }}
+          {{ patroller.displayName }}
           </mat-option>
         </mat-select>
         <mat-form-field class="first-row-item">
@@ -35,7 +35,7 @@
           Assign Incident Commander: 
           <mat-select placeholder="IC" [(ngModel)]="evac.icId" name="ic" [disabled]="evac.icAssigned || !evac.isActive">
             <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-              {{ patroller.lastName }}
+              {{ patroller.displayName }}
             </mat-option>
           </mat-select>
           <p class="time" *ngIf="evac.icAssignedSig != null">{{evac.icAssignedSig}}</p>

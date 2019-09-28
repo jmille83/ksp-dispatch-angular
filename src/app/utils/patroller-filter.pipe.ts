@@ -10,6 +10,6 @@ export class PatrollerFilterPipe implements PipeTransform {
     if (!patrollers) return null;
     if (!targetId || targetId == "") return null;
 
-    return patrollers.find(patroller => patroller.uid == targetId).lastName;
+    return patrollers.find(patroller => patroller.uid == targetId).displayName;
    }
 }

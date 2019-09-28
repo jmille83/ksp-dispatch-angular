@@ -76,6 +76,7 @@ export class AuthService {
       email: user.email,
       firstName: firstName,
       lastName: lastName,
+      displayName: lastName,
       name: firstName + ' ' + lastName,
       phone: phone,
       extension: "",

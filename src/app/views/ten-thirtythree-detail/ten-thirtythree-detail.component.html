@@ -112,7 +112,7 @@
                 <div>Dispatcher: </div>
                 <mat-select placeholder="Dispatcher" [(ngModel)]="ten33.dispatcherId" name="dispatcher" [disabled]="ten33.dispatcherAssigned || !ten33.isActive">
                   <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                    {{ patroller.lastName }}
+                    {{ patroller.displayName }}
                   </mat-option>
                 </mat-select>
                 <p class="time" *ngIf="ten33.dispatcherAssignedTimeString != null">{{ten33.dispatcherAssignedTimeString}}</p>
@@ -124,7 +124,7 @@
                 <div>Assign 3101: </div>
                 <mat-select placeholder="3101" [(ngModel)]="ten33.three101Id" name="three101" [disabled]="ten33.three101Assigned || !ten33.isActive">
                   <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                    {{ patroller.lastName }}
+                    {{ patroller.displayName }}
                   </mat-option>
                 </mat-select>
                 <p class="time" *ngIf="ten33.three101AssignedTimeString != null">{{ten33.three101AssignedTimeString}}</p>
@@ -189,7 +189,7 @@
                 <div>Patroller for family and friends: </div>
                 <mat-select placeholder="Patroller" [(ngModel)]="ten33.familyPatrollerId" name="familyPatrollerId" [disabled]="ten33.familyPatrollerAssigned || !ten33.isActive">
                   <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                    {{ patroller.lastName }}
+                    {{ patroller.displayName }}
                   </mat-option>
                 </mat-select>
                 <p class="time" *ngIf="ten33.familyPatrollerAssignedTimeString != null">{{ten33.familyPatrollerAssignedTimeString}}</p>
@@ -201,7 +201,7 @@
                 <div>Assign accident investigator: </div>
                 <mat-select placeholder="Patroller" [(ngModel)]="ten33.investigatorId" name="investigatorId" [disabled]="ten33.investigatorAssigned || !ten33.isActive">
                   <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                    {{ patroller.lastName }}
+                    {{ patroller.displayName }}
                   </mat-option>
                 </mat-select>
                 <p class="time" *ngIf="ten33.investigatorAssignedTimeString != null">{{ten33.investigatorAssignedTimeString}}</p>
@@ -213,7 +213,7 @@
                 <div>Patroller for witness statements: </div>
                 <mat-select placeholder="Patroller" [(ngModel)]="ten33.witnessPatrollerId" name="witnessPatrollerId" [disabled]="ten33.witnessPatrollerAssigned || !ten33.isActive">
                   <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                    {{ patroller.lastName }}
+                    {{ patroller.displayName }}
                   </mat-option>
                 </mat-select>
                 <p class="time" *ngIf="ten33.witnessPatrollerAssignedTimeString != null">{{ten33.witnessPatrollerAssignedTimeString}}</p>
@@ -225,7 +225,7 @@
                 <div>Patroller for scene clean-up: </div>
                 <mat-select placeholder="Patroller" [(ngModel)]="ten33.cleanupPatrollerId" name="cleanupPatrollerId" [disabled]="ten33.cleanupPatrollerAssigned || !ten33.isActive">
                   <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                    {{ patroller.lastName }}
+                    {{ patroller.displayName }}
                   </mat-option>
                 </mat-select>
                 <p class="time" *ngIf="ten33.cleanupPatrollerAssignedTimeString != null">{{ten33.cleanupPatrollerAssignedTimeString}}</p>
@@ -267,7 +267,7 @@
                 <div>Incident Commander: </div>
                 <mat-select placeholder="Patroller" [(ngModel)]="ten33.icId" name="icId" [disabled]="ten33.icAssigned || !ten33.isActive">
                   <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                    {{ patroller.lastName }}
+                    {{ patroller.displayName }}
                   </mat-option>
                 </mat-select>
                 <p class="time" *ngIf="ten33.icAssignedTimeString != null">{{ten33.icAssignedTimeString}}</p>
@@ -279,7 +279,7 @@
                 <div>Medical Commander: </div>
                 <mat-select placeholder="Patroller" [(ngModel)]="ten33.mcId" name="mcId" [disabled]="ten33.mcAssigned || !ten33.isActive">
                   <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                    {{ patroller.lastName }}
+                    {{ patroller.displayName }}
                   </mat-option>
                 </mat-select>
                 <p class="time" *ngIf="ten33.mcAssignedTimeString != null">{{ten33.mcAssignedTimeString}}</p>
@@ -297,7 +297,7 @@
                 <td>
                   <mat-select placeholder="Patroller" [(ngModel)]="dispatchedPatroller.id" name="patrollerId" [disabled]="!ten33.isActive">
                     <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                      {{ patroller.lastName }}
+                      {{ patroller.displayName }}
                     </mat-option>
                   </mat-select>
                   <p class="time">{{dispatchedPatroller.timeString}}</p>
@@ -338,7 +338,7 @@
               Patrol Contact:
               <mat-select placeholder="Patroller" [(ngModel)]="ten33.flightsPatrolContactId" name="flightsPatrollerId" [disabled]="!ten33.isActive">
                 <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-                  {{ patroller.lastName }}
+                  {{ patroller.displayName }}
                 </mat-option>
               </mat-select>
             </mat-list-item>

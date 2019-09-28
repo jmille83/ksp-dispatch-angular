@@ -13,6 +13,7 @@ export interface User {
     roles: Roles;
     firstName: string;
     lastName: string;
+    displayName: string;
     name: string;
     phone: string;
     extension: string;
