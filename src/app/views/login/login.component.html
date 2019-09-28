@@ -13,14 +13,6 @@
     </mat-form-field>
     <br>
     <mat-form-field class="text-input">
-      <input matInput type="text" name="initials" placeholder="Initials (2-3 letters)" 
-      formControlName="initials" required>
-    </mat-form-field>
-    <div class="form-errors" *ngIf="formErrors.initials">
-      {{ formErrors.initials }}
-    </div>
-    <br>
-    <mat-form-field class="text-input">
       <input matInput type="tel" name="phone" placeholder="Phone number" 
       formControlName="phone">
     </mat-form-field>
@@ -58,7 +50,7 @@
     </mat-form-field>
     <br>
     <button mat-raised-button color="primary" (click)="signUpWithEmail()" [disabled]="!registerForm.valid">Register</button>
-    <button mat-flat-button color="secondary" (click)="toggleForm()">Already have an account?</button>
+    <button mat-stroked-button class="second-button" color="secondary" (click)="toggleForm()">Already have an account?</button>
   </form>
 
   <form class="login-form" *ngIf="!newUser">
@@ -78,7 +70,7 @@
       <br>
     </div>
     <button mat-raised-button color="primary" (click)="loginWithEmail()">Login</button>
-    <button mat-flat-button color="secondary" (click)="toggleForm()">Need to sign up?</button>
+    <button mat-stroked-button class="second-button" color="secondary" (click)="toggleForm()">Need to sign up?</button>
   </form>
 </div>
 <div class="login-form" *ngIf="alreadyLoggedIn">

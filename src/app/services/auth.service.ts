@@ -62,19 +62,18 @@ export class AuthService {
     return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
-  signUpWithEmail(email, password, firstName, lastName, initials, phone) {
+  signUpWithEmail(email, password, firstName, lastName, phone) {
     return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((credential) => {
-        this.createUserInFirebase(credential.user, firstName, lastName, initials, phone);
+        this.createUserInFirebase(credential.user, firstName, lastName, phone);
       });
   }
 
-  private createUserInFirebase(user: firebase.User, firstName: string, lastName: string, initials: string, phone: string) {
+  private createUserInFirebase(user: firebase.User, firstName: string, lastName: string, phone: string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const data: User = {
       uid: user.uid,
       email: user.email,
-      initials: initials,
       firstName: firstName,
       lastName: lastName,
       name: firstName + ' ' + lastName,
