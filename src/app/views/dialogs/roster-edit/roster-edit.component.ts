@@ -24,8 +24,8 @@ export class RosterEditComponent implements OnInit {
   filteredRoles: Observable<string[]>;
   allRoles = ['sup', 'specialist', 'dispatch', 'line', 'north-peak', 'outback', 'kmc'];
 
-  @ViewChild('rolesInput') rolesInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @ViewChild('rolesInput', {static: true}) rolesInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto', {static: true}) matAutocomplete: MatAutocomplete;
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: DialogData, private userService: UserService) {
       this.user = data.user;

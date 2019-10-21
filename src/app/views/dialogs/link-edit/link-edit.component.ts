@@ -29,8 +29,8 @@ export class LinkEditComponent implements OnInit {
   filteredRoles: Observable<string[]>;
   allRoles = ['line', 'sup', 'specialist', 'dispatch'];
 
-  @ViewChild('rolesInput') rolesInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @ViewChild('rolesInput', {static: true}) rolesInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto', {static: true}) matAutocomplete: MatAutocomplete;
   
   constructor(@Inject(MAT_DIALOG_DATA) private data: DialogData,
     private linksService: LinksService) {

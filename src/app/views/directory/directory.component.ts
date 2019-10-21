@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DirectoryService } from '../../services/directory.service';
 import { take } from 'rxjs/operators';
 import { Contact } from '../../objects/contact';
