@@ -62,7 +62,7 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
       }));
     });
     
-    this.userService.getPatrollers().pipe(take(1)).subscribe(patrollers => {
+    this.userService.getPatrollersOrdered().pipe(take(1)).subscribe(patrollers => {
       this.patrollers = patrollers;
     });
 
@@ -75,7 +75,6 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
       this.constantsMap["dir-h-and-s"] = this.constants.find(el => el.id === "dir-h-and-s");
       this.constantsMap["ad-h-and-s"] = this.constants.find(el => el.id === "ad-h-and-s");
     });
-
 
     // Auto-save.
     this.subscription.add(this.timer.subscribe(() => {

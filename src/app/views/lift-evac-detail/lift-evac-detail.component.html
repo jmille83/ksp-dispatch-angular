@@ -41,9 +41,77 @@
           <p class="time" *ngIf="evac.icAssignedSig != null">{{evac.icAssignedSig}}</p>
         </mat-list-item>
         <mat-list-item>
-            <mat-checkbox [(ngModel)]="evac.channel1Announced" (change)="onChannel1Announcement()" [disabled]="!evac.isActive"></mat-checkbox>
-            Channel 1 Announcement
-            <p class="time" *ngIf="evac.channel1AnnouncedSig != null">{{evac.channel1AnnouncedSig}}</p>
+          <mat-checkbox [(ngModel)]="evac.channel1Announced" (change)="onChannel1Announcement()" [disabled]="!evac.isActive"></mat-checkbox>
+          Channel 1 Announcement
+          <p class="time" *ngIf="evac.channel1AnnouncedSig != null">{{evac.channel1AnnouncedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.supNotified" (change)="onSupNotified()" [disabled]="!evac.isActive"></mat-checkbox>
+          Ski Patrol Supervisor Notified
+          <p class="time" *ngIf="evac.supNotifiedSig != null">{{evac.supNotifiedSig}}</p>
+        </mat-list-item>
+        
+        <!-- Notify director or AD -->
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.directorNotified" (change)="onDirectorNotified()" [disabled]="!evac.isActive"></mat-checkbox>
+          <div>
+            Notify {{constantsMap['director'].name}}
+            <button mat-icon-button class="icon-button" (click)="showSnackbar(constantsMap['director'].phoneString)">
+              <mat-icon>phone</mat-icon>
+            </button>
+            or {{constantsMap['ad'].name}}
+            <button mat-icon-button class="icon-button" (click)="showSnackbar(constantsMap['ad'].phoneString)">
+              <mat-icon>phone</mat-icon>
+            </button>
+          </div>
+          <p class="time" *ngIf="evac.directorNotifiedSig != null">{{evac.directorNotifiedSig}}</p>
+        </mat-list-item>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Have them initiate Executive Comm Network:</mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item>{{constantsMap['coo'].name}} - {{constantsMap['coo'].phoneString}}</mat-list-item>
+              <mat-list-item>{{constantsMap['mtn-mgr'].name}} - {{constantsMap['mtn-mgr'].phoneString}}</mat-list-item>
+              <mat-list-item>{{constantsMap['dir-h-and-s'].name}} - {{constantsMap['dir-h-and-s'].phoneString}}</mat-list-item>
+              <mat-list-item>{{constantsMap['ad-h-and-s'].name}} - {{constantsMap['ad-h-and-s'].phoneString}}</mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+        
+        <mat-list-item><b>Notify Lift Evac Team</b></mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.team1Notified" (change)="onTeam1Notified()" [disabled]="!evac.isActive"></mat-checkbox>
+          {{constantsMap['evac1'].name}} - {{constantsMap['evac1'].phoneString}}
+          <p class="time" *ngIf="evac.team1NotifiedSig != null">{{evac.team1NotifiedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.team2Notified" (change)="onTeam2Notified()" [disabled]="!evac.isActive"></mat-checkbox>
+          {{constantsMap['evac2'].name}} - {{constantsMap['evac2'].phoneString}}
+          <p class="time" *ngIf="evac.team2NotifiedSig != null">{{evac.team2NotifiedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.team3Notified" (change)="onTeam3Notified()" [disabled]="!evac.isActive"></mat-checkbox>
+          {{constantsMap['evac3'].name}} - {{constantsMap['evac3'].phoneString}}
+          <p class="time" *ngIf="evac.team3NotifiedSig != null">{{evac.team3NotifiedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.team4Notified" (change)="onTeam4Notified()" [disabled]="!evac.isActive"></mat-checkbox>
+          {{constantsMap['evac4'].name}} - {{constantsMap['evac4'].phoneString}}
+          <p class="time" *ngIf="evac.team4NotifiedSig != null">{{evac.team4NotifiedSig}}</p>
+        </mat-list-item>
+        
+        <mat-list-item><b>Notify Lift Maintenance (Night Ops only)</b></mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.lmDirNotified" (change)="onLmDirNotified()" [disabled]="!evac.isActive"></mat-checkbox>
+          {{constantsMap['lm-dir'].name}}, Director - {{constantsMap['lm-dir'].phoneString}}
+          <p class="time" *ngIf="evac.lmDirNotifiedSig != null">{{evac.lmDirNotifiedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.lmMgrNotified" (change)="onLmMgrNotified()" [disabled]="!evac.isActive"></mat-checkbox>
+          {{constantsMap['lm-sr-mgr'].name}}, Senior Manager - {{constantsMap['lm-sr-mgr'].phoneString}}
+          <p class="time" *ngIf="evac.lmMgrNotifiedSig != null">{{evac.lmMgrNotifiedSig}}</p>
         </mat-list-item>
       </mat-list>
     </mat-card-content>
@@ -56,7 +124,77 @@
     <mat-card-content>
       <mat-list>
         <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.paperworkStarted" (change)="onPaperworkStarted()" [disabled]="!evac.isActive"></mat-checkbox>
+          Start paperwork in Lift Evacuation Plan binder
+          <p class="time" *ngIf="evac.paperworkStartedSig != null">{{evac.paperworkStartedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.liaisonAssigned" (change)="onLiaisonAssigned()" [disabled]="!evac.isActive"></mat-checkbox>
+          Assign patrol liaison to be stationed at the incident: 
+          <mat-select placeholder="Patroller" [(ngModel)]="evac.liaisonId" name="liaison" [disabled]="evac.liaisonAssigned || !evac.isActive">
+            <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+              {{ patroller.displayName }}
+            </mat-option>
+          </mat-select>
+          <p class="time" *ngIf="evac.liaisonAssignedSig != null">{{evac.liaisonAssignedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.verbalContactInitiated" (change)="onVerbalContactInitiated()" [disabled]="!evac.isActive"></mat-checkbox>
+          Initiate verbal contact with bullhorn and count guests (repeat every 15 mins)
+          <p class="time" *ngIf="evac.verbalContactInitiatedSig != null">{{evac.verbalContactInitiatedSig}}</p>
+        </mat-list-item>
+        <mat-list-item><b>Additional Coordinators</b></mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.summitHouseCoordAssigned" (change)="onSummitHouseCoordAssigned()" [disabled]="!evac.isActive"></mat-checkbox>
+          Summit House Coordinator: 
+          <mat-select placeholder="Patroller" [(ngModel)]="evac.summitHouseCoordId" name="summitHouseCoord" [disabled]="evac.summitHouseCoordAssigned || !evac.isActive">
+            <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+              {{ patroller.displayName }}
+            </mat-option>
+          </mat-select>
+          <p class="time" *ngIf="evac.summitHouseCoordAssignedSig != null">{{evac.summitHouseCoordAssignedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.outpostCoordAssigned" (change)="onOutpostCoordAssigned()" [disabled]="!evac.isActive"></mat-checkbox>
+          Outpost Coordinator (graveyard?): 
+          <mat-select placeholder="Patroller" [(ngModel)]="evac.outpostCoordId" name="outpostCoord" [disabled]="evac.outpostCoordAssigned || !evac.isActive">
+            <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+              {{ patroller.displayName }}
+            </mat-option>
+          </mat-select>
+          <p class="time" *ngIf="evac.outpostCoordAssignedSig != null">{{evac.outpostCoordAssignedSig}}</p>
+        </mat-list-item>
 
+        <mat-list-item><b>Additional Notifications</b></mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.fbManagersNotified" (change)="onFbManagersNotified()" [disabled]="!evac.isActive"></mat-checkbox>
+          {{constantsMap["summit-outpost"].name}} - {{constantsMap["summit-outpost"].phoneString}}
+          <p class="time" *ngIf="evac.fbManagersNotifiedSig != null">{{evac.fbManagersNotifiedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.kesNotified" (change)="onKesNotified()" [disabled]="!evac.isActive"></mat-checkbox>
+          {{constantsMap["kes"].name}} - {{constantsMap["kes"].phoneString}}
+          <p class="time" *ngIf="evac.kesNotifiedSig != null">{{evac.kesNotifiedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.guestServicesNotified" (change)="onGuestServicesNotified()" [disabled]="!evac.isActive"></mat-checkbox>
+          {{constantsMap["guest-services"].name}} - {{constantsMap["guest-services"].phoneString}}
+          <p class="time" *ngIf="evac.guestServicesNotifiedSig != null">{{evac.guestServicesNotifiedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.skiSchoolNotified" (change)="onSkiSchoolNotified()" [disabled]="!evac.isActive"></mat-checkbox>
+          {{constantsMap["ski-school"].name}} - {{constantsMap["ski-school"].phoneString}}
+          <p class="time" *ngIf="evac.skiSchoolNotifiedSig != null">{{evac.skiSchoolNotifiedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.adventurePointNotified" (change)="onAdventurePointNotified()" [disabled]="!evac.isActive"></mat-checkbox>
+          {{constantsMap["adv-point"].name}} - {{constantsMap["adv-point"].phoneString}}
+          <p class="time" *ngIf="evac.adventurePointNotifiedSig != null">{{evac.adventurePointNotifiedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.groomingNotified" (change)="onGroomingNotified()" [disabled]="!evac.isActive"></mat-checkbox>
+          {{constantsMap["grooming"].name}} - {{constantsMap["grooming"].phoneString}}
+          <p class="time" *ngIf="evac.groomingNotifiedSig != null">{{evac.groomingNotifiedSig}}</p>
         </mat-list-item>
       </mat-list>
     </mat-card-content>
@@ -69,7 +207,29 @@
     <mat-card-content>
       <mat-list>
         <mat-list-item>
-
+          <mat-checkbox [(ngModel)]="evac.evacTeamAssembled" (change)="onEvacTeamAssembled()" [disabled]="!evac.isActive"></mat-checkbox>
+          Assemble evacuation team and gear (text message or call the call-out list)
+          <p class="time" *ngIf="evac.evacTeamAssembledSig != null">{{evac.evacTeamAssembledSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.groundCrewsRequested" (change)="onGroundCrewsRequested()" [disabled]="!evac.isActive"></mat-checkbox>
+          Request ground crews from other departments (exec. comm. network)
+          <p class="time" *ngIf="evac.groundCrewsRequestedSig != null">{{evac.groundCrewsRequestedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.teamsAssigned" (change)="onTeamsAssigned()" [disabled]="!evac.isActive"></mat-checkbox>
+          Start assigning teams and spans (in evac binder)
+          <p class="time" *ngIf="evac.teamsAssignedSig != null">{{evac.teamsAssignedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.aidCalled" (change)="onAidCalled()" [disabled]="!evac.isActive"></mat-checkbox>
+          Call for mutual aid: Breck/A-Basin patrols
+          <p class="time" *ngIf="evac.aidCalledSig != null">{{evac.aidCalledSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.teamsDeployed" (change)="onTeamsDeployed()" [disabled]="!evac.isActive"></mat-checkbox>
+          Deploy evac teams to stage at lift towers
+          <p class="time" *ngIf="evac.teamsDeployedSig != null">{{evac.teamsDeployedSig}}</p>
         </mat-list-item>
       </mat-list>
     </mat-card-content>
@@ -82,7 +242,19 @@
     <mat-card-content>
       <mat-list>
         <mat-list-item>
-
+          <mat-checkbox [(ngModel)]="evac.lockedOut" (change)="onLockedOut()" [disabled]="!evac.isActive"></mat-checkbox>
+          Place patrol lock-out on the lift
+          <p class="time" *ngIf="evac.lockedOutSig != null">{{evac.lockedOutSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.liftMaintenanceConfirmed" (change)="onLiftMaintenanceConfirmed()" [disabled]="!evac.isActive"></mat-checkbox>
+          Confirm with Lift Maintenance that nothing will cause the haulrope to shift
+          <p class="time" *ngIf="evac.liftMaintenanceConfirmedSig != null">{{evac.liftMaintenanceConfirmedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.evacInitiated" (change)="onEvacInitiated()" [disabled]="!evac.isActive"></mat-checkbox>
+          Initiate lift evacuation
+          <p class="time" *ngIf="evac.evacInitiatedSig != null">{{evac.evacInitiatedSig}}</p>
         </mat-list-item>
       </mat-list>
     </mat-card-content>
@@ -95,7 +267,9 @@
     <mat-card-content>
       <mat-list>
         <mat-list-item>
-
+          <mat-checkbox [(ngModel)]="evac.personnelCleared" (change)="onPersonnelCleared()" [disabled]="!evac.isActive"></mat-checkbox>
+          Confirm all personnel are clear of lift
+          <p class="time" *ngIf="evac.personnelClearedSig != null">{{evac.personnelClearedSig}}</p>
         </mat-list-item>
       </mat-list>
     </mat-card-content>
@@ -107,9 +281,36 @@
     <mat-card-title>If Lift Resumes Operation</mat-card-title>
     <mat-card-content>
       <mat-list>
+        <mat-list-item><b><i>Tertiary "evac" drive does not count as running; continue with call out, comps, etc. based on the initial stop time.</i></b></mat-list-item>
         <mat-list-item>
-
+          <mat-checkbox [(ngModel)]="evac.stoodDown" (change)="onStoodDown()" [disabled]="!evac.isActive"></mat-checkbox>
+          Stand down all resources after lift line is clear of guests
+          <p class="time" *ngIf="evac.stoodDownSig != null">{{evac.stoodDownSig}}</p>
         </mat-list-item>
+        <mat-list-item>
+          Last chair loaded and unloaded:
+          <span style="display:inline-block; width: 15px;"></span>
+          <mat-form-field>
+            <input matInput placeholder="Chair numbers" [(ngModel)]="evac.lastChairNumber" [disabled]="!evac.isActive">
+          </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+          Comp tickets or action taken? Amount?
+          <span style="display:inline-block; width: 15px;"></span>
+          <mat-form-field>
+            <input matInput placeholder="Compensation" [(ngModel)]="evac.compensation" [disabled]="!evac.isActive">
+          </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+          Notify ticket office if lift down comp coupons have been distributed - x1470
+          <span style="display:inline-block; width: 15px;"></span>
+          <mat-form-field>
+            <input matInput placeholder="Person notified" [(ngModel)]="evac.ticketsPersonNotified" [disabled]="!evac.isActive">
+          </mat-form-field>
+          <p class="time" *ngIf="evac.ticketOfficeNotifiedSig != null">{{evac.ticketOfficeNotifiedSig}}</p>
+        </mat-list-item>
+        <mat-list-item><b> &#8805;10 minutes = hot drink coupons, &#8805;20 minutes = comp tickets</b></mat-list-item>
+        <mat-list-item>File completed paperwork in lift downtime binder</mat-list-item>
       </mat-list>
     </mat-card-content>
   </mat-card>
