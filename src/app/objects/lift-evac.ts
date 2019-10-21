@@ -111,4 +111,8 @@ export class LiftEvac {
     // After
     stoodDown: boolean;
     stoodDownSig: string;
+
+    lastChairNumber: string;
+    compensation: string;
+    ticketsPersonNotified: string;
 }

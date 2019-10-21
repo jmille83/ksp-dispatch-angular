@@ -307,7 +307,6 @@
           <mat-form-field>
             <input matInput placeholder="Person notified" [(ngModel)]="evac.ticketsPersonNotified" [disabled]="!evac.isActive">
           </mat-form-field>
-          <p class="time" *ngIf="evac.ticketOfficeNotifiedSig != null">{{evac.ticketOfficeNotifiedSig}}</p>
         </mat-list-item>
         <mat-list-item><b> &#8805;10 minutes = hot drink coupons, &#8805;20 minutes = comp tickets</b></mat-list-item>
         <mat-list-item>File completed paperwork in lift downtime binder</mat-list-item>
