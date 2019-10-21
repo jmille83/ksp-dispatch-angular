@@ -35,9 +35,7 @@ export class OpeningsComponent implements OnInit, OnDestroy {
   hasUnsubmittedChanges: boolean = false;
   date: moment.Moment = moment(); // Today.
   typeOfFrontsideSweeps = "Day";
-  canEditStored: boolean = false;
-  canEditHasBeenChecked: boolean = false;
-
+  
   editMode: boolean = false;
 
   // For storing all subs so we can unsub on destroy.
@@ -144,6 +142,7 @@ export class OpeningsComponent implements OnInit, OnDestroy {
       rec.header = opening.header ? true : false;
       rec.day = opening.day ? true : false;
       rec.night = opening.night ? true : false;
+      rec.peak = opening.peak;
       this.openingRecords.push(rec);
     });
     if (this.isOpening) {
@@ -180,23 +179,6 @@ export class OpeningsComponent implements OnInit, OnDestroy {
 
   onOpeningValueChanged() {
     this.hasUnsubmittedChanges = true;
-  }
-
-  canEdit(): boolean {
-    if (!this.canEditHasBeenChecked) {
-      let val = false;
-      if (this.peak === "north-peak" && this.authService.canNorthPeak(this.authService.getCurrentUser())) {
-        val = true;
-      } else if (this.peak === "outback" && this.authService.canOutback(this.authService.getCurrentUser())) {
-        val = true;
-      } else if (this.peak === "frontside" || "frontside-day" || "frontside-night" && this.authService.isDispatch(this.authService.getCurrentUser())) {
-        val = true;
-      } else {
-        val = false;
-      }
-      this.canEditStored = val;
-    }
-    return this.canEditStored;
   }
 
   getTypeOfFrontsideSweeps(): string {
@@ -271,6 +253,10 @@ export class OpeningsComponent implements OnInit, OnDestroy {
 
   isDispatch() {
     return this.authService.isDispatch(this.authService.getCurrentUser());
+  }
+
+  isFullDispatch() {
+    return this.authService.isFullDispatch(this.authService.getCurrentUser());
   }
 
   onEditButtonClicked(opening: Opening) {

@@ -14,8 +14,8 @@
     <ul class="records-list">
       <li *ngFor="let record of records"
       [ngClass]="[record.type, record.peak]">
-      <div id="record-row">
-        <div [style.background-color]="record.traumaActivated ? '#c62828' : 'clear'" id="record-column-0">
+      <div [style.background-color]="record.is1033 ? '#ef9a9a' : 'clear'" id="record-row">
+        <div [style.background-color]="record.traumaActivated ? '#F44336' : 'clear'" id="record-column-0">
           {{record.typeLabel}}
         </div>
         <div id="record-column-1" (click)="onRecordClick(record)"> 
@@ -45,13 +45,25 @@
               <mat-icon>clear</mat-icon>
               <span>Delete</span>
             </button>
-            <button *ngIf="!record.traumaActivated" mat-menu-item (click)="onTraumaActivationButtonClicked(record)">
+            <button *ngIf="!record.traumaActivated && !record.is1033" mat-menu-item (click)="onTraumaActivationButtonClicked(record)">
               <mat-icon>accessibility_new</mat-icon>
               <span>Trauma Activate</span>
             </button>
             <button *ngIf="record.traumaActivated" mat-menu-item (click)="onTraumaActivationButtonClicked(record)">
               <mat-icon>replay</mat-icon>
               <span>Trauma Deactivate</span>
+            </button>
+            <button class="button1033" *ngIf="!record.is1033" mat-menu-item (click)="on1033ButtonClicked(record)">
+              <mat-icon>trending_down</mat-icon>
+              <span>10-33</span>
+            </button>
+            <button class="button1033" *ngIf="record.is1033" mat-menu-item (click)="goTo1033(record)">
+              <mat-icon>open_in_new</mat-icon>
+              <span>Go to 10-33 form</span>
+            </button>
+            <button *ngIf="record.is1033" mat-menu-item (click)="on1033ButtonClicked(record)">
+              <mat-icon>replay</mat-icon>
+              <span>Not a 10-33</span>
             </button>
           </mat-menu>
         </div>

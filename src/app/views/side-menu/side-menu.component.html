@@ -21,7 +21,9 @@
   <div id="border-line"></div>
   <li>Worksheets</li>
   <ul class="sub-side-menu">
-    <li *ngFor="let worksheet of worksheets">{{ worksheet }}</li>
+    <li *ngFor="let worksheet of worksheets" class="clickable">
+      <a routerLink="/{{worksheet.value}}" (click)="linkClicked()">{{ worksheet.name }}</a>
+    </li>
   </ul>
   <div id="border-line"></div>
   <li>Tools</li>

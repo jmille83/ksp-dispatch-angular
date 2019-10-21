@@ -2,30 +2,35 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Contact } from '../objects/contact';
+import { TransactionService } from './transaction.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DirectoryService {
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore, private transactionService: TransactionService) { }
 
   getAllContacts(): Observable<any[]> {
     return this.db.collection('contacts', ref => ref.orderBy('name', 'asc')).valueChanges();
   }
 
+  getConstants(): Observable<any[]> {
+    return this.db.collection('constants').valueChanges();
+  }
+
   addContact(contact: Contact) {
     contact.id = this.db.createId();
     let newData = JSON.parse(JSON.stringify(contact));
-    this.db.collection('contacts').doc(contact.id).set(newData);
+    this.transactionService.writeDataToDocForCollection(newData, contact.id, 'contacts');
   }
 
   updateContact(contact: Contact) {
     let newData = JSON.parse(JSON.stringify(contact));
-    this.db.collection('contacts').doc(contact.id).set(newData);
+    this.transactionService.writeDataToDocForCollection(newData, contact.id, 'contacts');
   }
 
   deleteContact(contact: Contact) {
-    this.db.collection('contacts').doc(contact.id).delete();
+    this.transactionService.deleteDocInCollection(contact.id, 'contacts', contact);
   }
 }

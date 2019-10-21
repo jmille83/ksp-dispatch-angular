@@ -3,11 +3,17 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs/Observable'
 
 import { Record } from '../objects/record'
+import { TransactionService } from './transaction.service';
+import { TenThirtythree } from '../objects/ten-thirtythree';
 
 @Injectable()
 export class RecordsService {
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore, private transactionService: TransactionService) { }
+
+  getRecordForId(id: string): Observable<any[]> {
+    return this.db.collection('records', ref => ref.where("id", "==", id)).valueChanges();
+  }
 
   getRecordsForDay(day: Date): Observable<any[]> {
     let start = day;
@@ -34,27 +40,42 @@ export class RecordsService {
                                                     .orderBy('timeReported', 'desc')).valueChanges();
   }
 
+  get1033sForSeason(): Observable<any[]> {
+    // TODO: filter for this season. Currently returns all 1033s.
+    return this.db.collection('records', ref => ref.where('is1033', '==', true).orderBy('timeReported', 'desc')).valueChanges();
+  }
+
+  get1033ForId(id: string): Observable<any[]> {
+    return this.db.collection('ten33s', ref => ref.where('id', '==', id)).valueChanges();
+  }
+
   addRecord(record: Record) {
     // Create a unique id in Firebase.
     record.id = this.db.createId();
     
     record.timeReported = new Date().getTime();
     record.timeReportedString = new Date().toLocaleTimeString();
+    record.dateReported = new Date().toDateString();
 
     // Firebase needs data as plain JSON.
     var data = JSON.parse(JSON.stringify(record));
 
-    this.db.collection('records').doc(record.id).set(data);
+    this.transactionService.writeDataToDocForCollection(data, record.id, 'records');
+  }
+
+  addOrUpdate1033(ten33: TenThirtythree) {
+    let data = JSON.parse(JSON.stringify(ten33));
+    this.transactionService.writeDataToDocForCollection(data, ten33.id, 'ten33s');
   }
 
   updateRecord(record: Record) {
     // Firebase needs data as plain JSON.
     var newData = JSON.parse(JSON.stringify(record));
-    
-    this.db.collection('records').doc(record.id).set(newData);
+
+    this.transactionService.writeDataToDocForCollection(newData, record.id, 'records');
   }
 
   deleteRecord(record: Record) {
-    this.db.collection('records').doc(record.id).delete();
+    this.transactionService.deleteDocInCollection(record.id, 'records', record);
   }
 }

@@ -3,13 +3,14 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs/Observable'
 
 import { Note } from '../objects/note'
+import { TransactionService } from './transaction.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotesService {
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore, private transactionService: TransactionService) { }
 
   getNotesBetween(day1: Date, day2: Date): Observable<any[]> {
     
@@ -39,15 +40,16 @@ export class NotesService {
     // Firebase needs data as plain JSON.
     var data = JSON.parse(JSON.stringify(note));
 
-    this.db.collection('notes').doc(note.id).set(data);
+    this.transactionService.writeDataToDocForCollection(data, note.id, 'notes');
   }
 
   updateNote(note: Note) {
     var data = JSON.parse(JSON.stringify(note));
-    this.db.collection('notes').doc(note.id).set(data);
+    
+    this.transactionService.writeDataToDocForCollection(data, note.id, 'notes');
   }
 
   deleteNote(note: Note) {
-    this.db.collection('notes').doc(note.id).delete();
+    this.transactionService.deleteDocInCollection(note.id, 'notes', note);
   }
 }

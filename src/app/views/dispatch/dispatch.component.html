@@ -1,7 +1,13 @@
-<div class="container">
+<div *ngIf="!authService.isDispatch(user)" class="container" id="cont1">
     <app-records (onRecordClicked)="onRecordClicked($event)"></app-records>
-    <div class="container2" *ngIf="authService.isDispatch(user)">
-        <app-record-detail [record]="currentRecord"></app-record-detail>
-        <app-notes></app-notes>
-    </div>
 </div>
+<div *ngIf="authService.isDispatch(user) && !authService.isFullDispatch(user)" class="container" id="cont2">
+    <app-records (onRecordClicked)="onRecordClicked($event)"></app-records>
+    <app-record-detail [record]="currentRecord"></app-record-detail>
+</div>
+<div *ngIf="authService.isDispatch(user) && authService.isFullDispatch(user)" class="container" id="cont3">
+    <app-records (onRecordClicked)="onRecordClicked($event)"></app-records>
+    <app-record-detail [record]="currentRecord"></app-record-detail>
+    <app-notes></app-notes>
+</div>
+            

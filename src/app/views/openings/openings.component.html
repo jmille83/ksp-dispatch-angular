@@ -22,10 +22,10 @@
     <tr *ngFor="let opening of openingRecords | openingFilter: true">
       <td><div class="opening-text">{{ opening.text }}</div></td>
       <td class="patroller-cells">
-        <mat-select [disabled]="!canEdit()" placeholder="Patroller"
+        <mat-select [disabled]="!isDispatch()" placeholder="Patroller"
         [(ngModel)]="opening.patrollerId" name="patroller">
           <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-            {{ patroller.lastName }}
+            {{ patroller.displayName }}
           </mat-option>
         </mat-select>
       </td>
@@ -53,15 +53,15 @@
       <td *ngIf="editMode">
         <button id="edit-button" mat-icon-button (click)="onEditButtonClicked(opening)">
           <mat-icon class="material-icons">edit</mat-icon>
-        </button>￼
+        </button>
       </td>
       <td *ngIf="editMode">{{opening.order}}</td>
 
       <td class="patroller-cells">
-        <mat-select *ngIf="!opening.header" [disabled]="!canEdit()" placeholder="Patroller"
+        <mat-select *ngIf="!opening.header" [disabled]="!isDispatch()" placeholder="Patroller"
         [(ngModel)]="opening.patrollerId" name="patroller" (selectionChange)="onOpeningValueChanged()">
           <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
-            {{ patroller.lastName }}
+            {{ patroller.displayName }}
           </mat-option>
         </mat-select>
       </td>
@@ -72,14 +72,14 @@
   </table>
 </div>
 
-<div class="centered-container" *ngIf="canEdit()">
+<div class="centered-container" *ngIf="isDispatch()">
   <button mat-raised-button class="submit-button" id="submitRecordButton"
   color="primary" (click)="onSubmitButtonClicked()">Submit</button>
   <button mat-raised-button color="gray" 
   (click)="onClearButtonClicked()">Clear</button>
 </div>
 
-<div class="centered-container" *ngIf="isDispatch()">
+<div class="centered-container" *ngIf="isFullDispatch()">
   <mat-slide-toggle id="edit-toggle" 
   [(ngModel)]="editMode" 
   color="primary">

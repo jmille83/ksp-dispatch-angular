@@ -62,21 +62,21 @@ export class AuthService {
     return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
-  signUpWithEmail(email, password, firstName, lastName, initials, phone) {
+  signUpWithEmail(email, password, firstName, lastName, phone) {
     return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((credential) => {
-        this.createUserInFirebase(credential.user, firstName, lastName, initials, phone);
+        this.createUserInFirebase(credential.user, firstName, lastName, phone);
       });
   }
 
-  private createUserInFirebase(user: firebase.User, firstName: string, lastName: string, initials: string, phone: string) {
+  private createUserInFirebase(user: firebase.User, firstName: string, lastName: string, phone: string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const data: User = {
       uid: user.uid,
       email: user.email,
-      initials: initials,
       firstName: firstName,
       lastName: lastName,
+      displayName: lastName,
       name: firstName + ' ' + lastName,
       phone: phone,
       extension: "",
@@ -118,6 +118,17 @@ export class AuthService {
   isDispatch(user: User): boolean {
     const allowed = ['admin', 'sup', 'dispatch'];
     return this.checkAuthorization(user, allowed);
+  }
+
+  isFullDispatch(user: User) {
+    if (!user) return false;
+    if (user.roles['dispatch']) {
+      if (user.roles['aux-dispatch']) {
+        return false;
+      }
+      return true;
+    }
+    return false;
   }
 
   isSup(user: User): boolean {

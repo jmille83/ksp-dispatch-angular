@@ -1,0 +1,10 @@
+<h2>Lift Evacs</h2>
+<mat-list id="list-container">
+  <mat-list-item *ngFor="let evac of evacs">
+    <a mat-button color="primary" routerLink="/lift-evac/{{evac.id}}"> {{evac.lift}}, {{evac.date}}</a>
+  </mat-list-item>
+</mat-list>
+
+<div id="button-container">
+  <button mat-raised-button color="primary" (click)="onNewEvac()">Start new lift evac</button>
+</div>

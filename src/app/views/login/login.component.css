@@ -10,3 +10,7 @@
 .form-errors {
     color: darkred;
 }
+
+.second-button {
+    margin-left: 8px;
+}

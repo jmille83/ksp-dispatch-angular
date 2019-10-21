@@ -1,0 +1,14 @@
+h2 {
+    text-align: center;
+}
+
+#list-container {
+    margin: 0 auto;
+    width: fit-content;
+}
+
+#button-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 40px;
+}

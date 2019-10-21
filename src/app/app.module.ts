@@ -6,7 +6,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule,
           MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
-          MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule, MatSlideToggleModule, MatChipsModule, MatAutocompleteModule } from '@angular/material';
+          MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule, MatSlideToggleModule, MatChipsModule, MatAutocompleteModule, MatGridListModule, MatCardModule, MatTooltipModule, MatSnackBarModule, MatExpansionModule, MatButtonToggleModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
@@ -42,6 +42,12 @@ import { OpeningEditComponent } from './views/dialogs/opening-edit/opening-edit.
 import { PickFrontsideSweepComponent } from './views/dialogs/pick-frontside-sweep/pick-frontside-sweep.component';
 import { RosterComponent } from './views/roster/roster.component';
 import { RosterEditComponent } from './views/dialogs/roster-edit/roster-edit.component';
+import { TransactionService } from './services/transaction.service';
+import { TenThirtythreeHomeComponent } from './views/ten-thirtythree-home/ten-thirtythree-home.component';
+import { TenThirtythreeDetailComponent } from './views/ten-thirtythree-detail/ten-thirtythree-detail.component';
+import { LiftEvacHomeComponent } from './views/lift-evac-home/lift-evac-home.component';
+import { LiftEvacDetailComponent } from './views/lift-evac-detail/lift-evac-detail.component';
+import { LiftEvacNewComponent } from './views/dialogs/lift-evac-new/lift-evac-new.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +74,12 @@ import { RosterEditComponent } from './views/dialogs/roster-edit/roster-edit.com
     OpeningEditComponent,
     PickFrontsideSweepComponent,
     RosterComponent,
-    RosterEditComponent
+    RosterEditComponent,
+    TenThirtythreeHomeComponent,
+    TenThirtythreeDetailComponent,
+    LiftEvacHomeComponent,
+    LiftEvacDetailComponent,
+    LiftEvacNewComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +91,8 @@ import { RosterEditComponent } from './views/dialogs/roster-edit/roster-edit.com
     MatButtonModule, MatInputModule, MatRadioModule, MatSelectModule, 
     MatSidenavModule, MatIconModule, MatListModule, MatDatepickerModule,
     MatCheckboxModule, MatDialogModule, MatMenuModule, MatTableModule, MatSlideToggleModule,
-    MatMomentDateModule, MatChipsModule, MatAutocompleteModule,
+    MatMomentDateModule, MatChipsModule, MatAutocompleteModule, MatGridListModule, MatCardModule,
+    MatTooltipModule, MatSnackBarModule, MatExpansionModule, MatButtonToggleModule,
     BrowserAnimationsModule,
     ReactiveFormsModule
   ],
@@ -92,14 +104,16 @@ import { RosterEditComponent } from './views/dialogs/roster-edit/roster-edit.com
     ContactEditComponent,
     OpeningEditComponent,
     PickFrontsideSweepComponent,
-    RosterEditComponent
+    RosterEditComponent,
+    LiftEvacNewComponent
   ],
   providers: [
     RecordsService,
     OpeningsService,
     AuthService,
     AuthGuard,
-    LinksService
+    LinksService,
+    TransactionService
   ],
   bootstrap: [AppComponent]
 })

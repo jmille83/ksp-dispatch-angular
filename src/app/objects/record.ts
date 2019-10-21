@@ -9,12 +9,15 @@ export class Record {
     location: string;
     timeReported: number;
     timeReportedString: string;
+    dateReported: string;
     respondingPatrollerId: string;
     peak: string = "Frontside";
     type: string = "10-50";
     typeLabel: string;
     traumaActivated: boolean = false;
     ai: boolean = false;
+    is1033: boolean = false;
+    time1033Called: number;
 
     // Secondary information.
     hasSecondaryInfo: boolean;

@@ -5,6 +5,7 @@ export class OpeningRecord {
     text: string;
     order: number;
     personnel: boolean;
+    peak: string;
     
     // Only relevant to closings.
     header: boolean;

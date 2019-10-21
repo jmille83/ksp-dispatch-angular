@@ -27,17 +27,12 @@ export class LoginComponent implements OnInit {
   };
 
   formErrors = {
-    'initials': '',
     'email': '',
     'password': '',
     'phone': ''
   };
 
   validationMessages = {
-    'initials': {
-      'minlength':      'Initials must be at least 2 letters.',
-      'maxlength':      "Initials can't be more than 3 letters."
-    },
     'email': {
       'required':      'Email is required.',
       'email':         'Email must be a valid email.'
@@ -73,11 +68,6 @@ export class LoginComponent implements OnInit {
     this.registerForm = this.fb.group({
       'firstName': [],
       'lastName': [],
-      'initials': ['', [
-          Validators.minLength(2),
-          Validators.maxLength(3)
-        ]
-      ],
       'phone': ['', [
           Validators.pattern('^([0-9]( |-)?)?(\\(?[0-9]{3}\\)?|[0-9]{3})( |-)?([0-9]{3}( |-)?[0-9]{4}|[a-zA-Z0-9]{7})$')
         ]
@@ -120,8 +110,10 @@ export class LoginComponent implements OnInit {
   signUpWithEmail() {
     let firstName = this.registerForm.get("firstName").value;
     let lastName = this.registerForm.get("lastName").value;
-    let initials = this.registerForm.get("initials").value;
-    let phone = this.cleanPhoneNumber(this.registerForm.get("phone").value);
+    let phone = "";
+    if ((this.registerForm.get("phone").value as string).length > 0) {
+      phone = this.cleanPhoneNumber(this.registerForm.get("phone").value);
+    }
     let email = this.registerForm.get("email").value;
     let password = this.registerForm.get("password").value;
     if (password != this.registerForm.get("confirmedPassword").value) {
@@ -135,7 +127,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     
-    this.authService.signUpWithEmail(email, password, firstName, lastName, initials, phone)
+    this.authService.signUpWithEmail(email, password, firstName, lastName, phone)
       .then((result) => {
         this.router.navigate(['nowhere']);
       })

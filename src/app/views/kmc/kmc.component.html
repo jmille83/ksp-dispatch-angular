@@ -14,8 +14,8 @@
   <div *ngIf="records.length > 0; else noRecords" class="records-container">
     <ul class="records-list">
       <li *ngFor="let record of records">
-      <div id="record-row">
-        <div id="record-column-0" [style.background-color]="record.traumaActivated ? '#c62828' : 'clear'">
+      <div id="record-row" [style.background-color]="record.is1033 ? '#ef9a9a' : 'clear'">
+        <div id="record-column-0" [style.color]="record.traumaActivated ? '#c62828' : 'clear'">
           <div id="trauma-activation-div" *ngIf="record.traumaActivated">Trauma Activation</div>
         </div>
         <div id="record-column-1"> 
@@ -35,6 +35,9 @@
             <ng-template #noInfo>
               <p style="text-align: center">No more info.</p>
             </ng-template>
+            <div *ngIf="record.is1033">
+              <button mat-raised-button (click)="goTo1033(record)">Go to 10-33 info</button>
+            </div>
         </div> 
         <div id="record-column-3">
             <h4>Transport Info</h4>
@@ -48,7 +51,7 @@
             </ng-template>
         </div> 
       </div>  
-      <div class="time-label">{{record.timeReportedString}}</div>
+      <div [style.background-color]="record.is1033 ? '#ef9a9a' : 'clear'" class="time-label">{{record.timeReportedString}}</div>
       </li>
     </ul>
   </div>

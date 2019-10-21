@@ -4,16 +4,17 @@ import { User } from '../objects/user';
 import { Contact } from '../objects/contact';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { TransactionService } from './transaction.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore, private transactionService: TransactionService) { }
 
   getAllUsers(): Observable<any[]> {
-    return this.db.collection('users', ref => ref.orderBy('lastName', 'asc')).valueChanges();
+    return this.db.collection('users', ref => ref.orderBy('displayName', 'asc')).valueChanges();
   }
 
   getUsersWhoAreContacts(): Observable<any[]> {
@@ -25,12 +26,16 @@ export class UserService {
   }
 
   getPatrollersOrdered(): Observable<any[]> {
-    return this.db.collection('users', ref => ref.where('isPatroller', '==', true).orderBy('order', 'desc').orderBy('lastName')).valueChanges();
+    return this.db.collection('users', ref => ref.where('isPatroller', '==', true).orderBy('order', 'desc').orderBy('displayName')).valueChanges();
+  }
+
+  getCurrentDispatcher(): Observable<any> {
+    return this.db.collection('openings-records').doc(this.getFormattedDate()).collection('frontside').doc('dispatcher-day').valueChanges();
   }
 
   updateUser(user: User) {
     let newData = JSON.parse(JSON.stringify(user));
-    this.db.collection('users').doc(user.uid).set(newData);
+    this.transactionService.writeDataToDocForCollection(newData, user.uid, 'users');
   }
 
   updateUserFromContact(contact: Contact) {
@@ -42,7 +47,19 @@ export class UserService {
       updatedUser.extension = contact.extension;
 
       let newData = JSON.parse(JSON.stringify(updatedUser));
-      this.db.collection('users').doc(updatedUser.uid).set(newData);
+      this.transactionService.writeDataToDocForCollection(newData, updatedUser.uid, 'users');
     });
+  }
+
+  getFormattedDate() {
+    var d = new Date(),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+  
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+  
+    return [year, month, day].join('-');
   }
 }

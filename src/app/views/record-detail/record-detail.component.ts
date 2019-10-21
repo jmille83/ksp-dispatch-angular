@@ -61,7 +61,7 @@ export class RecordDetailComponent implements OnInit {
   }
 
   onTypeRadioButtonChange() {
-    if (this.record.type === "Taxi" || this.record.type === "Non-event") {
+    if (this.record.type === "Taxi" || this.record.type === "Non-event" || this.record.type === "Refusal") {
       this.record.typeLabel = this.record.type;
     } else {
       this.record.typeLabel = null;

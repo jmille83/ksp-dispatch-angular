@@ -76,5 +76,4 @@ export class RosterEditComponent implements OnInit {
     this.rolesInput.nativeElement.value = '';
     this.rolesFormControl.setValue(null);
   }
-
 }

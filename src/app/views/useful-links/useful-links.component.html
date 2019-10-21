@@ -8,14 +8,14 @@
             <h4 style="display: block; float: left; margin-top: 12px;">{{linkGroup.name}}</h4>
             <button *ngIf="isSpecialist()" class="hover-buttons" mat-icon-button (click)="onEditButtonClicked(null, linkGroup)">
               <mat-icon class="material-icons">add</mat-icon>
-            </button>￼
+            </button>
           </div>
           <ul>
             <li *ngFor="let link of linkGroup.links" class="link-list-item hoverable">
               <a mat-button href="{{link.link}}" color="primary" target="_blank" rel="noopener">{{link.text}}</a>
               <button *ngIf="isSpecialist()" class="hover-buttons" mat-icon-button (click)="onEditButtonClicked(link, linkGroup)">
                 <mat-icon class="material-icons">edit</mat-icon>
-              </button>￼
+              </button>
             </li>
           </ul>
         </li>

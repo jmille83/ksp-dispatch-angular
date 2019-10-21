@@ -11,9 +11,9 @@ export interface User {
     uid: string;
     email: string;
     roles: Roles;
-    initials: string;
     firstName: string;
     lastName: string;
+    displayName: string;
     name: string;
     phone: string;
     extension: string;
