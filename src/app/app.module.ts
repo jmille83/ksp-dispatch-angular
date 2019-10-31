@@ -48,6 +48,7 @@ import { TenThirtythreeDetailComponent } from './views/ten-thirtythree-detail/te
 import { LiftEvacHomeComponent } from './views/lift-evac-home/lift-evac-home.component';
 import { LiftEvacDetailComponent } from './views/lift-evac-detail/lift-evac-detail.component';
 import { LiftEvacNewComponent } from './views/dialogs/lift-evac-new/lift-evac-new.component';
+import { ReportingComponent } from './views/reporting/reporting.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { LiftEvacNewComponent } from './views/dialogs/lift-evac-new/lift-evac-ne
     TenThirtythreeDetailComponent,
     LiftEvacHomeComponent,
     LiftEvacDetailComponent,
-    LiftEvacNewComponent
+    LiftEvacNewComponent,
+    ReportingComponent
   ],
   imports: [
     BrowserModule,

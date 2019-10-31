@@ -1,0 +1,13 @@
+h2 {
+    width: 100%;
+    text-align: center;
+}
+
+.container {
+    width: 100%;
+    text-align: center;
+}
+
+.date-picker {
+    padding: 15px;
+}

@@ -1,0 +1,31 @@
+<h2>Reporting Tools</h2>
+
+<div id="query-container" class="container">
+    <mat-form-field class="date-picker">
+        <input matInput [matDatepicker]="startDatePicker" 
+        placeholder="Start date" [(ngModel)]="startDate"
+        (dateChange)="onStartDateChanged()">
+        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+    
+    <mat-form-field class="date-picker">
+        <input matInput [matDatepicker]="endDatePicker" 
+        placeholder="End date" [(ngModel)]="endDate"
+        (dateChange)="onEndDateChanged()">
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <br>
+
+    <mat-select placeholder="Query" [(ngModel)]="currentQuery.id" name="query">
+        <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+        {{ patroller.displayName }}
+        </mat-option>
+    </mat-select>
+</div>
+
+<div id="results-container" class="container">
+
+</div>
