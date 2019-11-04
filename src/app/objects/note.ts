@@ -4,4 +4,5 @@ export class Note {
     text: string;
     completed: boolean;
     completersName: string;
+    timeCompleted: number;
 }

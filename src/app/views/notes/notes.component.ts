@@ -15,7 +15,8 @@ import { Subscription } from 'rxjs';
 export class NotesComponent implements OnInit, OnDestroy {
 
   date: moment.Moment = moment();
-  notes: Note[];
+  incompleteNotes: Note[];
+  completedNotes: Note[];
   user: User;
   newNote = new Note();
   hasCompleted: boolean = false;
@@ -52,11 +53,17 @@ export class NotesComponent implements OnInit, OnDestroy {
     let dates: Date[] = this.getDateRange();
 
     this.subscription.add(
-    this.notesService.getNotesBetween(dates[0], dates[1]).subscribe(notes => {
-      this.notes = notes;
-      this.hasCompleted = this.notes.some(note => note.completed == true);
-      this.hasInProgress = this.notes.some(note => note.completed == false);
+    this.notesService.getCompletedNotesBetween(dates[0], dates[1]).subscribe(notes => {
+      this.completedNotes = notes;
+      this.hasCompleted = this.completedNotes.length > 0;
     }));
+
+    this.subscription.add(
+      this.notesService.getAllIncompleteNotes().subscribe(notes => {
+        this.incompleteNotes = notes;
+        this.hasInProgress = this.incompleteNotes.length > 0;
+      })
+    );
   }
 
   getDateRange(): Date[] {
@@ -99,8 +106,8 @@ export class NotesComponent implements OnInit, OnDestroy {
     
     // If, after updating, it's complete, add user's initials.
     if (note.completed) {
-      console.log(this.user.displayName);
       note.completersName = this.user.displayName;
+      note.timeCompleted = new Date().getTime();
     }
     this.notesService.updateNote(note);
   }
