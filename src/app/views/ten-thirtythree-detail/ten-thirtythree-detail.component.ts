@@ -289,12 +289,12 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
 
   ///////////////////
   showSnackbar(message: string) {
-    // This snackbar dismisses the keyboard on the tablet, so getting rid of it for now.
-    //this.snackBar.open(message, 'Dismiss', {duration: 10000});
+    this.snackBar.open(message, 'Dismiss', {duration: 10000});
   }
 
   showDataSavedSnackbar() {
-    this.snackBar.open("Information saved", 'Dismiss', {duration: 2000});
+    // This snackbar dismisses the keyboard on the tablet, so getting rid of it for now.
+    //this.snackBar.open("Information saved", 'Dismiss', {duration: 2000});
   }
 
   onStateChanged() {

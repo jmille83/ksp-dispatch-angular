@@ -319,6 +319,11 @@
             <div id="patrollers-dispatched-button-container">
               <button mat-stroked-button [disabled]="!ten33.isActive" (click)="onPatrollerDispatched()">Dispatch patroller</button>
             </div>
+            <div id="scene-notes-container">
+              <mat-form-field id="scene-notes">
+                <textarea matInput placeholder="Notes" [(ngModel)]="ten33.sceneNotes"></textarea>
+              </mat-form-field>
+            </div>
           </mat-card-content>
         </mat-card>
       </div>

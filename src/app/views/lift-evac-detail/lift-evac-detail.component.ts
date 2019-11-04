@@ -92,7 +92,7 @@ export class LiftEvacDetailComponent implements OnInit, OnDestroy {
   }
 
   showDataSavedSnackbar() {
-    this.snackBar.open("Information saved", 'Dismiss', {duration: 2000});
+    //this.snackBar.open("Information saved", 'Dismiss', {duration: 2000});
   }
 
   onStateChanged() {

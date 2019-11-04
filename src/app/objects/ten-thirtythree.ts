@@ -63,6 +63,8 @@ export class TenThirtythree {
 
     patrollersDispatched: any[] = [];
 
+    sceneNotes: string;
+
     // Patient info.
     age: number;
     chiefComplaint: string;

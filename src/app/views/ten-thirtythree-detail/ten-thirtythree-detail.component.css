@@ -88,3 +88,7 @@ mat-select {
 .radio-label {
     margin-right: 5px;
 }
+
+#scene-notes {
+    width: 100%;
+}
