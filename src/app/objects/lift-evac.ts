@@ -95,8 +95,13 @@ export class LiftEvac {
     teamsDeployedSig: string;
 
     // 60-mins
+    lockoutAuthorized: boolean;
+    lockoutAuthorizedSig: string;
+    lockoutAuthorizer: string;
+
     lockedOut: boolean;
     lockedOutSig: string;
+    lockouterId: string;
 
     liftMaintenanceConfirmed: boolean;
     liftMaintenanceConfirmedSig: string;

@@ -331,6 +331,14 @@ export class LiftEvacDetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  onLockoutAuthorized() {
+    if (this.evac.lockoutAuthorized) {
+      this.evac.lockoutAuthorizedSig = new Date().toLocaleTimeString() + ", " + this.currentUser.lastName;
+    } else {
+      this.evac.lockoutAuthorizedSig = null;
+    }
+  }
+
   onLockedOut() {
     if (this.evac.lockedOut) {
       this.evac.lockedOutSig = new Date().toLocaleTimeString() + ", " + this.currentUser.lastName;
