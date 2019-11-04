@@ -227,6 +227,14 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  onIcTerminated() {
+    if (this.ten33.icTerminated) {
+      this.ten33.icTerminatedTimeString = new Date().toLocaleTimeString();
+    } else {
+      this.ten33.icTerminatedTimeString = null;
+    }
+  }
+
   onPatrollerDispatched() {
     this.ten33.patrollersDispatched.push({id: null, timeString: new Date().toLocaleTimeString(), equipment: null});
   }
@@ -281,7 +289,8 @@ export class TenThirtythreeDetailComponent implements OnInit, OnDestroy {
 
   ///////////////////
   showSnackbar(message: string) {
-    this.snackBar.open(message, 'Dismiss', {duration: 10000});
+    // This snackbar dismisses the keyboard on the tablet, so getting rid of it for now.
+    //this.snackBar.open(message, 'Dismiss', {duration: 10000});
   }
 
   showDataSavedSnackbar() {
