@@ -234,7 +234,7 @@
               <!-- Reopen Channel 1 -->
               <mat-list-item *ngIf="ten33.closedChannel1">
                 <mat-checkbox [(ngModel)]="ten33.reopenedChannel1" (change)="onReopenedChannel1()" [disabled]="!ten33.isActive"></mat-checkbox>
-                <div>Re-open Channel 1</div>
+                <div [style.color]="!ten33.reopenedChannel1 ? 'red' : 'black'">Re-open Channel 1</div>
                 <p class="time" *ngIf="ten33.reopenedChannel1TimeString != null">{{ten33.reopenedChannel1TimeString}}</p>
               </mat-list-item>
 
