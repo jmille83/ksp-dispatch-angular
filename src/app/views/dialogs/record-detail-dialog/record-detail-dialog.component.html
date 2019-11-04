@@ -1,12 +1,15 @@
 <h2 mat-dialog-title>Additional Details</h2>
 <mat-dialog-content>
     <div>
+        <mat-checkbox [(ngModel)]="record.collision">Collision</mat-checkbox>
+        <mat-checkbox [(ngModel)]="record.skiSchoolRelated">Ski School related</mat-checkbox>
         <h4>Equipment</h4>
         <mat-checkbox [(ngModel)]="record.blsPack">BLS Pack</mat-checkbox>
         <mat-checkbox [(ngModel)]="record.crashPack">Crash Pack</mat-checkbox>
         <mat-checkbox [(ngModel)]="record.alsPack">ALS Pack</mat-checkbox>
         <br>
         <mat-checkbox [(ngModel)]="record.zoll">Zoll</mat-checkbox>
+        <mat-checkbox [(ngModel)]="record.scoop">Scoop</mat-checkbox>
         <mat-checkbox [(ngModel)]="record.redBed">Red bed</mat-checkbox>
         <mat-form-field class="rig-type">
             <mat-select placeholder="Rig" name="rig-type" [(ngModel)]="record.rigType">

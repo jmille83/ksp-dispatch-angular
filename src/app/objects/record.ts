@@ -22,11 +22,15 @@ export class Record {
     // Secondary information.
     hasSecondaryInfo: boolean;
     
+    collision: boolean;
+    skiSchoolRelated: boolean;
+
     blsPack: boolean;
     crashPack: boolean;
     alsPack: boolean;
     redBed: boolean;
     zoll: boolean;
+    scoop: boolean;
     rigType: string;
     
     transportType: string;
