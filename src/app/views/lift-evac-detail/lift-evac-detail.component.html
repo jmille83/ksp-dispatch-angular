@@ -242,8 +242,22 @@
     <mat-card-content>
       <mat-list>
         <mat-list-item>
+          <mat-checkbox [(ngModel)]="evac.lockoutAuthorized" (change)="onLockoutAuthorized()" [disabled]="!evac.isActive"></mat-checkbox>
+          Lockout authorized
+          <span style="display:inline-block; width: 15px;"></span>
+          <mat-form-field>
+            <input matInput placeholder="Authorized by" [(ngModel)]="evac.lockoutAuthorizer" [disabled]="!evac.isActive">
+          </mat-form-field>
+          <p class="time" *ngIf="evac.lockoutAuthorizedSig != null">{{evac.lockoutAuthorizedSig}}</p>
+        </mat-list-item>
+        <mat-list-item>
           <mat-checkbox [(ngModel)]="evac.lockedOut" (change)="onLockedOut()" [disabled]="!evac.isActive"></mat-checkbox>
           Place patrol lock-out on the lift
+          <mat-select placeholder="Patroller" [(ngModel)]="evac.lockouterId" name="lockouter" [disabled]="evac.lockedOut || !evac.isActive">
+            <mat-option *ngFor="let patroller of patrollers" [value]="patroller.uid">
+              {{ patroller.displayName }}
+            </mat-option>
+          </mat-select>
           <p class="time" *ngIf="evac.lockedOutSig != null">{{evac.lockedOutSig}}</p>
         </mat-list-item>
         <mat-list-item>

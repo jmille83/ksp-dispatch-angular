@@ -92,7 +92,7 @@ export class LiftEvacDetailComponent implements OnInit, OnDestroy {
   }
 
   showDataSavedSnackbar() {
-    this.snackBar.open("Information saved", 'Dismiss', {duration: 2000});
+    //this.snackBar.open("Information saved", 'Dismiss', {duration: 2000});
   }
 
   onStateChanged() {
@@ -328,6 +328,14 @@ export class LiftEvacDetailComponent implements OnInit, OnDestroy {
       this.evac.teamsDeployedSig = new Date().toLocaleTimeString() + ", " + this.currentUser.lastName;
     } else {
       this.evac.teamsDeployedSig = null;
+    }
+  }
+
+  onLockoutAuthorized() {
+    if (this.evac.lockoutAuthorized) {
+      this.evac.lockoutAuthorizedSig = new Date().toLocaleTimeString() + ", " + this.currentUser.lastName;
+    } else {
+      this.evac.lockoutAuthorizedSig = null;
     }
   }
 

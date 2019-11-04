@@ -234,7 +234,7 @@
               <!-- Reopen Channel 1 -->
               <mat-list-item *ngIf="ten33.closedChannel1">
                 <mat-checkbox [(ngModel)]="ten33.reopenedChannel1" (change)="onReopenedChannel1()" [disabled]="!ten33.isActive"></mat-checkbox>
-                <div>Re-open Channel 1</div>
+                <div [style.color]="!ten33.reopenedChannel1 ? 'red' : 'black'">Re-open Channel 1</div>
                 <p class="time" *ngIf="ten33.reopenedChannel1TimeString != null">{{ten33.reopenedChannel1TimeString}}</p>
               </mat-list-item>
 
@@ -284,6 +284,13 @@
                 </mat-select>
                 <p class="time" *ngIf="ten33.mcAssignedTimeString != null">{{ten33.mcAssignedTimeString}}</p>
               </mat-list-item>
+
+              <!-- IC Terminated -->
+              <mat-list-item>
+                <mat-checkbox [(ngModel)]="ten33.icTerminated" (change)="onIcTerminated()" [disabled]="!ten33.isActive"></mat-checkbox>
+                Incident command terminated
+                <p class="time" *ngIf="ten33.icTerminatedTimeString != null">{{ten33.icTerminatedTimeString}}</p>
+              </mat-list-item>
             </mat-list>
 
             <!-- Patrollers/Equipment Dispatched -->
@@ -311,6 +318,11 @@
             </table>
             <div id="patrollers-dispatched-button-container">
               <button mat-stroked-button [disabled]="!ten33.isActive" (click)="onPatrollerDispatched()">Dispatch patroller</button>
+            </div>
+            <div id="scene-notes-container">
+              <mat-form-field id="scene-notes">
+                <textarea matInput placeholder="Notes" [(ngModel)]="ten33.sceneNotes"></textarea>
+              </mat-form-field>
             </div>
           </mat-card-content>
         </mat-card>

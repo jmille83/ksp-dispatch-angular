@@ -26,6 +26,9 @@ export class RecordsComponent implements OnInit, OnDestroy {
   date: moment.Moment = moment();
   total1050s = 0;
   totalTaxis = 0;
+  totalRefusals = 0;
+  totalNonEvents = 0;
+  totalCallouts = 0;
 
   subscription: Subscription = new Subscription();
   
@@ -53,11 +56,19 @@ export class RecordsComponent implements OnInit, OnDestroy {
   countRecords() {
     this.total1050s = 0;
     this.totalTaxis = 0;
+    this.totalRefusals = 0;
+    this.totalNonEvents = 0;
+    this.totalCallouts = 0;
     this.records.forEach(record => {
+      this.totalCallouts++;
       if (record.type === "10-50") {
         this.total1050s++;
       } else if (record.type === "Taxi") {
         this.totalTaxis++;
+      } else if (record.type === "Refusal") {
+        this.totalRefusals++;
+      } else if (record.type === "Non-event") {
+        this.totalNonEvents++;
       }
     });
   }

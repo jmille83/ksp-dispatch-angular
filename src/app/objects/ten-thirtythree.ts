@@ -58,7 +58,12 @@ export class TenThirtythree {
     mcAssigned: boolean;
     mcAssignedTimeString: string;
 
+    icTerminated: boolean;
+    icTerminatedTimeString: string;
+
     patrollersDispatched: any[] = [];
+
+    sceneNotes: string;
 
     // Patient info.
     age: number;

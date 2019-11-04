@@ -13,6 +13,7 @@ import { TenThirtythreeHomeComponent } from './views/ten-thirtythree-home/ten-th
 import { TenThirtythreeDetailComponent } from './views/ten-thirtythree-detail/ten-thirtythree-detail.component';
 import { LiftEvacHomeComponent } from './views/lift-evac-home/lift-evac-home.component';
 import { LiftEvacDetailComponent } from './views/lift-evac-detail/lift-evac-detail.component';
+import { ReportingComponent } from './views/reporting/reporting.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dispatch', pathMatch: 'full' },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: '1033', canActivate: [AuthGuard], component: TenThirtythreeHomeComponent },
   { path: '1033/:id', canActivate: [AuthGuard], component: TenThirtythreeDetailComponent },
   { path: 'lift-evac', canActivate: [AuthGuard], component: LiftEvacHomeComponent },
-  { path: 'lift-evac/:id', canActivate: [AuthGuard], component: LiftEvacDetailComponent }
+  { path: 'lift-evac/:id', canActivate: [AuthGuard], component: LiftEvacDetailComponent },
+  { path: 'reporting', canActivate: [AuthGuard], component: ReportingComponent }
 ];
 
 @NgModule({

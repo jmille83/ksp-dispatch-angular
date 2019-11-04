@@ -12,7 +12,12 @@ export class NotesService {
 
   constructor(private db: AngularFirestore, private transactionService: TransactionService) { }
 
-  getNotesBetween(day1: Date, day2: Date): Observable<any[]> {
+  getAllIncompleteNotes(): Observable<any[]> {
+    return this.db.collection('notes', ref => ref.where('completed', '==', false)
+                                                  .orderBy('timeCreated', 'desc')).valueChanges();
+  }
+
+  getCompletedNotesBetween(day1: Date, day2: Date): Observable<any[]> {
     
     // Set the days to starting at midnight and ending at 11:59pm.
     let start = day1;
@@ -25,9 +30,10 @@ export class NotesService {
     end.setSeconds(59);
 
     // Calling .getTime() converts to milliseconds which matches how timeCreated is stored.
-    return this.db.collection('notes', ref => ref.where('timeCreated', '>', start.getTime())
-                                                    .where('timeCreated', '<', end.getTime())
-                                                    .orderBy('timeCreated', 'desc')).valueChanges();
+    return this.db.collection('notes', ref => ref.where('timeCompleted', '>', start.getTime())
+                                                    .where('timeCompleted', '<', end.getTime())
+                                                    .where('completed', '==', true)
+                                                    .orderBy('timeCompleted', 'desc')).valueChanges();
   }
 
   addNote(note: Note) {
