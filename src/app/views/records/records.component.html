@@ -73,7 +73,17 @@
   </div>
 
   <div class="totals-container">
-      <p>Today's totals: <b>{{ total1050s }} 10-50's</b> and <b>{{ totalTaxis }} taxis</b>.</p>
+      Today's summary: 
+      <br>
+      <b>{{ totalCallouts }}</b> total call-out<span *ngIf="totalCallouts !== 1">s</span>
+      <br>
+      <b>{{ total1050s }}</b> 10-50<span *ngIf="total1050s !== 1">'s</span>
+      <br>
+      <b>{{ totalTaxis }}</b> taxi<span *ngIf="totalTaxis !== 1">s</span>
+      <br>
+      <b>{{ totalRefusals }}</b> refusal<span *ngIf="totalRefusals !== 1">s</span>
+      <br>
+      <b>{{ totalNonEvents }}</b> non-event<span *ngIf="totalNonEvents !== 1">s</span>
   </div>
 
   <ng-template #noRecords>
